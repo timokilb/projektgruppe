@@ -1,0 +1,22 @@
+
+
+//
+// Created by Deniz Dogan 2019. Kogan Inc.
+//
+
+TODO: GUI
+
+    - Outsource everything in window but main and button functions -> Timo
+    - Read button: Change preset filepath to explorer -> Dilan
+    - Save current graph (as png? time as name) -> Dilan
+    - Reading up on pseudo code display overview and estimation -> Dilan, Timo
+    - Responsive / Min / Max window -> Timo
+    - Pause / Speed button?
+    - Rename "reset" and create "clear graph" button -> Timo
+    - Donate to "?" and smol window with manual
+
+
+TODO: Strukturen
+
+    - Delete Treap durchtesten -> Dilan
+    - Graph array löscht nicht komplett -> Timo
