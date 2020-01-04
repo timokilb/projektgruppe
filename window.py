@@ -28,15 +28,19 @@ def update_canvas(graph):
 # TODO : char filter !
 def search_command():
     global algorithm
-    global index
+    global graph_list_index
     global skip_list_graph_list
     global treap_graph_list
-    index = 0
+
+    # Clear the old animations and reset index to zero
+    skip_list_graph_list.clear()
+    treap_graph_list.clear()
+    graph_list_index = 0
     plot.clear()
     value = int(value_entry.get())
     if algorithm.get() == "Skip List":
         skip_list.find(value, skip_list_graph_list)
-        update_canvas(skip_list_graph_list[index])
+        update_canvas(skip_list_graph_list[graph_list_index])
     elif algorithm.get() == "Treap":
         treap.find(value, treap_graph_list)
     value_entry.delete(0, tk.END)
@@ -45,14 +49,25 @@ def search_command():
 
 # Insert the value in the entry into the data structure, call the draw function
 # TODO : char filter !
+# TODO: Empty the graph lists here so that a new opeator is played, you dont have to skip through the earlier animation???
 def insert_command():
     global algorithm
-    global canvas
+    global graph_list_index
+    global skip_list_graph_list
+    global treap_graph_list
+
+    # Clear the old animations and reset index to zero
+    skip_list_graph_list.clear()
+    treap_graph_list.clear()
+    graph_list_index = 0
+    plot.clear()
+
     value = int(value_entry.get())
-    skip_list.insert(value)
+    skip_list.insert(value, skip_list_graph_list)
     treap.insert(value, treap_graph_list)
+
     if algorithm.get() == "Skip List":
-        skip_list_graph.draw(skip_list, plot, canvas)
+        update_canvas(skip_list_graph_list[graph_list_index])
     elif algorithm.get() == "Treap":
         treap_graph.draw(treap, plot, canvas)
     value_entry.delete(0, tk.END)
@@ -61,12 +76,17 @@ def insert_command():
 # TODO : char filter !
 def delete_command():
     global algorithm
-    global canvas
+    global graph_list_index
+    global skip_list_graph_list
+    global treap_graph_list
+
     value = int(value_entry.get())
-    skip_list.delete(value)
+    skip_list.delete(value, skip_list_graph_list)
     treap.delete(value)
+
     if algorithm.get() == "Skip List":
         skip_list_graph.draw(skip_list, plot, canvas)
+        update_canvas(skip_list_graph_list[graph_list_index])
     elif algorithm.get() == "Treap":
         treap_graph.draw(treap, plot, canvas)
     value_entry.delete(0, tk.END)
@@ -74,39 +94,39 @@ def delete_command():
 
 
 def play_command():
-    global index
+    global graph_list_index
     global skip_list_graph_list
     current_button_text = play_pause_button['text']
     play_pause_button.config(text="Pause")
-    while index < len(skip_list_graph_list) - 1:
-        index += 1
+    while graph_list_index < len(skip_list_graph_list) - 1:
+        graph_list_index += 1
         timestamp = int(math.floor(time.time()))
         while math.floor(time.time()) < timestamp + 1:
             pass
-        update_canvas(skip_list_graph_list[index])
+        update_canvas(skip_list_graph_list[graph_list_index])
     play_pause_button.config(text="Play")
 
 
 def previous_command():
-    global index
+    global graph_list_index
     global skip_list_graph_list
-    if index > 0:
-        index -= 1
-        update_canvas(skip_list_graph_list[index])
+    if graph_list_index > 0:
+        graph_list_index -= 1
+        update_canvas(skip_list_graph_list[graph_list_index])
 
 
 def next_command():
-    global index
+    global graph_list_index
     global skip_list_graph_list
-    if index < len(skip_list_graph_list) - 1:
-        index += 1
-        update_canvas(skip_list_graph_list[index])
+    if graph_list_index < len(skip_list_graph_list) - 1:
+        graph_list_index += 1
+        update_canvas(skip_list_graph_list[graph_list_index])
 
 
 def stop_command():
-    global index
-    index = 0
-    return update_canvas(skip_list_graph_list[index])
+    global graph_list_index
+    graph_list_index = 0
+    return update_canvas(skip_list_graph_list[graph_list_index])
 
 
 def clear_command():
@@ -130,7 +150,7 @@ def read_data_command():
     global alogrithm
     global canvas
     for line in data:
-        skip_list.insert(int(line))
+        skip_list.insert(int(line), skip_list_graph_list)
         treap.insert(int(line), treap_graph_list)
         if algorithm.get() == "Skip List":
             skip_list_graph.draw(skip_list, plot, canvas)
@@ -210,7 +230,7 @@ if __name__ == "__main__":
     plot = fig.add_subplot(111)  # 1 by 1 grid subplot No. 1
 
     # Init data structures and graphs
-    index = 0
+    graph_list_index = 0
     skip_list_graph_list = []
     skip_list = sl.SkipList()
     skip_list_graph = SkipListGraph(skip_list)
