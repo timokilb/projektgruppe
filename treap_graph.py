@@ -40,3 +40,6 @@ class TreapGraph:
         label = nx.get_node_attributes(self.graph, 'label')
         nx.draw(self.graph, pos, node_size=700, labels=label, with_labels=True, ax=plot)
         canvas.draw()
+
+    def animate_operatipn(self):
+        pass

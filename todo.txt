@@ -6,17 +6,33 @@
 
 TODO: GUI
 
-    - Outsource everything in window but main and button functions -> Timo
-    - Read button: Change preset filepath to explorer -> Dilan
-    - Save current graph (as png? time as name) -> Dilan
     - Reading up on pseudo code display overview and estimation -> Dilan, Timo
     - Responsive / Min / Max window -> Timo
     - Pause / Speed button?
-    - Rename "reset" and create "clear graph" button -> Timo
-    - Donate to "?" and smol window with manual
+    - "clear graph" button -> Timo
+    - "?" with hover hint
 
 
 TODO: Strukturen
 
     - Delete Treap durchtesten -> Dilan
     - Graph array löscht nicht komplett -> Timo
+
+
+todo heute :
+
+
+    - delete testen
+    - find button Treap -> Dilan
+
+    """
+    def swtich_color_enter(event):
+        treap_graph.color_switch_enter(event, treap_graph.graph)
+
+
+    def swtich_color_leave(event):
+        treap_graph.color_switch_leave(event, treap_graph.graph)
+
+    root.bind("<Button>", swtich_color_enter)
+    root.bind("<Button>", swtich_color_leave)
+    """

@@ -7,6 +7,7 @@ from node import Node
 class Treap:
     def __init__(self):
         self.root = Node()
+        self.operation_list = []
 
     def insert(self, key, graph_list):
         self.root = self.root.insert(key, graph_list)
