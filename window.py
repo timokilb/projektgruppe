@@ -148,12 +148,18 @@ def switch_algorithm(string):
 
 def read_data_command():
     global alogrithm
-    global canvas
+    global skip_list_graph_list
+    global treap_graph_list
+    global graph_list_index
+    graph_list_index = 0
     for line in data:
+        skip_list_graph_list.clear()
+        treap_graph_list.clear()
         skip_list.insert(int(line), skip_list_graph_list)
         treap.insert(int(line), treap_graph_list)
         if algorithm.get() == "Skip List":
-            skip_list_graph.draw(skip_list, plot, canvas)
+            update_canvas(skip_list_graph_list[graph_list_index])
+            print(len(skip_list_graph_list), " IS LENGTH")
         else:
             treap_graph.draw(treap, plot, canvas)
 
