@@ -92,6 +92,7 @@ class SkipList:
     # Function returns the found value always at level 0, else returns value 0 with an error message
 
     def find(self, value, graph_list):
+        self.clear_colors()
         compare_color = "orange"
         current_color = "salmon"
         path_color = "dimgrey"
@@ -154,13 +155,14 @@ class SkipList:
         if self.search(value):
             print(f"{value} already in there know I'm sayyn")
             return
+        self.clear_colors()
         compare_color = "orange"
         current_color = "salmon"
         path_color = "dimgrey"
         tmp_graph = sl.SkipListGraph()
         graph_list.append(tmp_graph.create_graph(self))  # Append it to the list of graphs
-
-
+        tmp_graph.graph.add_node(str(value), pos=(-1, -1), label=value, color="red")
+        graph_list.append(tmp_graph.create_graph(self))
         self.number_of_elements += 1  # Increasing the Skip Node count
         self.max_level = self.recalculate_max_level()  # Recalculating the new max level
         skip_node = SkipNode(value, self.max_level)
@@ -173,17 +175,18 @@ class SkipList:
             skip_node.list[search_level] = tmp.list[search_level]
             tmp.list[search_level] = skip_node  # Doing the necessary pointer stuff
             search_level -= 1
-        #Test
+        """"#Test
         tmp = self.root
         while tmp is not None:
             print(tmp.value)
             tmp = tmp.list[0]
-            #Testend
+            #Testend"""
         return
 
     # TODO: Funktion noch komplett broken momentan
     # Does stuff to the skip list, then finds the node and deletes them one by one
     def delete(self, value, graph_list):
+        self.clear_colors()
         compare_color = "orange"
         current_color = "salmon"
         path_color = "dimgrey"
@@ -206,3 +209,11 @@ class SkipList:
         print(value, "Is no more in the Skip List")
         return 0
         # TODO: Stop one before so you can delete the right one?
+
+
+    def clear_colors(self): # Resets the color of every node
+        tmp = self.root
+        while tmp.list[0] is not None:
+            for i in range(len(tmp.colors)):
+                tmp.colors[i] = "palegreen"
+            tmp = tmp.list[0]

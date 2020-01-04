@@ -16,8 +16,6 @@ class SkipListGraph:
             ypos = 0
             for i in range(tmp.height):
                 graph.add_node(str(tmp.value) + "/" + str(ypos), pos=(xpos, ypos), label=tmp.value, color=tmp.colors[i])
-                print("color of", str(tmp.value) + "/" + str(ypos), "is: ", tmp.colors[0], "with color height:",
-                      len(tmp.colors))
                 if tmp.list[i] is not None:
                     graph.add_edge(str(tmp.value) + "/" + str(ypos), str(tmp.list[i].value) + "/" + str(
                         ypos))  # This draws the horizontal arrows between elements
