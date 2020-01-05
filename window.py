@@ -37,6 +37,7 @@ def search_command():
     treap_graph_list.clear()
     graph_list_index = 0
     plot.clear()
+
     value = int(value_entry.get())
     if algorithm.get() == "Skip List":
         skip_list.find(value, skip_list_graph_list)
@@ -80,12 +81,16 @@ def delete_command():
     global skip_list_graph_list
     global treap_graph_list
 
+    skip_list_graph_list.clear()
+    treap_graph_list.clear()
+    graph_list_index = 0
+    plot.clear()
+
     value = int(value_entry.get())
     skip_list.delete(value, skip_list_graph_list)
     treap.delete(value)
 
     if algorithm.get() == "Skip List":
-        skip_list_graph.draw(skip_list, plot, canvas)
         update_canvas(skip_list_graph_list[graph_list_index])
     elif algorithm.get() == "Treap":
         treap_graph.draw(treap, plot, canvas)
@@ -133,6 +138,7 @@ def clear_command():
     return
 
 
+#TODO: Use graph list and keep track of index? Test as soon as there are animations for treap
 def switch_algorithm(string):
     global treap_graph
     global skip_list_graph
