@@ -141,10 +141,10 @@ class SkipList:
             if search_level == 0:  # At this point we should have found the value
                 if value == tmp.value:
                     print(tmp.value, "is in the Skip List with height", tmp.height)
-                    return
+                    return True
                 else:
                     print("Err: ", value, "is not in the Skip List")
-                    return 0
+                    return False
             search_level -= 1
 
     # Since we increase the number of elements, we need to change the circumstances first
@@ -175,40 +175,60 @@ class SkipList:
             skip_node.list[search_level] = tmp.list[search_level]
             tmp.list[search_level] = skip_node  # Doing the necessary pointer stuff
             search_level -= 1
-        """"#Test
-        tmp = self.root
-        while tmp is not None:
-            print(tmp.value)
-            tmp = tmp.list[0]
-            #Testend"""
         return
 
-    # TODO: Funktion noch komplett broken momentan
     # Does stuff to the skip list, then finds the node and deletes them one by one
     def delete(self, value, graph_list):
+
+        # Checking if the value can be deleted
+        if not self.search(value):
+            print(f"{value} could not be found in the list to be deleted")
+            return
+
         self.clear_colors()
         compare_color = "orange"
         current_color = "salmon"
         path_color = "dimgrey"
-        tmp_graph = sl.SkipListGraph()
-        graph_list.append(tmp_graph.create_graph(self))  # Append it to the list of graphs
-
         self.number_of_elements -= 1
-        search_level = self.max_level -1 # Array starts at 0
+        search_level = self.max_level - 1 # Array starts at 0
         tmp = self.root
+        tmp_graph = sl.SkipListGraph()
+        #tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
+        #graph_list.append(tmp_graph.create_graph(self))  # Append it to the list of graphs
+
         while search_level >= 0:
-            print("I WAs hERE ONECE at search level ", search_level)
-            print("value to be delted is", value, "while tmp value is", tmp.value)
+            tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
+            graph_list.append(tmp_graph.create_graph(self))  # Append it to the list of graphs
             while value > tmp.value:
+                tmp.list[search_level].colors[search_level] = compare_color # Set the next skip node color
+                graph_list.append(tmp_graph.create_graph(self))
+
+
                 if value == tmp.list[search_level].value:
-                    print("DOING A CHECKER", tmp.list[search_level].list[search_level].value, "in level ", search_level)  # TODO; Much wrong here
+                    tmp.colors[search_level] = path_color
+                    tmp.list[search_level].colors[search_level] = "peachpuff"   # Node to be deleted has been found
+                    if search_level == 0:
+                        graph_list.append(tmp_graph.create_graph(self))
+                    """tmp.list[search_level].height -= 1
+                    tmp.list[search_level].list.pop()""" #Consider this
                     tmp.list[search_level] = tmp.list[search_level].list[search_level]  #Overwritten the old pointer
+
+                    break
+                elif math.inf == tmp.list[search_level].value:
+                    tmp.colors[search_level] = path_color
+                    tmp.list[search_level].colors[search_level] = "palegreen"
+                    break
+
+                tmp.colors[search_level] = path_color  # And the last one back to the standard color
                 tmp = tmp.list[search_level]
+                tmp.colors[search_level] = current_color  # And the last one back to the standard color
+                graph_list.append(tmp_graph.create_graph(self))
+
             search_level -= 1
             tmp = self.root
+        graph_list.append(tmp_graph.create_graph(self))
         print(value, "Is no more in the Skip List")
         return 0
-        # TODO: Stop one before so you can delete the right one?
 
 
     def clear_colors(self): # Resets the color of every node
