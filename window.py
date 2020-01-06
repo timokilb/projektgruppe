@@ -25,26 +25,31 @@ def update_canvas(graph):
     nx.draw(graph, pos, node_size=700, node_color=color_list, labels=label, with_labels=True, ax=plot)
     canvas.draw()
 
+
 # TODO : char filter !
 def search_command():
     global algorithm
     global graph_list_index
+    global current_presst_button
     global skip_list_graph_list
     global treap_graph_list
+    global treap
 
     # Clear the old animations and reset index to zero
     skip_list_graph_list.clear()
     treap_graph_list.clear()
     graph_list_index = 0
     plot.clear()
-
     current_presst_button = "search"
+
     value = int(value_entry.get())
     if algorithm.get() == "Skip List":
         skip_list.find(value, skip_list_graph_list)
         update_canvas(skip_list_graph_list[graph_list_index])
     elif algorithm.get() == "Treap":
-        treap.find(value, treap_graph_list)
+        treap.find(value, treap_graph_list,treap)
+        update_canvas(treap_graph_list[graph_list_index])
+
 
     value_entry.delete(0, tk.END)
     value_entry.insert(0, f"\tLast Operation was SEARCH with Key : {value}")
@@ -56,6 +61,8 @@ def search_command():
 def insert_command():
     global algorithm
     global graph_list_index
+    global current_presst_button
+
     global skip_list_graph_list
     global treap_graph_list
 
@@ -75,13 +82,19 @@ def insert_command():
         update_canvas(skip_list_graph_list[graph_list_index])
     elif algorithm.get() == "Treap":
         treap_graph.draw(treap, plot, canvas)
+
+    for list_entry in treap_graph_list:
+        print("current node : ", list_entry.key)
     value_entry.delete(0, tk.END)
     value_entry.insert(0, f"\tLast Operation was INSERT with Key : {value}")
+
 
 # TODO : char filter !
 def delete_command():
     global algorithm
     global graph_list_index
+    global current_presst_button
+
     global skip_list_graph_list
     global treap_graph_list
 
@@ -92,7 +105,7 @@ def delete_command():
 
     value = int(value_entry.get())
     skip_list.delete(value, skip_list_graph_list)
-    treap.delete(value)
+    treap.delete(value, treap_graph_list)
 
     current_presst_button = "delete"
     if algorithm.get() == "Skip List":
@@ -143,9 +156,17 @@ def previous_command():
 def next_command():
     global graph_list_index
     global skip_list_graph_list
-    if graph_list_index < len(skip_list_graph_list) - 1:
-        graph_list_index += 1
-        update_canvas(skip_list_graph_list[graph_list_index])
+    global treap_graph_list
+    global algorithm
+    if algorithm.get() == "Skip List":
+        if graph_list_index < len(skip_list_graph_list) - 1:
+            graph_list_index += 1
+            update_canvas(skip_list_graph_list[graph_list_index])
+    elif algorithm.get() == "Treap":
+        if graph_list_index < len(treap_graph_list) - 1:
+            graph_list_index += 1
+            update_canvas(treap_graph_list[graph_list_index])
+
 
 
 def stop_command():
@@ -158,7 +179,7 @@ def clear_command():
     return
 
 
-#TODO: Use graph list and keep track of index? Test as soon as there are animations for treap
+# TODO: Use graph list and keep track of index? Test as soon as there are animations for treap
 def switch_algorithm(string):
     global treap_graph
     global skip_list_graph
@@ -173,7 +194,7 @@ def switch_algorithm(string):
 
 
 def read_data_command():
-    global alogrithm
+    global algorithm
     global skip_list_graph_list
     global treap_graph_list
     global graph_list_index
@@ -189,6 +210,9 @@ def read_data_command():
         else:
             treap_graph.draw(treap, plot, canvas)
 
+    for i in treap_graph_list:
+        print(i)
+
 
 # opens FileExplorer to choose ONLY .txt files
 # TODO: Handle spezial chars !
@@ -198,7 +222,7 @@ def open_file():
     file = filedialog.askopenfile(mode='r', title="Open file", filetypes=[('Text Files', '*.txt')])
     # check if file was opend successfully
     if file:
-        #set Label with filename only if open was successful
+        # set Label with filename only if open was successful
         filename_label.config(text=file.name.split("/")[-1])
         data = []
         # append each line to DATA list, where they are stored
@@ -233,7 +257,6 @@ def open_file():
     if token:
         messagebox.showinfo("Warning", f"Some values appeared multiple times! Only added once to Data")
     read_data_command()
-
 
 
 def save_file():
