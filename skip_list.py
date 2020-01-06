@@ -1,6 +1,5 @@
 import math
 import random as rd
-import window as wd
 import skip_list_graph as sl
 
 

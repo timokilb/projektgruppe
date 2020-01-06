@@ -2,6 +2,7 @@ import skip_list as sl
 import treap as tr
 import tkinter as tk
 import networkx as nx
+import log_widget as lw
 import time
 import math
 import re
@@ -31,6 +32,8 @@ def search_command():
     global algorithm
     global graph_list_index
     global current_presst_button
+    global log_widget
+    global log_message
     global skip_list_graph_list
     global treap_graph_list
     global treap
@@ -43,6 +46,11 @@ def search_command():
     current_presst_button = "search"
 
     value = int(value_entry.get())
+
+    # Handling the log widget:
+    log_widget.push(f"Searched Key: {value}")
+    log_message.config(text=log_widget.update())
+
     if algorithm.get() == "Skip List":
         skip_list.find(value, skip_list_graph_list)
         update_canvas(skip_list_graph_list[graph_list_index])
@@ -62,7 +70,8 @@ def insert_command():
     global algorithm
     global graph_list_index
     global current_presst_button
-
+    global log_widget
+    global log_message
     global skip_list_graph_list
     global treap_graph_list
 
@@ -76,6 +85,12 @@ def insert_command():
     skip_list.insert(value, skip_list_graph_list)
     treap.insert(value, treap_graph_list)
 
+    #Handling the log widget:
+    log_widget.push(f"Inserted Key: {value}")
+    log_message.config(text=log_widget.update())
+
+
+    # Pls Comments maan
     current_presst_button = "insert"
 
     if algorithm.get() == "Skip List":
@@ -94,7 +109,8 @@ def delete_command():
     global algorithm
     global graph_list_index
     global current_presst_button
-
+    global log_widget
+    global log_message
     global skip_list_graph_list
     global treap_graph_list
 
@@ -106,6 +122,10 @@ def delete_command():
     value = int(value_entry.get())
     skip_list.delete(value, skip_list_graph_list)
     treap.delete(value, treap_graph_list)
+
+    # Handling the log widget:
+    log_widget.push(f"Deleted Key: {value}")
+    log_message.config(text=log_widget.update())
 
     current_presst_button = "delete"
     if algorithm.get() == "Skip List":
@@ -213,6 +233,11 @@ def read_data_command():
 
     for i in treap_graph_list:
         print(i)
+
+
+def info_command():
+        messagebox.showinfo(title="Easteregg", message="Hättste nicht gedacht Nutte")
+
 
 
 # opens FileExplorer to choose ONLY .txt files
@@ -341,16 +366,12 @@ if __name__ == "__main__":
     save_button = tk.Button(root, text="Save Graph", fg="green", bg="black", command=save_file)
     # TODO : width responisve machen !!!!
     filename_label = tk.Label(root, text="FILENAME", width=20)
-    info_button = tk.Button(root, text="?", fg="red", bg="green")
+    info_button = tk.Button(root, text="?", fg="red", bg="green", command=info_command)
 
 
     # Testing log output
-    log_message = tk.Message(frame, anchor="w", justify="left", text="ein penis\n"
-                                                                       "zwei penis\n"
-                                                                       "drei penis\n"
-                                                                       "vier penis\n"
-                                                                       "fünf penis\n"
-                                                                       "jetzt aber schluss hier\n")
+    log_widget = lw.LogWidget()
+    log_message = tk.Message(frame, text=log_widget.update())
 
     # Layout
     play_pause_button.grid(row=1, column=1)
