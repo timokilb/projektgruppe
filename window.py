@@ -176,6 +176,7 @@ def stop_command():
 
 
 def clear_command():
+
     return
 
 
@@ -281,11 +282,11 @@ if __name__ == "__main__":
     # Main window
     root = tk.Tk()
     root.title("testing out new waters")
-    root.config(background="black")
+    root.config(background="grey")
     current_presst_button = None
 
     # Figure and plot
-    fig = Figure(figsize=(10, 5), facecolor="white")
+    fig = Figure(figsize=(10, 5), facecolor="grey", dpi=101.3) #Change dpi slightly because the inches wont translate perfectly to pixels
     plot = fig.add_subplot(111)  # 1 by 1 grid subplot No. 1
 
     # Init data structures and graphs
@@ -299,14 +300,18 @@ if __name__ == "__main__":
 
     # Canvas for drawing the list/ treap
     canvas = FigureCanvasTkAgg(fig, master=root)
-    canvas._tkcanvas.grid(row=0, column=0, columnspan=4)
+    canvas._tkcanvas.grid(row=0, column=0, columnspan=4, sticky="N")
     skip_list_graph.draw(skip_list, plot, canvas)
 
     # Canvas for displaying the Pseudocode
-    pseudo_canvas = tk.Canvas(root, width=400, height=600)
-    pseudo_canvas.grid(row=0, column=5, rowspan=5)
+    pseudo_canvas = tk.Canvas(root, width=400, height=500, background="red")
+    pseudo_canvas.grid(row=0, column=5, columnspan=2, sticky="N") # Use sticky for sticking it to the top
     img = ImageTk.PhotoImage(Image.open("jackson.jpeg"))
     pseudo_canvas.create_image(225, 225, image=img)
+
+    # Frame for displaying operators
+
+    frame = tk.LabelFrame(root, text="fickerjackson")
 
     # Array for all numbers from Input txt
     data = []
@@ -332,10 +337,20 @@ if __name__ == "__main__":
     clear_button = tk.Button(root, text="Clear", command=clear_command)
 
     open_button = tk.Button(root, text="Open File", fg="red", command=open_file)
+    clear_button = tk.Button(root, text="Clear Graph", fg="red", command=clear_command)
     save_button = tk.Button(root, text="Save Graph", fg="green", bg="black", command=save_file)
     # TODO : width responisve machen !!!!
     filename_label = tk.Label(root, text="FILENAME", width=20)
     info_button = tk.Button(root, text="?", fg="red", bg="green")
+
+
+    # Testing log output
+    log_message = tk.Message(frame, anchor="w", justify="left", text="ein penis\n"
+                                                                       "zwei penis\n"
+                                                                       "drei penis\n"
+                                                                       "vier penis\n"
+                                                                       "fünf penis\n"
+                                                                       "jetzt aber schluss hier\n")
 
     # Layout
     play_pause_button.grid(row=1, column=1)
@@ -352,9 +367,14 @@ if __name__ == "__main__":
 
     open_button.grid(row=5, column=0)
     filename_label.grid(row=6, column=0)
-    info_button.grid(row=6, column=6)
+    clear_button.grid(row=5, column=1)
     save_button.grid(row=5, column=2)
     algo_dropdown.grid(row=3, column=0, columnspan=2)
+
+    frame.grid(row=1, column=4, rowspan=6, columnspan=2)
+    log_message.grid(row=0, column=0)
+    info_button.grid(row=6, column=6)
+
 
     value_entry.bind("<Button>", placeholder)
     # TODO : auskommi weil sonst nur ein entry möglich , try it !
