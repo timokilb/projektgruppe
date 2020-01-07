@@ -334,14 +334,14 @@ if __name__ == "__main__":
 
     # Canvas for drawing the list/ treap
     canvas = FigureCanvasTkAgg(fig, master=root)
-    canvas._tkcanvas.grid(row=0, column=0, columnspan=4, sticky="N")
+    canvas._tkcanvas.grid(row=0, column=0, columnspan=4)
     skip_list_graph.draw(skip_list, plot, canvas)
 
     # Canvas for displaying the Pseudocode
     pseudo_canvas = tk.Canvas(root, width=400, height=500, background="red")
-    pseudo_canvas.grid(row=0, column=5, columnspan=2, sticky="N") # Use sticky for sticking it to the top
-    img = ImageTk.PhotoImage(Image.open("jackson.jpeg"))
-    pseudo_canvas.create_image(225, 225, image=img)
+    pseudo_canvas.grid(row=0, column=5, columnspan=2, padx=0, pady=0) # Use sticky for sticking it to the top
+    img = ImageTk.PhotoImage(Image.open("./res/testpesudocode.jpeg"))
+    pseudo_canvas.create_image(203, 253, image=img)
 
     # Frame for displaying operators
 
