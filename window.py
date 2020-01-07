@@ -96,10 +96,8 @@ def insert_command():
     if algorithm.get() == "Skip List":
         update_canvas(skip_list_graph_list[graph_list_index])
     elif algorithm.get() == "Treap":
-        treap_graph.draw(treap, plot, canvas)
+        update_canvas(treap_graph_list[graph_list_index])
 
-    for list_entry in treap_graph_list:
-        print("current node : ", list_entry.key)
     value_entry.delete(0, tk.END)
     value_entry.insert(0, f"\tLast Operation was INSERT with Key : {value}")
 
@@ -138,20 +136,22 @@ def delete_command():
 
 def play_command():
     global graph_list_index
+
     global skip_list_graph_list
+    global treap_graph_list
 
     if current_presst_button == "delete":
-        if algorithm == "Treap":
+        if algorithm.get() == "Treap":
             pass
-        elif algorithm == "Skip List":
+        elif algorithm.get() == "Skip List":
             pass
     elif current_presst_button == "insert":
-        if algorithm == "Treap":
+        if algorithm.get() == "Treap":
             pass
-        elif algorithm == "SKip List":
+        elif algorithm.get() == "Skip List":
             pass
     elif current_presst_button == "search ":
-        if algorithm == "Skip List":
+        if algorithm.get() == "Skip List":
             current_button_text = play_pause_button['text']
             play_pause_button.config(text="Pause")
             while graph_list_index < len(skip_list_graph_list) - 1:
@@ -161,8 +161,14 @@ def play_command():
                     pass
                 update_canvas(skip_list_graph_list[graph_list_index])
             play_pause_button.config(text="Play")
-        elif algorithm == "Treap":
-            pass
+        elif algorithm.get() == "Treap":
+            while graph_list_index < len(treap_graph_list) - 1:
+                graph_list_index += 1
+                timestamp = int(math.floor(time.time()))
+                while math.floor(time.time()) < timestamp + 1:
+                    pass
+                update_canvas(treap_graph_list[graph_list_index])
+
 
 
 def previous_command():
@@ -224,15 +230,12 @@ def read_data_command():
         skip_list_graph_list.clear()
         treap_graph_list.clear()
         skip_list.insert(int(line), skip_list_graph_list)
-        treap.insert(int(line), treap_graph_list)
         if algorithm.get() == "Skip List":
             update_canvas(skip_list_graph_list[graph_list_index])
             print(len(skip_list_graph_list), " IS LENGTH")
         else:
-            treap_graph.draw(treap, plot, canvas)
-
-    for i in treap_graph_list:
-        print(i)
+            treap.insert(int(line), treap_graph_list, treap)
+            update_canvas(treap_graph_list[graph_list_index])
 
 
 def info_command():

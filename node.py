@@ -14,61 +14,74 @@ class Node:
         self.right_node = None
         self.parent_node = parent
         self.xpos = 0
-        self.color ="palegreen"
+        self.color =None #"palegreen"
+
+    def set_color_default(self, key, graph_list,treap):
+        tmp_graph = tr.TreapGraph(treap)
+        if self.key == key:
+            tmp = self
+            tmp.color = "palegreen"
+            graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+        elif key < self.key:
+            if self.left_node:
+                self.color = "palegreen"
+                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+                self.left_node.set_color_default(key, graph_list, treap)
+        else:
+            if self.right_node:
+                self.color = "palegreen"
+                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+                self.right_node.set_color_default(key, graph_list, treap)
+
 
     """
     Return-value :type NODE
     Graph_list   :type 
     
     """
-    def insert(self, key, graph_list, parent=None):
+    def insert(self, key, graph_list, treap, parent=None):
+        tmp_graph = tr.TreapGraph(treap)
+        #graph_list.append(tmp_graph.create_graph())
         tmp = self
-        if self.key is None:
-            self.key = key
-            graph_list.append(self)
-            return self  # tmp vorher
         if key == self.key:
             messagebox.showinfo("Warning", f"{key} already in Treap! Ignoring this entry")
             return tmp
+
+        if self.key is None:
+            self.key = key
+            self.color = "palegreen"
+            graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+            return tmp
+
         elif key < self.key:
             if not self.left_node:
                 self.left_node = Node(key, self)
-                self.left_node.color = "green"
-                # self.left_node.level = self.level + 1
-                graph_list.append(self.left_node)
+                self.left_node.color = "palegreen"
+                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+
                 if self.left_node.priority > self.priority:
-                    self.left_node.color = "orange"
-                    self.color = "purple"
-                    graph_list.append(tmp) # tmp mayber
                     tmp = self.left_node.rotate_right()
+                   # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
                     # added rotated graph to list
-                    graph_list.append(tmp) # tmp mayber
                 return tmp
             else:
-                self.left_node.color ="yellow"
-                graph_list.append(self)
-                self.left_node.insert(key, graph_list, self)
+                self.left_node.insert(key, graph_list,treap, self)
         else:
             if not self.right_node:
                 self.right_node = Node(key, self)
-                self.right_node.color = "blue"
-
-                # self.right_node.level = self.level + 1
-                graph_list.append(self.right_node)
+                self.right_node.color = "palegreen"
+                graph_list.append(tmp_graph.create_graph())
                 if self.right_node.priority > self.priority:
-                    self.right_node.color = "orange"
-                    self.color = "purple"
                     tmp = self.right_node.rotate_left()
-                    graph_list.append(tmp) # tmp maybe 2 ?
+                   # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
                 return tmp
             else:
-                self.right_node.color ="yellow"
-                graph_list.append(self)
-                self.right_node.insert(key, graph_list, self)
+                self.right_node.insert(key, graph_list, treap, self)
 
         while tmp.parent_node:
             tmp = tmp.parent_node
         return tmp
+
 
     """
     Return-value :type NODE
@@ -80,6 +93,9 @@ class Node:
             tmp = self
             tmp.color = "red"
             graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+            self.set_color_default(key, graph_list,treap)
+            graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+
         elif key < self.key:
             if self.left_node:
                 self.color = "grey"
@@ -105,10 +121,10 @@ class Node:
     :return node 
     """
     # Todo: Cases checken , problems with deleting the root !!! rotations are working abs. fine
-    def delete(self, key, graph_list):
+    def delete(self, key, graph_list, treap):
         # Case 0 : key not in Treap
         # this case gets handelt in function : find(self, key)
-        tmp = self.find(key, graph_list)
+        tmp = self.find(key, graph_list, treap)
         # Case 1 : node to be deleted is a Leaf
         if tmp.left_node is None and tmp.right_node is None:
             # Node to be deleted is not Root
@@ -247,3 +263,5 @@ class Node:
         if self.right_node:
             # print("right : ")
             self.right_node.pre_order(graph_list)
+
+
