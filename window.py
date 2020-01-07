@@ -174,10 +174,16 @@ def play_command():
 def previous_command():
     global graph_list_index
     global skip_list_graph_list
-    if graph_list_index > 0:
-        graph_list_index -= 1
-        update_canvas(skip_list_graph_list[graph_list_index])
-
+    global treap_graph_list
+    global algorithm
+    if algorithm.get() == "Skip List":
+        if graph_list_index < len(skip_list_graph_list) - 1:
+            graph_list_index -= 1
+            update_canvas(skip_list_graph_list[graph_list_index])
+    elif algorithm.get() == "Treap":
+        if graph_list_index < len(treap_graph_list) - 1:
+            graph_list_index -= 1
+            update_canvas(treap_graph_list[graph_list_index])
 
 def next_command():
     global graph_list_index
