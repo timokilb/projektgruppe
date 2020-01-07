@@ -1,6 +1,6 @@
-import time
 
 from node import Node
+import treap_graph as tr
 
 
 # todo: comment code
@@ -14,11 +14,14 @@ class Treap:
         self.root = self.root.insert(key, graph_list, treap, parent)
 
     def find(self, key, graph_list, treap):
+        tmp_graph = tr.TreapGraph(treap)
+        self.root.clear_colors()
+        graph_list.append(tmp_graph.create_graph())
         tmp = self.root.find(key, graph_list, treap)
         return tmp
 
-    def set_color_default(self, key, graph_list, treap):
-        self.root.set_color_default(key,graph_list, treap)
+    def clear_colors(self):
+        self.root.clear_colors()
 
     def delete(self, key, graph_list, treap):
         new_treap = self.root.delete(key, graph_list, treap)

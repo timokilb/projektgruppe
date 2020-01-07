@@ -17,24 +17,9 @@ class Node:
         self.color =None #"palegreen"
 
     def set_color_default(self, key, graph_list,treap):
-        tmp_graph = tr.TreapGraph(treap)
-        if self.key == key:
-            tmp = self
-            tmp.color = "palegreen"
-            graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-        elif key < self.key:
-            if self.left_node:
-                self.color = "palegreen"
-                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-                self.left_node.set_color_default(key, graph_list, treap)
-        else:
-            if self.right_node:
-                self.color = "palegreen"
-                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-                self.right_node.set_color_default(key, graph_list, treap)
-
-
+       pass
     """
+    
     Return-value :type NODE
     Graph_list   :type 
     
@@ -93,14 +78,11 @@ class Node:
             tmp = self
             tmp.color = "red"
             graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-            self.set_color_default(key, graph_list,treap)
-            graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-
         elif key < self.key:
             if self.left_node:
                 self.color = "grey"
                 graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-                tmp = self.left_node.find(key, graph_list,treap)
+                tmp = self.left_node.find(key, graph_list, treap)
             else:
                 # print("Error : Key not found ")
                 messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
@@ -264,4 +246,11 @@ class Node:
             # print("right : ")
             self.right_node.pre_order(graph_list)
 
+    def clear_colors(self):
+        if self:
+            self.color = "palegreen"
+        if self.left_node:
+            self.left_node.clear_colors()
+        if self.right_node:
+            self.right_node.clear_colors()
 
