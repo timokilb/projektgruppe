@@ -348,10 +348,9 @@ if __name__ == "__main__":
 
     # Canvas for displaying the Pseudocode
     pseudo_canvas = tk.Canvas(root, width=400, height=350, background="red")
-    #pseudo_canvas.grid(row=0, column=4, columnspan=2, padx=0, pady=0)  # Use sticky for sticking it to the top
+    # pseudo_canvas.grid(row=0, column=4, columnspan=2, padx=0, pady=0)  # Use sticky for sticking it to the top
     img = ImageTk.PhotoImage(Image.open("./res/testpesudocode.jpeg"))
     pseudo_canvas.create_image(203, 253, image=img)
-
 
     # Array for all numbers from Input txt
     data = []
@@ -365,7 +364,7 @@ if __name__ == "__main__":
     # Buttons
 
     button_styles = {
-        "animation_button":{
+        "animation_button": {
             "fg": "#1a1a1a",
             "bg": "#8a8a8a",
             "font": "Helvetica, 12",
@@ -379,7 +378,7 @@ if __name__ == "__main__":
             "padx": "1",
             "pady": "0"
         },
-        "log_text":{
+        "log_text": {
             "font": "ariel,30"
         }
     }
@@ -421,23 +420,24 @@ if __name__ == "__main__":
                             command=save_file)
     filename_label = tk.Label(graph_operation_frame, text="FILENAME", width=20, relief="sunken")
 
-    info_button = tk.Button(root, text="?", fg="red", bg="green", command=info_command)
-
+    info_button = tk.Button(root, text="?", fg="red", bg="green", command=info_command, relief="raised", bitmap="info")
+    # B3 = Button(top, text="info", relief=RAISED,\ bitmap = "info")
     # Testing log output
     log_widget = lw.LogWidget()
     log_message = tk.Message(log_frame, text=log_widget.update(), width=500, font=button_styles["log_text"]["font"])
 
     # Grid frame layout
-    #canvas_frame.grid(row=0, column=0, columnspan=4)
+    # canvas_frame.grid(row=0, column=0, columnspan=4)
     canvas_frame.pack(side="top")
     container_interface = tk.Frame(root, bg="green")
-    container_interface.pack(side="bottom" )
+    container_interface.pack(side="bottom")
     log_frame.pack(side="left")
     fetten_container.pack(side="left")
     pseudo_canvas.pack(side="left")
     log_message.pack()
+    info_button.pack()
 
-    #log_frame.grid(row=1, column=4, rowspan=6, columnspan=2, sticky="NW")
+    # log_frame.grid(row=1, column=4, rowspan=6, columnspan=2, sticky="NW")
     """animation_frame.grid(row=1, column=0, columnspan=9, sticky="NW")
     data_structure_frame.grid(row=2, column=3)
     key_structure_frame.grid(row=0, column=0, columnspan=2)
@@ -466,7 +466,7 @@ if __name__ == "__main__":
 
     log_message.grid(row=0, column=0)
     info_button.grid(row=2, column=5, sticky="SE")
-"""
+    """
     value_entry.bind("<Button>", placeholder)
     # TODO : auskommi weil sonst nur ein entry möglich , try it !
     # value_entry.bind("<Key>", placeholder)
