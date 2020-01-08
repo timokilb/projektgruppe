@@ -190,7 +190,26 @@ def stop_command():
 
 
 def clear_command():
-    return
+    global graph_list_index
+    global skip_list_graph_list
+    global skip_list_graph
+    global treap_graph_list
+    global treap_graph
+    global algorithm
+    graph_list_index = 0
+
+    if algorithm.get() == "Treap":
+        treap_graph_list = []
+        treap = tr.Treap()
+        treap_graph = TreapGraph(treap)
+        treap_graph_list.append(treap_graph.create_graph())
+        update_canvas(treap_graph_list[graph_list_index])
+    elif algorithm.get() == "Skip List":
+        skip_list_graph_list = []
+        skip_list = sl.SkipList()
+        skip_list_graph = SkipListGraph(skip_list)
+        skip_list_graph_list.append(skip_list_graph.create_graph(skip_list))
+        update_canvas(skip_list_graph_list[graph_list_index])
 
 
 # TODO: Use graph list and keep track of index? Test as soon as there are animations for treap
