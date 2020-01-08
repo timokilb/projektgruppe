@@ -302,14 +302,12 @@ def save_file():
     if filename:
         fig.savefig(filename)
 
-
 def callor(event):
     insert_command()
 
 
 def placeholder(event):
     value_entry.delete(0, tk.END)
-
 
 # TODO Mit getter und setter arbeiten!
 
