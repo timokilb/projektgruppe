@@ -10,21 +10,18 @@
 #   to get the whole text, use log_widget.update()
 
 
-class LogWidget:
+class PseudocodeWidget:
 
-    class __LogWidget:
+    class __PseudocodeWidget:
 
         def __init__(self):
-            self.lines = ["Marvin is ein Lappen",
-                          "Marvin ist zwei Lappen",
-                          "Marvin ist drei Lappen",
-                          "Marvin sind 4 Lappen"]
+            self.lines ={}
 
     __instance = None
 
     def __init__(self):
-        if not LogWidget.__instance: # There is no instance
-            LogWidget.__instance = LogWidget.__LogWidget()
+        if not PseudocodeWidget.__instance: # There is no instance
+            PseudocodeWidget.__instance = PseudocodeWidget.__PseudocodeWidget()
 
     def push(self, string):
         if type(string) is not type("string"):
