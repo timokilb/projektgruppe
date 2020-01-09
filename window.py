@@ -427,7 +427,7 @@ if __name__ == "__main__":
     key_structure_frame = tk.Frame(master=data_structure_frame, bg=background_color)
     operator_frame = tk.Frame(master=data_structure_frame, bg=background_color)
 
-    graph_structure_frame = tk.Frame(master=button_frame, bg="red")#background_color
+    graph_structure_frame = tk.Frame(master=button_frame, bg="red")  # background_color
     switch_algorithm_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
 
@@ -449,14 +449,14 @@ if __name__ == "__main__":
                                   command=play_command)
     previous_button = tk.Button(**style_sheet["animation_button"], master=animation_frame, text="Previous",
                                 command=previous_command)
-
     next_button = tk.Button(**style_sheet["animation_button"], master=animation_frame, text="Next",
                             command=next_command)
     stop_button = tk.Button(**style_sheet["animation_button"], master=animation_frame, text="Stop",
                             command=stop_command)
 
     value_label = tk.Label(master=key_structure_frame, text="Key", **style_sheet["label"])
-    value_entry = tk.Entry(master=key_structure_frame, width=15, font="Helvetica, 12")
+    value_entry = tk.Entry(master=key_structure_frame,width=15, font="Helvetica, 12")
+
     value_entry.insert(0, "")
 
     search_button = tk.Button(master=operator_frame, text="Search", **style_sheet["data_structure_button"],
@@ -465,14 +465,13 @@ if __name__ == "__main__":
                               command=insert_command)
     delete_button = tk.Button(master=operator_frame, text="Delete", **style_sheet["data_structure_button"],
                               command=delete_command)
-    #TODO: FRAMES GETAUSCHT !!! LOGISCH SORIERT
+    # TODO: FRAMES GETAUSCHT !!! LOGISCH SORIERT
     algo_dropdown = tk.OptionMenu(graph_operation_frame, algorithm, *algorithms,
                                   command=switch_algorithm)  # graph_structure_frame
     algo_dropdown.config(background="red", font=("helvetica", "12"))
     open_button = tk.Button(master=graph_operation_frame, text="Open File", **style_sheet["data_structure_button"],
                             command=open_file)
-    filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2)
-
+    filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2, borderwidth="3", relief="sunken")
 
     save_button = tk.Button(master=graph_structure_frame, text="Save Graph", **style_sheet["data_structure_button"],
                             command=save_file)
@@ -516,11 +515,11 @@ if __name__ == "__main__":
     value_label.pack(side="left")
     value_entry.pack(side="left")
 
-    insert_button.pack(side="left")
+    insert_button.pack(side="left", anchor="w")
     delete_button.pack(side="left")
-    search_button.pack(side="left")
+    search_button.pack(side="left", anchor="e")
 
-    algo_dropdown.pack(side="left", anchor="w")
+    algo_dropdown.pack(side="left", )
     open_button.pack(side="left", anchor="w")
     filename_label.pack(side="left", anchor="w")
 
