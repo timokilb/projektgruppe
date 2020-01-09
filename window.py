@@ -318,12 +318,12 @@ style_sheet = {
     # button color:
     # Font Color:
     "animation_button": {
-        #"fg": "#000000",
+        # "fg": "#000000",
         "bg": "#3a4750",
         "font": "Helvetica, 12",
-        "relief":"flat",
-        "width":"10",
-        "height":"2"
+        "relief": "flat",
+        "width": "7",
+        "height": "2"
     },
     "data_structure_button": {
         "fg": "#eeeeee",
@@ -331,11 +331,11 @@ style_sheet = {
         "font": "Helvetica, 12",
         "padx": "1",
         "pady": "0",
-        "width":"10",
-        "height":"2"
+        "width": "10",
+        "height": "2"
     },
     "log_frame": {
-        "bg":"#2b2b2b",
+        "bg": "#2b2b2b",
         "highlightbackground": "#ffffff",
         "highlightcolor": "#ffffff",
         "highlightthickness": ".5"
@@ -367,16 +367,16 @@ style_sheet = {
         "highlightthickness": "2"
     },
     "animation_frame": {
-        "padx":"0",
+        "padx": "0",
         "width": "120",
         "highlightbackground": "#00adb5",
         "highlightthickness": "1"
     },
-    "label":{
-        "font":"Helvetica, 15",
-        "fg":"gold",
-        "bg":"#3c3f41"
-
+    "label": {
+        "font": "Helvetica, 15",
+        "fg": "gold",
+        "bg": "#3c3f41",
+        "padx": "10"
     }
 }
 
@@ -393,13 +393,14 @@ if __name__ == "__main__":
 
     # Array for all numbers from Input txt
     data = []
+
     # Background Color
     background_color = "#3c3f41"
-    # Figure and plot
 
+    # Figure and plot
     fig = Figure(figsize=(1, 4), dpi=100)
     plot = fig.add_subplot(111)  # 1 by 1 grid subplot No. 1
-    # Making the window elements
+
     # Main window
     root = tk.Tk()
     root.title("Getting laid Vol .4 mit Kohout von der Salbe 4")
@@ -413,10 +414,10 @@ if __name__ == "__main__":
     # Bottom half sub frames
     interface_frame = tk.Frame(master=root, **style_sheet["interface"])
 
-    console_frame =tk.Frame(master=interface_frame)
+    console_frame = tk.Frame(master=interface_frame)
 
     # The log
-    log_frame = tk.Frame(master=console_frame, **style_sheet["log_frame"])  # text="fickerjackson", font="helvetica")
+    log_frame = tk.Frame(master=console_frame, **style_sheet["log_frame"])
     button_frame = tk.Frame(master=console_frame, **style_sheet["button_frame"])
 
     # Frame that contains every button
@@ -426,7 +427,7 @@ if __name__ == "__main__":
     key_structure_frame = tk.Frame(master=data_structure_frame, bg=background_color)
     operator_frame = tk.Frame(master=data_structure_frame, bg=background_color)
 
-    graph_structure_frame = tk.Frame(master=button_frame, bg=background_color)
+    graph_structure_frame = tk.Frame(master=button_frame, bg="red")#background_color
     switch_algorithm_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
 
@@ -441,8 +442,6 @@ if __name__ == "__main__":
     algorithms = ["Skip List", "Treap"]
     algorithm = tk.StringVar(root)
     algorithm.set(algorithms[0])  # default value
-    algo_dropdown = tk.OptionMenu(graph_structure_frame, algorithm, *algorithms, command=switch_algorithm)
-    algo_dropdown.config(background="red", font=("helvetica","12"))
 
     # Buttons
 
@@ -457,17 +456,29 @@ if __name__ == "__main__":
                             command=stop_command)
 
     value_label = tk.Label(master=key_structure_frame, text="Key", **style_sheet["label"])
-    value_entry = tk.Entry(master=key_structure_frame, width=30, font=("Helvetica, 12"), text="Enter the Sandman")
+    value_entry = tk.Entry(master=key_structure_frame, width=15, font="Helvetica, 12")
     value_entry.insert(0, "")
 
-    search_button = tk.Button(master=operator_frame, text="Search", **style_sheet["data_structure_button"], command=search_command)
-    insert_button = tk.Button(master=operator_frame, text="Insert", **style_sheet["data_structure_button"], command=insert_command)
-    delete_button = tk.Button(master=operator_frame, text="Delete", **style_sheet["data_structure_button"], command=delete_command)
+    search_button = tk.Button(master=operator_frame, text="Search", **style_sheet["data_structure_button"],
+                              command=search_command)
+    insert_button = tk.Button(master=operator_frame, text="Insert", **style_sheet["data_structure_button"],
+                              command=insert_command)
+    delete_button = tk.Button(master=operator_frame, text="Delete", **style_sheet["data_structure_button"],
+                              command=delete_command)
+    #TODO: FRAMES GETAUSCHT !!! LOGISCH SORIERT
+    algo_dropdown = tk.OptionMenu(graph_operation_frame, algorithm, *algorithms,
+                                  command=switch_algorithm)  # graph_structure_frame
+    algo_dropdown.config(background="red", font=("helvetica", "12"))
+    open_button = tk.Button(master=graph_operation_frame, text="Open File", **style_sheet["data_structure_button"],
+                            command=open_file)
+    filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2)
 
-    open_button = tk.Button(master=graph_operation_frame, text="Open File", **style_sheet["data_structure_button"], command=open_file)
-    clear_button = tk.Button(master=graph_operation_frame, text="Clear Graph", **style_sheet["data_structure_button"], command=clear_command)
-    save_button = tk.Button(master=graph_operation_frame, text="Save Graph", **style_sheet["data_structure_button"], command=save_file)
-    filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=20, relief="sunken")
+
+    save_button = tk.Button(master=graph_structure_frame, text="Save Graph", **style_sheet["data_structure_button"],
+                            command=save_file)
+
+    clear_button = tk.Button(master=graph_structure_frame, text="Clear Graph", **style_sheet["data_structure_button"],
+                             command=clear_command)
 
     info_button = tk.Button(root, text="?", fg="red", bg="green", command=info_command, relief="raised", bitmap="info")
     # Testing log output
@@ -486,12 +497,12 @@ if __name__ == "__main__":
     button_frame.pack(side="left", padx=0, anchor="n")
     animation_frame.pack(side="top", fill="x", padx=0)
     data_structure_frame.pack(side="top", fill="x")
-    key_structure_frame.pack(side="top")
+    key_structure_frame.pack(side="top", anchor="nw")
     operator_frame.pack(side="top")
 
+    graph_operation_frame.pack(side="top", fill="x")
     graph_structure_frame.pack(side="top", fill="x")
     switch_algorithm_frame.pack(side="top", fill="x")
-    graph_operation_frame.pack(side="bottom", fill="x")
 
     pseudo_canvas.pack(side="left", anchor="ne")
     #    info_button.pack()
@@ -509,11 +520,12 @@ if __name__ == "__main__":
     delete_button.pack(side="left")
     search_button.pack(side="left")
 
-    algo_dropdown.pack(side="left")
-    open_button.pack(side="top")
-    filename_label.pack(side="top")
-    clear_button.pack(side="top")
-    save_button.pack(side="top")
+    algo_dropdown.pack(side="left", anchor="w")
+    open_button.pack(side="left", anchor="w")
+    filename_label.pack(side="left", anchor="w")
+
+    save_button.pack(side="left", anchor="w")
+    clear_button.pack(side="left", anchor="e")
 
     value_entry.bind("<Button>", placeholder)
     # value_entry.bind("<Key>", placeholder)
