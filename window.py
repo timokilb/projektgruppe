@@ -318,30 +318,37 @@ style_sheet = {
     # button color:
     # Font Color:
     "animation_button": {
-        # "fg": "#000000",
-        "bg": "#3a4750",
+        "fg" : "#a9b7c6",
+        "bg": "#313335",
+        "activeforeground": "#313335",
+        "activebackground": "#a9b7c6",
         "font": "Helvetica, 12",
-        "relief": "flat",
-        "width": "7",
+        "relief": "raised",
+        "bd":"3",
+        "width": "10",
         "height": "2"
     },
     "data_structure_button": {
-        "fg": "#eeeeee",
-        "bg": "#3a4750",
+        "fg": "#a9b7c6",
+        "bg": "#313335",
+        "activeforeground": "#313335",
+        "activebackground": "#a9b7c6",
         "font": "Helvetica, 12",
-        "padx": "1",
+        "relief": "raised",
+        "bd":"1",
+        "padx": "0",
         "pady": "0",
         "width": "10",
         "height": "2"
     },
     "log_frame": {
         "bg": "#2b2b2b",
-        "highlightbackground": "#ffffff",
-        "highlightcolor": "#ffffff",
+        "highlightbackground": "#2b2b2b",
+        "highlightcolor": "#2b2b2b",
         "highlightthickness": ".5"
     },
     "log_text": {
-        "font": "ariel,30",
+        "font": "helvetica, 11",
         "fg": "#a9b7c6",
         "bg": "#2b2b2b"
     },
@@ -364,19 +371,32 @@ style_sheet = {
         "bg": "#3c3f41",
         "highlightbackground": "#2b2b2b",
         "highlightcolor": "#2b2b2b",
-        "highlightthickness": "2"
+        "highlightthickness": "1"
     },
     "animation_frame": {
         "padx": "0",
         "width": "120",
+        "bg": "#3c3f41",
         "highlightbackground": "#00adb5",
-        "highlightthickness": "1"
+        "highlightthickness": "0"
     },
     "label": {
         "font": "Helvetica, 15",
         "fg": "gold",
         "bg": "#3c3f41",
         "padx": "10"
+    },
+    "dropdown":{
+        "fg" : "#a9b7c6",
+        "bg": "#313335",
+        "activeforeground": "#313335",
+        "activebackground": "#a9b7c6",
+        "font": "Helvetica, 12",
+        "relief": "raised",
+        "bd": "1",
+        "width": "10",
+        "height": "2",
+        "highlightthickness": "0"
     }
 }
 
@@ -417,8 +437,8 @@ if __name__ == "__main__":
     console_frame = tk.Frame(master=interface_frame)
 
     # The log
-    log_frame = tk.Frame(master=console_frame, **style_sheet["log_frame"])
     button_frame = tk.Frame(master=console_frame, **style_sheet["button_frame"])
+    log_frame = tk.Frame(master=button_frame, **style_sheet["log_frame"])
 
     # Frame that contains every button
     animation_frame = tk.Frame(master=button_frame, **style_sheet["animation_frame"])
@@ -427,14 +447,15 @@ if __name__ == "__main__":
     key_structure_frame = tk.Frame(master=data_structure_frame, bg=background_color)
     operator_frame = tk.Frame(master=data_structure_frame, bg=background_color)
 
-    graph_structure_frame = tk.Frame(master=button_frame, bg="red")  # background_color
+    graph_structure_frame = tk.Frame(master=button_frame, bg=background_color)
     switch_algorithm_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
 
     # Pseudocode canvas
-    pseudo_canvas = tk.Canvas(master=interface_frame, width=225, height=225, background="red")
+    pseudo_canvas = tk.Canvas(master=interface_frame, width=400, height=400, bg="#2b2b2b")
+    pseudo_canvas.config(highlightthickness=0)
     img = ImageTk.PhotoImage(Image.open("./res/jackson.jpeg"))
-    pseudo_canvas.create_image(112.5, 112.5, image=img)
+    pseudo_canvas.create_image(200 ,200, image=img)
 
     skip_list_graph.draw(skip_list, plot, canvas)
 
@@ -454,7 +475,7 @@ if __name__ == "__main__":
     stop_button = tk.Button(**style_sheet["animation_button"], master=animation_frame, text="Stop",
                             command=stop_command)
 
-    value_label = tk.Label(master=key_structure_frame, text="Key", **style_sheet["label"])
+    value_label = tk.Label(master=key_structure_frame, text="Key:", **style_sheet["label"])
     value_entry = tk.Entry(master=key_structure_frame,width=15, font="Helvetica, 12")
 
     value_entry.insert(0, "")
@@ -466,12 +487,13 @@ if __name__ == "__main__":
     delete_button = tk.Button(master=operator_frame, text="Delete", **style_sheet["data_structure_button"],
                               command=delete_command)
     # TODO: FRAMES GETAUSCHT !!! LOGISCH SORIERT
-    algo_dropdown = tk.OptionMenu(graph_operation_frame, algorithm, *algorithms,
-                                  command=switch_algorithm)  # graph_structure_frame
-    algo_dropdown.config(background="red", font=("helvetica", "12"))
     open_button = tk.Button(master=graph_operation_frame, text="Open File", **style_sheet["data_structure_button"],
                             command=open_file)
-    filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2, borderwidth="3", relief="sunken")
+    filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2, borderwidth="3", relief="flat")
+
+    algo_dropdown = tk.OptionMenu(graph_structure_frame, algorithm, *algorithms,
+                                  command=switch_algorithm)  # graph_structure_frame
+    algo_dropdown.config( **style_sheet["dropdown"])
 
     save_button = tk.Button(master=graph_structure_frame, text="Save Graph", **style_sheet["data_structure_button"],
                             command=save_file)
@@ -479,7 +501,7 @@ if __name__ == "__main__":
     clear_button = tk.Button(master=graph_structure_frame, text="Clear Graph", **style_sheet["data_structure_button"],
                              command=clear_command)
 
-    info_button = tk.Button(root, text="?", fg="red", bg="green", command=info_command, relief="raised", bitmap="info")
+    info_button = tk.Button(root, text="?", fg="red", bg="green", command=info_command, relief="flat", bitmap="info")
     # Testing log output
     log_widget = lw.LogWidget()
     log_message = tk.Message(master=log_frame, text=log_widget.update(), **style_sheet["log_text"], anchor='nw')
@@ -490,41 +512,42 @@ if __name__ == "__main__":
 
     interface_frame.pack(side="bottom", padx=10, pady=10, fill="x", expand=1, anchor="sw")
     console_frame.pack(side="left", fill="both")
-    log_frame.pack(side="left", fill="both", expand=1, padx=0, anchor="nw")
-    log_message.pack(side="left", padx=0, fill="both", expand=1)
-
     button_frame.pack(side="left", padx=0, anchor="n")
+
     animation_frame.pack(side="top", fill="x", padx=0)
     data_structure_frame.pack(side="top", fill="x")
-    key_structure_frame.pack(side="top", anchor="nw")
-    operator_frame.pack(side="top")
+    key_structure_frame.pack(side="top", fill="x")
+    operator_frame.pack(side="top", fill="x")
 
     graph_operation_frame.pack(side="top", fill="x")
     graph_structure_frame.pack(side="top", fill="x")
     switch_algorithm_frame.pack(side="top", fill="x")
 
+    log_frame.pack(side="top", fill="both", expand=1, padx=0, anchor="nw")
+    log_message.pack(side="top", padx=0, fill="both", expand=1)
+
     pseudo_canvas.pack(side="left", anchor="ne")
     #    info_button.pack()
 
     # Packing all buttons
-    stop_button.pack(side="left", fill="x")
-    previous_button.pack(side="left", fill="x")
-    play_pause_button.pack(side="left", fill="x")
-    next_button.pack(side="left", fill="x")
+    stop_button.pack(side="left", fill="x", padx="2", pady="2")
+    previous_button.pack(side="left", fill="x", padx="2", pady="2")
+    play_pause_button.pack(side="left", fill="x", padx="2", pady="2")
+    next_button.pack(side="left", fill="x", padx="2", pady="2")
 
-    value_label.pack(side="left")
-    value_entry.pack(side="left")
+    value_label.pack(side="left", fill="x", padx="2", pady="2")
+    value_entry.pack(side="left", fill="x", padx="2", pady="2", expand=1)
 
-    insert_button.pack(side="left", anchor="w")
-    delete_button.pack(side="left")
-    search_button.pack(side="left", anchor="e")
+    insert_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
+    delete_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
+    search_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
 
-    algo_dropdown.pack(side="left", )
-    open_button.pack(side="left", anchor="w")
-    filename_label.pack(side="left", anchor="w")
+    open_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
+    filename_label.pack(side="left", fill="x", padx="2", pady="0", expand=1)
 
-    save_button.pack(side="left", anchor="w")
-    clear_button.pack(side="left", anchor="e")
+    algo_dropdown.pack(side="left", fill="x", padx="2", pady="2", expand=1)
+    save_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
+    clear_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
 
     value_entry.bind("<Button>", placeholder)
     # value_entry.bind("<Key>", placeholder)

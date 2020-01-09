@@ -18,7 +18,10 @@ class LogWidget:
             self.lines = ["Marvin is ein Lappen",
                           "Marvin ist zwei Lappen",
                           "Marvin ist drei Lappen",
-                          "Marvin sind 4 Lappen"]
+                          "Marvin sind 4 Lappen",
+                          "Marvin is ein Lappen",
+                          "Marvin ist zwei Lappen",
+                          "Marvin ist zwei Lappen"]
 
     __instance = None
 
@@ -30,7 +33,7 @@ class LogWidget:
         if type(string) is not type("string"):
             print("ERR: Argument is type of", type(string), "but needs to be", type("string"))
             return
-        if len(self.__instance.lines) > 5:
+        if len(self.__instance.lines) > 6:
             self.__instance.lines.pop()
             self.__instance.lines.insert(0, string)
         else:
