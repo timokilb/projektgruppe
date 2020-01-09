@@ -15,7 +15,9 @@ class PseudocodeWidget:
     class __PseudocodeWidget:
 
         def __init__(self, master):
-            self.labels = [tk.Label(master=master)] * 10
+            self.labels = [tk.Label(master=master), tk.Label(master=master), tk.Label(master=master), tk.Label(master=master)
+                           , tk.Label(master=master), tk.Label(master=master), tk.Label(master=master), tk.Label(master=master)
+                           , tk.Label(master=master), tk.Label(master=master)]
             self.pseudocode_list = []
 
     __instance = None
@@ -45,6 +47,8 @@ class PseudocodeWidget:
         index = 0
         for line in file:
             PseudocodeWidget.__instance.labels[index].config(text=line)
+            print(PseudocodeWidget.__instance.labels[index-1]["text"], "hello")
+            print(PseudocodeWidget.__instance.labels[index]["text"])
             if index == (row - 1):
                 PseudocodeWidget.__instance.labels[index].config(bg="red")
             index += 1
@@ -62,7 +66,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     widget = PseudocodeWidget(root)
     widget.open_text_file("./res/treap_insert.txt", 0)
-    # print(widget.get_instance().pseudocode_list)
-    for element in PseudocodeWidget.pseudocode_list:
-        for index in range(len(element)):
-            print(element[index]["text"])
