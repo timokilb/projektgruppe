@@ -524,11 +524,6 @@ if __name__ == "__main__":
     log_message.pack(side="top", padx=0, fill="both", expand=1)
 
     pseudocode_frame.pack(side="left", anchor="ne")
-    pseudocode_widget = pw.PseudocodeWidget(pseudocode_frame)
-    pseudocode_widget.open_text_file("./res/treap_insert.txt", 3)
-    for label in pseudocode_widget.get_labels():
-        label.pack(side="top")
-        print(label["text"])
 
 
     #    info_button.pack()
