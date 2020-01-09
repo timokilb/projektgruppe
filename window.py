@@ -3,6 +3,7 @@ import treap as tr
 import tkinter as tk
 import networkx as nx
 import log_widget as lw
+import pseudocode_widget as pw
 import time
 import math
 import re
@@ -452,11 +453,7 @@ if __name__ == "__main__":
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
 
     # Pseudocode canvas
-    pseudo_canvas = tk.Canvas(master=interface_frame, width=400, height=400, bg="#2b2b2b")
-    pseudo_canvas.config(highlightthickness=0)
-    img = ImageTk.PhotoImage(Image.open("./res/jackson.jpeg"))
-    pseudo_canvas.create_image(200 ,200, image=img)
-
+    pseudocode_frame = tk.Frame(master=interface_frame, bg="red")
     skip_list_graph.draw(skip_list, plot, canvas)
 
     # Dropdown menu for choosing the algorithm
@@ -526,7 +523,14 @@ if __name__ == "__main__":
     log_frame.pack(side="top", fill="both", expand=1, padx=0, anchor="nw")
     log_message.pack(side="top", padx=0, fill="both", expand=1)
 
-    pseudo_canvas.pack(side="left", anchor="ne")
+    pseudocode_frame.pack(side="left", anchor="ne")
+    pseudocode_widget = pw.PseudocodeWidget(pseudocode_frame)
+    pseudocode_widget.open_text_file("./res/treap_insert.txt", 3)
+    for label in pseudocode_widget.get_labels():
+        label.pack(side="top")
+        print(label["text"])
+
+
     #    info_button.pack()
 
     # Packing all buttons

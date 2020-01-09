@@ -1,21 +1,18 @@
-
-
 //
 // Created by Deniz Dogan 2019. Kogan Inc.
 //
 
 TODO: GUI
 
-    - Reading up on pseudo code display overview and estimation -> Dilan, Timo
-    - Responsive / Min / Max window -> Timo
     - Pause / Speed button, x1 x2 x3 speed button Thread?
     - "?" with hover hint
-
 TODO: Strukturen
 
     - Delete Treap durchtesten -> Dilan
-    - Graph array löscht nicht komplett -> Timo
 
+TODO : Bugs
+
+    - Eingabe Buchstaben
 
 
 
