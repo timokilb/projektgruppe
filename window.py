@@ -495,7 +495,8 @@ if __name__ == "__main__":
 
     algo_dropdown = tk.OptionMenu(graph_structure_frame, algorithm, *algorithms,
                                   command=switch_algorithm)  # graph_structure_frame
-    algo_dropdown.config( **style_sheet["dropdown"])
+    algo_dropdown.config(**style_sheet["dropdown"])
+    algo_dropdown["menu"].config(fg="#a9b7c6", bg="#313335")
 
     save_button = tk.Button(master=graph_structure_frame, text="Save Graph", **style_sheet["data_structure_button"],
                             command=save_file)
