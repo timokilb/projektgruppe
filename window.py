@@ -425,7 +425,7 @@ if __name__ == "__main__":
 
     # Main window
     root = tk.Tk()
-    root.title("Getting laid Vol .4 mit Kohout von der Salbe 4")
+    root.title("Projektgruppe")
     root.config(background=background_color)
     root.minsize(850, 850)
 
@@ -459,7 +459,7 @@ if __name__ == "__main__":
 
     # generating Pseudocode Obj
     pseudocode_obj = pw.PseudocodeWidget(pseudocode_frame)
-    pseudocode_obj.open_text_file("./res/treap_insert.txt")
+    pseudocode_obj.open_text_file("./res/treap_find.txt")
 
     skip_list_graph.draw(skip_list, plot, canvas)
 

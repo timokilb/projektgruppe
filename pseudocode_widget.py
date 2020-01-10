@@ -76,7 +76,8 @@ class PseudocodeWidget:
         file = open(string, mode="r")
         position = 0
         for line in file:
-            PseudocodeWidget.__instance.labels[position].config(text=line, bg="#2b2b2b", fg="#a9b7c6", anchor="nw", font="helvetica, 14", height=1)
+            PseudocodeWidget.__instance.labels[position].config(text=line, bg="#2b2b2b", fg="#a9b7c6", anchor="nw",
+                                                                font="helvetica, 14", height=1)
             position += 1
 
 if __name__ == "__main__":

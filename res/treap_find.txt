@@ -1,3 +1,5 @@
+Find(Key)
+----------------------------------------------------------------------
  if Key is CurrentNode.Key:
     return CurrentNode
  elif Key < CurrentNode.Key:

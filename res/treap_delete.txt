@@ -1,5 +1,5 @@
  Delete(key)
- --------------
+ ---------------------------
  find(key)
  set_priority(key,-inf)
  if node is Leaf:
