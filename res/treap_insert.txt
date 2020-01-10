@@ -1,10 +1,10 @@
-( text0, color)
-( text1, color)
-( text2, color)
-( text3, color)
-( text4, color)
-( text5, color)
-( text6, color)
-( text7, color)
-( text8, color)
-( text9, color)
+if node is None:
+    return Node(key)
+if key < curren_node.key:
+    node.left = Insert(node.left, key)
+    if node.left.priority > node.priority:
+        node.left.rotate_right()
+else:
+    node.right = Insert(node.right, key)
+    if node.right.priotoity > node.priority:
+        node.right.rotate_left()

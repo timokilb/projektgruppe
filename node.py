@@ -120,8 +120,7 @@ class Node:
                     tmp.parent_node.right_node = None
                     return tmp
             # Node is Root
-            # TODO : gönn dir diesen case ! PRIO !!!
-            # TODO : clear löscht struktur
+            #TODO mit clear vllt arbeiten !!
             else:
                 tmp.key = None
                 tmp.priority = random.randint(1, 1001)  # sonst wird nur key gelöscht prio w+rde gleich bleiebn ohne

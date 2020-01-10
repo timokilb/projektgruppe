@@ -451,10 +451,16 @@ if __name__ == "__main__":
     graph_structure_frame = tk.Frame(master=button_frame, bg=background_color)
     switch_algorithm_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
-
+    # TODO : mit token und dann in jeder funktion öffen mit jeweiiger .txt und packen
     # Pseudocode canvas
-    pseudocode_frame = tk.Frame(master=interface_frame, bg="red")
+    pseudocode_frame = tk.Frame(master=interface_frame, bg=background_color)
+
+    # generating Pseudocode Obj
+    pseudocode_obj = pw.PseudocodeWidget(pseudocode_frame)
+    pseudocode_obj.open_text_file("./res/treap_insert.txt")
+
     skip_list_graph.draw(skip_list, plot, canvas)
+
 
     # Dropdown menu for choosing the algorithm
     algorithms = ["Skip List", "Treap"]
@@ -483,7 +489,6 @@ if __name__ == "__main__":
                               command=insert_command)
     delete_button = tk.Button(master=operator_frame, text="Delete", **style_sheet["data_structure_button"],
                               command=delete_command)
-    # TODO: FRAMES GETAUSCHT !!! LOGISCH SORIERT
     open_button = tk.Button(master=graph_operation_frame, text="Open File", **style_sheet["data_structure_button"],
                             command=open_file)
     filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2, borderwidth="3", relief="flat")
@@ -524,7 +529,7 @@ if __name__ == "__main__":
     log_message.pack(side="top", padx=0, fill="both", expand=1)
 
     pseudocode_frame.pack(side="left", anchor="ne")
-
+    pseudocode_obj.pack_labels()
 
     #    info_button.pack()
 
