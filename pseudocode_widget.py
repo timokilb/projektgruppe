@@ -40,7 +40,7 @@ class PseudocodeWidget:
         file = open(string, mode="r")
         position = 0
         for line in file:
-            PseudocodeWidget.__instance.labels[position].config(text=line, height=1, bg="#eeeeee", fg="red")#bg="#3c3f41", fg="#a9b7c6"
+            PseudocodeWidget.__instance.labels[position].config(text=line, height=1, bg="#eeeeee", fg="red" )#bg="#3c3f41", fg="#a9b7c6"
             position += 1
         PseudocodeWidget.__instance.pseudocode_list.append(PseudocodeWidget.__instance.labels)
 
@@ -63,4 +63,4 @@ class PseudocodeWidget:
 
     def pack_labels(self):
         for element in self.get_instance().labels:
-            element.pack(fill="both",expand=1, pady=2, anchor="w")
+            element.pack()

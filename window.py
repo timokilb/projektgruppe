@@ -496,7 +496,7 @@ if __name__ == "__main__":
     algo_dropdown = tk.OptionMenu(graph_structure_frame, algorithm, *algorithms,
                                   command=switch_algorithm)  # graph_structure_frame
     algo_dropdown.config(**style_sheet["dropdown"])
-    algo_dropdown["menu"].config(fg="#a9b7c6", bg="#313335")
+    algo_dropdown["menu"].config(fg="#a9b7c6", bg="#313335", activeforeground="#313335",activebackground="#a9b7c6")
 
     save_button = tk.Button(master=graph_structure_frame, text="Save Graph", **style_sheet["data_structure_button"],
                             command=save_file)
@@ -529,7 +529,7 @@ if __name__ == "__main__":
     log_frame.pack(side="top", fill="both", expand=1, padx=0, anchor="nw")
     log_message.pack(side="top", padx=0, fill="both", expand=1)
 
-    pseudocode_frame.pack(side="left", anchor="ne")
+    pseudocode_frame.pack(side="left")
     pseudocode_obj.pack_labels()
 
     #    info_button.pack()
