@@ -6,7 +6,9 @@ TODO: GUI
 
     - optional MenuBar
     - Pseudocode schreiben
+
     - Pseudocode linken mit funktionen
+
     - Animations fehlen ALLE
 
 

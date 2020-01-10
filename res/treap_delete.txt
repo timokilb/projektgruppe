@@ -1,1 +1,12 @@
- 
+ Delete(key)
+ --------------
+ find(key)
+ set_priority(key,-inf)
+ if node is Leaf:
+    delte
+ elif left.prio > right.prio
+    node.rotate_right()
+    delte()
+  else
+    node.rotate_left()
+    delete()
