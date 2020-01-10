@@ -15,16 +15,16 @@ class PseudocodeWidget:
     class __PseudocodeWidget:
 
         def __init__(self, master):
-            self.labels = [tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master),
-                           tk.Label(master=master)]
+            self.labels = [tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b"),
+                           tk.Label(master=master, bg="#2b2b2b")]
 
             self.pseudocode_list = []
 
@@ -40,7 +40,7 @@ class PseudocodeWidget:
     def restore_default(self):
         # restore default values for all labels
         for entry in self.__instance.labels:
-            entry.config(text="", bg="white")
+            entry.config(text="", bg="#2b2b2b")
 
     # returns label element at given index
     def get_label(self, position):
@@ -57,8 +57,8 @@ class PseudocodeWidget:
         pass
 
     def update(self):
-        print(self)
-        print(PseudocodeWidget.__instance)
+        # self.__instance.pseudocode_list.append(self.__instance.labels)
+        PseudocodeWidget.__instance.pseudocode_list.append(PseudocodeWidget.__instance.labels)
 
     def pack_labels(self):
         for element in self.get_instance().labels:
@@ -76,13 +76,6 @@ class PseudocodeWidget:
         for line in file:
             PseudocodeWidget.__instance.labels[position].config(text=line, bg="#2b2b2b", fg="#a9b7c6", anchor="nw", font="helvetica, 16", height=1)
             position += 1
-        # TODO wenn PseudoCode weniger als 10 zeilen hat , manuell auffüllen. ANDERN !!!
-        while position < 10:
-            PseudocodeWidget.__instance.labels[position].config(text="", bg="#2b2b2b", fg="#a9b7c6",
-                                                                anchor="w")
-            position += 1
-        # PseudocodeWidget.__instance.pseudocode_list.append(PseudocodeWidget.__instance.labels)
-
 
 if __name__ == "__main__":
     root = tk.Tk()

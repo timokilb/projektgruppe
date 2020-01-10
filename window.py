@@ -161,6 +161,7 @@ def previous_command():
     global skip_list_graph_list
     global treap_graph_list
     global algorithm
+
     if algorithm.get() == "Skip List":
         if graph_list_index < len(skip_list_graph_list) - 1:
             graph_list_index -= 1
@@ -184,6 +185,7 @@ def next_command():
         if graph_list_index < len(treap_graph_list) - 1:
             graph_list_index += 1
             update_canvas(treap_graph_list[graph_list_index])
+
 
 def stop_command():
     global graph_list_index
@@ -318,13 +320,13 @@ style_sheet = {
     # button color:
     # Font Color:
     "animation_button": {
-        "fg" : "#a9b7c6",
+        "fg": "#a9b7c6",
         "bg": "#313335",
         "activeforeground": "#313335",
         "activebackground": "#a9b7c6",
         "font": "Helvetica, 12",
         "relief": "raised",
-        "bd":"3",
+        "bd": "3",
         "width": "10",
         "height": "2"
     },
@@ -335,7 +337,7 @@ style_sheet = {
         "activebackground": "#a9b7c6",
         "font": "Helvetica, 12",
         "relief": "raised",
-        "bd":"1",
+        "bd": "1",
         "padx": "0",
         "pady": "0",
         "width": "10",
@@ -386,8 +388,8 @@ style_sheet = {
         "bg": "#3c3f41",
         "padx": "10"
     },
-    "dropdown":{
-        "fg" : "#a9b7c6",
+    "dropdown": {
+        "fg": "#a9b7c6",
         "bg": "#313335",
         "activeforeground": "#313335",
         "activebackground": "#a9b7c6",
@@ -425,7 +427,7 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.title("Getting laid Vol .4 mit Kohout von der Salbe 4")
     root.config(background=background_color)
-    root.minsize(800, 800)
+    root.minsize(850, 800)
 
     # Canvas frame
     canvas_frame = tk.Frame(master=root, **style_sheet["canvas"])
@@ -452,14 +454,14 @@ if __name__ == "__main__":
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
     # TODO : mit token und dann in jeder funktion öffen mit jeweiiger .txt und packen
     # Pseudocode canvas
-    pseudocode_frame = tk.Frame(master=interface_frame, bg="#2b2b2b", highlightthickness=5, highlightbackground=background_color)
+    pseudocode_frame = tk.Frame(master=interface_frame, bg="#2b2b2b", highlightthickness=5,
+                                highlightbackground=background_color)
 
     # generating Pseudocode Obj
     pseudocode_obj = pw.PseudocodeWidget(pseudocode_frame)
     pseudocode_obj.open_text_file("./res/treap_find.txt")
 
     skip_list_graph.draw(skip_list, plot, canvas)
-
 
     # Dropdown menu for choosing the algorithm
     algorithms = ["Skip List", "Treap"]
@@ -478,7 +480,7 @@ if __name__ == "__main__":
                             command=stop_command)
 
     value_label = tk.Label(master=key_structure_frame, text="Key:", **style_sheet["label"])
-    value_entry = tk.Entry(master=key_structure_frame,width=15, font="Helvetica, 12")
+    value_entry = tk.Entry(master=key_structure_frame, width=15, font="Helvetica, 12")
 
     value_entry.insert(0, "")
 
@@ -490,7 +492,8 @@ if __name__ == "__main__":
                               command=delete_command)
     open_button = tk.Button(master=graph_operation_frame, text="Open File", **style_sheet["data_structure_button"],
                             command=open_file)
-    filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2, borderwidth="3", relief="flat")
+    filename_label = tk.Label(master=graph_operation_frame, text="Filename", height=2, borderwidth="3", relief="flat")
+    filename_label.config(font="helvetica, 12")
 
     algo_dropdown = tk.OptionMenu(graph_structure_frame, algorithm, *algorithms,
                                   command=switch_algorithm)
