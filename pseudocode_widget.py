@@ -15,10 +15,16 @@ class PseudocodeWidget:
     class __PseudocodeWidget:
 
         def __init__(self, master):
-            self.labels = [tk.Label(master=master), tk.Label(master=master), tk.Label(master=master),
-                           tk.Label(master=master)
-                , tk.Label(master=master), tk.Label(master=master), tk.Label(master=master), tk.Label(master=master)
-                , tk.Label(master=master), tk.Label(master=master)]
+            self.labels = [tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master),
+                           tk.Label(master=master)]
 
             self.pseudocode_list = []
 
@@ -31,21 +37,13 @@ class PseudocodeWidget:
     def get_instance(self):
         return self.__instance
 
-    # open File wich contains pseudocode
-    def open_text_file(self, string):
+    def restore_default(self):
         # restore default values for all labels
-        for entry in PseudocodeWidget.__instance.labels:
+        for entry in self.__instance.labels:
             entry.config(text="", bg="white")
 
-        file = open(string, mode="r")
-        position = 0
-        for line in file:
-            PseudocodeWidget.__instance.labels[position].config(text=line, height=1, bg="#eeeeee", fg="red" )#bg="#3c3f41", fg="#a9b7c6"
-            position += 1
-        PseudocodeWidget.__instance.pseudocode_list.append(PseudocodeWidget.__instance.labels)
-
     # returns label element at given index
-    def get_label(self, position ):
+    def get_label(self, position):
         return self.get_instance().labels[position]
 
     # returns Array/List with all labels
@@ -59,8 +57,34 @@ class PseudocodeWidget:
         pass
 
     def update(self):
-        return "\n".join(self.__instance.lines)
+        print(self)
+        print(PseudocodeWidget.__instance)
 
     def pack_labels(self):
         for element in self.get_instance().labels:
-            element.pack()
+            element.pack(side="top", fill="both")
+
+    def set_color(self, color, index):
+        self.get_label(index)["bg"] = color
+        self.update()
+
+    # open File wich contains pseudocode
+    def open_text_file(self, string):
+        self.restore_default()
+        file = open(string, mode="r")
+        position = 0
+        for line in file:
+            PseudocodeWidget.__instance.labels[position].config(text=line, bg="#2b2b2b", fg="#a9b7c6", anchor="nw", font="helvetica, 16", height=1)
+            position += 1
+        # TODO wenn PseudoCode weniger als 10 zeilen hat , manuell auffüllen. ANDERN !!!
+        while position < 10:
+            PseudocodeWidget.__instance.labels[position].config(text="", bg="#2b2b2b", fg="#a9b7c6",
+                                                                anchor="w")
+            position += 1
+        # PseudocodeWidget.__instance.pseudocode_list.append(PseudocodeWidget.__instance.labels)
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    widget = PseudocodeWidget(root)
+    widget.update()

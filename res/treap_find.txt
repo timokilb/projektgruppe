@@ -1,0 +1,6 @@
+ if Key is CurrentNode.Key:
+    return CurrentNode
+ elif Key < CurrentNode.Key:
+    CurrentNode.left.find(Key)
+ else:
+    CurrentNode.right.find(Key)

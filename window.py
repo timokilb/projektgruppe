@@ -185,7 +185,6 @@ def next_command():
             graph_list_index += 1
             update_canvas(treap_graph_list[graph_list_index])
 
-
 def stop_command():
     global graph_list_index
     graph_list_index = 0
@@ -355,11 +354,11 @@ style_sheet = {
     },
     "button_frame": {
         "bg": "#3c3f41",
-        "padx": "1",
-        "pady": "1",
+        "padx": "3",
+        "pady": "5",
         "highlightbackground": "#2b2b2b",
         "highlightcolor": "#2b2b2b",
-        "highlightthickness": "1"
+        "highlightthickness": "0"
     },
     "canvas": {
         "padx": "0",
@@ -372,7 +371,7 @@ style_sheet = {
         "bg": "#3c3f41",
         "highlightbackground": "#2b2b2b",
         "highlightcolor": "#2b2b2b",
-        "highlightthickness": "1"
+        "highlightthickness": "2"
     },
     "animation_frame": {
         "padx": "0",
@@ -383,7 +382,7 @@ style_sheet = {
     },
     "label": {
         "font": "Helvetica, 15",
-        "fg": "gold",
+        "fg": "springgreen",
         "bg": "#3c3f41",
         "padx": "10"
     },
@@ -453,11 +452,11 @@ if __name__ == "__main__":
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
     # TODO : mit token und dann in jeder funktion öffen mit jeweiiger .txt und packen
     # Pseudocode canvas
-    pseudocode_frame = tk.Frame(master=interface_frame, bg=background_color)
+    pseudocode_frame = tk.Frame(master=interface_frame, bg="#2b2b2b", highlightthickness=5, highlightbackground=background_color)
 
     # generating Pseudocode Obj
     pseudocode_obj = pw.PseudocodeWidget(pseudocode_frame)
-    pseudocode_obj.open_text_file("./res/treap_insert.txt")
+    pseudocode_obj.open_text_file("./res/treap_find.txt")
 
     skip_list_graph.draw(skip_list, plot, canvas)
 
@@ -494,9 +493,10 @@ if __name__ == "__main__":
     filename_label = tk.Label(master=graph_operation_frame, text="FILENAME", width=15, height=2, borderwidth="3", relief="flat")
 
     algo_dropdown = tk.OptionMenu(graph_structure_frame, algorithm, *algorithms,
-                                  command=switch_algorithm)  # graph_structure_frame
+                                  command=switch_algorithm)
+
     algo_dropdown.config(**style_sheet["dropdown"])
-    algo_dropdown["menu"].config(fg="#a9b7c6", bg="#313335", activeforeground="#313335",activebackground="#a9b7c6")
+    algo_dropdown["menu"].config(fg="#a9b7c6", bg="#313335", activeforeground="#313335", activebackground="#a9b7c6")
 
     save_button = tk.Button(master=graph_structure_frame, text="Save Graph", **style_sheet["data_structure_button"],
                             command=save_file)
@@ -510,12 +510,12 @@ if __name__ == "__main__":
     log_message = tk.Message(master=log_frame, text=log_widget.update(), **style_sheet["log_text"], anchor='nw')
 
     # Packing everything
-    canvas_frame.pack(side="top", fill="both", expand=1, anchor="e", padx=10, pady=10)
-    canvas._tkcanvas.pack(fill="both", expand=1, anchor="e")
+    canvas_frame.pack(side="top", fill="both", expand=1, anchor="s", padx=10, pady=10)
+    canvas._tkcanvas.pack(fill="both", expand=1, anchor="s")
 
-    interface_frame.pack(side="bottom", padx=10, pady=10, fill="x", expand=1, anchor="sw")
+    interface_frame.pack(side="bottom", padx=10, pady=10, fill="x", anchor="sw")
     console_frame.pack(side="left", fill="both")
-    button_frame.pack(side="left", padx=0, anchor="n")
+    button_frame.pack(side="left", anchor="n")
 
     animation_frame.pack(side="top", fill="x", padx=0)
     data_structure_frame.pack(side="top", fill="x")
@@ -529,7 +529,7 @@ if __name__ == "__main__":
     log_frame.pack(side="top", fill="both", expand=1, padx=0, anchor="nw")
     log_message.pack(side="top", padx=0, fill="both", expand=1)
 
-    pseudocode_frame.pack(side="left")
+    pseudocode_frame.pack(side="left", anchor="nw", fill="both", expand=1)
     pseudocode_obj.pack_labels()
 
     #    info_button.pack()
