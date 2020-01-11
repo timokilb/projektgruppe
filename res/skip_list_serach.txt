@@ -1,0 +1,12 @@
+Search(key):
+------------------------------
+tmp == skip_list.root
+while search_level >= 0:
+    while key >= tmp.next:
+        tmp = tmp.next
+        if search_level == 0:
+            if key = tmp.key:
+                return tmp
+            else:
+             return False
+    search_level -= 1
