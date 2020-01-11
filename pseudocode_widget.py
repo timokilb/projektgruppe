@@ -55,9 +55,6 @@ class PseudocodeWidget:
             all_label.append(element)
         return all_label
 
-    def update_display(self):
-        pass
-
     def update(self):
         # self.__instance.pseudocode_list.append(self.__instance.labels)
         PseudocodeWidget.__instance.pseudocode_list.append(PseudocodeWidget.__instance.labels)
