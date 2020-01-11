@@ -5,7 +5,6 @@
 TODO: GUI
 
     - optional MenuBar
-    - Pseudocode schreiben
 
     - Pseudocode linken mit funktionen
 
@@ -13,7 +12,4 @@ TODO: GUI
 
 
 TODO : Bugs
-
-    - Eingabe Buchstaben
-
 

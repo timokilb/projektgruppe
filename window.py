@@ -120,7 +120,7 @@ def delete_command():
 
     value = int(value_entry.get())
     skip_list.delete(value, skip_list_graph_list)
-    treap.delete(value, treap_graph_list)
+    treap.delete(value, treap_graph_list, treap_graph_list)
 
     # Handling the log widget:
     log_widget.push(f"Deleted Key: {value}")
@@ -200,11 +200,13 @@ def clear_command():
     global treap_graph_list
     global treap_graph
     global algorithm
+    # TODO fixt es
+    global treap
     graph_list_index = 0
 
     if algorithm.get() == "Treap":
-        treap_graph_list.clear()
         treap = tr.Treap()
+        treap_graph_list.clear()
         treap_graph = TreapGraph(treap)
         treap_graph_list.append(treap_graph.create_graph())
         update_canvas(treap_graph_list[graph_list_index])
@@ -221,13 +223,10 @@ def switch_algorithm(string):
     global treap_graph
     global skip_list_graph
     global canvas
-    print(string, "is the string")
     if string == "Treap":
         treap_graph.draw(treap_graph.treap, plot, canvas)
-        print("drew the treap")
     elif string == "Skip List":
         skip_list_graph.draw(skip_list_graph.skip_list, plot, canvas)
-        print("derw the skip slist")
 
 
 def read_data_command():

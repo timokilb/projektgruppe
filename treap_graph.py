@@ -1,6 +1,7 @@
 import time
 
 import networkx as nx
+import node as nd
 
 
 class TreapGraph:
@@ -14,6 +15,9 @@ class TreapGraph:
         return graph
 
     def draw_treap(self, node, graph, xpos, ypos):
+        #TODO :
+        if node.key is None:
+            return
         graph.add_node(node.key, pos=(xpos, ypos), label=node.key, color=node.color)  # Draw
         print("added Node : ", node.key, "prio : ", node.priority)
         if node.parent_node:
