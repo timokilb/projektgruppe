@@ -1,0 +1,8 @@
+Search(key)
+----------------------------------------------------------------------
+ if key is current_node.key:
+    return current_node
+ else if key < current_node.key:
+    current_node.left.search(key)
+ else:
+    current_node.right.search(key)

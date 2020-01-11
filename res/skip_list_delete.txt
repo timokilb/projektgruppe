@@ -1,1 +1,12 @@
- 
+Delete(key):
+------------------------------
+if search(key):
+    tmp = skip_list.root
+    while search_level >= 0:
+        while key > tmp.key:
+            if key == tmp.next.key:
+                tmp.next = tmp.next.next
+                if search__level == 0:
+                    return
+            tmp = tmp.next
+        search_level -= 1

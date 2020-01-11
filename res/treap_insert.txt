@@ -1,12 +1,12 @@
-Insert(Key)
+Insert(key)
 ----------------------------------------------
 if node is None:
     return Node(key)
-if key < curren_node.key:
-    node.left = Insert(node.left, key)
+if key < current_node.key:
+    node.left = insert(node.left, key)
     if node.left.priority > node.priority:
         node.left.rotate_right()
 else:
-    node.right = Insert(node.right, key)
-    if node.right.priotoity > node.priority:
+    node.right = insert(node.right, key)
+    if node.right.priority > node.priority:
         node.right.rotate_left()

@@ -459,7 +459,7 @@ if __name__ == "__main__":
 
     # generating Pseudocode Obj
     pseudocode_obj = pw.PseudocodeWidget(pseudocode_frame)
-    pseudocode_obj.open_text_file("./res/treap_find.txt")
+    pseudocode_obj.open_text_file("./res/treap_search.txt")
 
     skip_list_graph.draw(skip_list, plot, canvas)
 
