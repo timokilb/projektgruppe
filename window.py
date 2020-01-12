@@ -1,4 +1,3 @@
-import skip_list as sl
 import treap as tr
 import tkinter as tk
 import networkx as nx
@@ -8,7 +7,7 @@ import animation_handler as ah
 import time
 import math
 import re
-
+import skip_list as sl
 from skip_list_graph import SkipListGraph
 from treap_graph import TreapGraph
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -149,14 +148,16 @@ def play_command():
             timestamp = int(math.floor(time.time()))
             while math.floor(time.time()) < timestamp + 1:
                 update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
-                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
         while graph_list_index < len(animation_handler.get_instance().treap_graph_list) - 1:
             graph_list_index += 1
             timestamp = int(math.floor(time.time()))
             while math.floor(time.time()) < timestamp + 1:
                 update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
 
 
 def previous_command():
@@ -315,7 +316,6 @@ def callor(event):
 def placeholder(event):
     value_entry.delete(0, tk.END)
 
-
 style_sheet = {
     # background color: 3c3f41
     # button color:
@@ -403,12 +403,14 @@ style_sheet = {
     }
 }
 
+def get_frame():
+    global pseudocode_frame
+    return pseudocode_frame
+
 if __name__ == "__main__":
     # Init data structures and graphs
     graph_list_index = 0
 
-    skip_list = sl.SkipList()
-    skip_list_graph = SkipListGraph(skip_list)
 
     treap = tr.Treap()
     treap_graph = TreapGraph(treap)
@@ -458,6 +460,8 @@ if __name__ == "__main__":
                                 highlightbackground=background_color)
 
     animation_handler = ah.AnimationHandler(pseudocode_frame)
+    skip_list = sl.SkipList()
+    skip_list_graph = SkipListGraph(skip_list)
 
     # generating Pseudocode Obj
     pseudocode_obj = pw.PseudocodeWidget(pseudocode_frame)

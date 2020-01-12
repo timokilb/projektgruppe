@@ -51,7 +51,7 @@ class SkipList:
         self.root.list[0] = self.end  # Setting the first pointer
         self.number_of_elements = 0  # Num of elements not including -/+ inf
         self.had_elements = False
-        self.animation_handler = ah.AnimationHandler()
+        
 
 
     # Recalculates the max level of the skip list based on the log2 of the number of elements
@@ -97,48 +97,49 @@ class SkipList:
         compare_color = "orange"
         current_color = "salmon"
         path_color = "dimgrey"
+        animation_handler = ah.AnimationHandler()
         search_level = self.max_level - 1  # Array starts at 0
         tmp = self.root  # Tmp keeps track of current list
         tmp_graph = sl.SkipListGraph()
         tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
         #graph_list.append(tmp_graph.create_graph(self))  # Append it to the list of graphs
-        self.animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
-        self.animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 2)
+        animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
+        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 2)
 
         while True: #until value is either found or not
             while value >= tmp.list[search_level].value:  # The next skip node is smaller or equal to value
                 tmp.list[search_level].colors[search_level] = compare_color # Set the next skip node color
-                self.animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
-                self.animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 4)
+                animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
+                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 4)
                 tmp.list[search_level].colors[search_level] = current_color # Set the current node to salmon
                 tmp.colors[search_level] = path_color # And the last one back to the standard color
-                self.animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
-                self.animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 5)
+                animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
+                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 5)
                 tmp = tmp.list[search_level]  # Go right until overshoot
             if search_level == 0:  # At this point we should have found the value
                 if value == tmp.value:
                     print(tmp.value, "is in the Skip List with height", tmp.height)
-                    return self.animation_handler.get_instance().skip_list_graph_list
+                    return animation_handler.get_instance().skip_list_graph_list
                 else:
                     tmp.list[search_level].colors[search_level] = compare_color  # Set the next skip node color
-                    self.animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
-                    self.animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 9)
+                    animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
+                    animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 9)
                     tmp.list[search_level].colors[search_level] = current_color  # Set the current node to salmon
                     tmp.colors[search_level] = path_color  # And the last one back to the standard color
-                    self.animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
-                    self.animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 10)
+                    animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
+                    animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 10)
                     print("Err: ", value, "is not in the Skip List")
                     return 0
             else: # The case in which were going down a level
                 tmp.list[search_level].colors[search_level] = compare_color # Set the next skip node color
-                self.animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
-                self.animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 11)
+                animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
+                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 11)
                 tmp.list[search_level].colors[search_level] = "palegreen" # If a node was compared but is not used in the path
                 tmp.colors[search_level] = path_color
                 search_level -= 1
                 tmp.colors[search_level] = current_color  # Set the current node to salmon
-                self.animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
-                self.animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 4)
+                animation_handler.get_instance().skip_list_graph_list.append(tmp_graph.create_graph(self))
+                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 4)
 
     # Search is not animated, just for backend purposes
     def search(self, value):

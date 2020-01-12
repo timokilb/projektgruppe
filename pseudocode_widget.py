@@ -57,7 +57,8 @@ class PseudocodeWidget:
 
     def update(self, filename, line):
         self.open_text_file(filename)
-        self.set_color("yellow", line)
+        self.set_color("palegreen", line)
+
 
     def pack_labels(self):
         for element in self.get_instance().labels:
@@ -65,6 +66,7 @@ class PseudocodeWidget:
 
     def set_color(self, color, index):
         self.get_label(index)["bg"] = color
+        self.get_label((index))["fg"] = "black"
 
     # open File wich contains pseudocode
     def open_text_file(self, string):

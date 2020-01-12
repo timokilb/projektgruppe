@@ -3,8 +3,8 @@
 
 import pseudocode_widget as pw
 
-class AnimationHandler:
 
+class AnimationHandler:
     class __AnimationHandler:
 
         def __init__(self, master=None):
@@ -18,7 +18,6 @@ class AnimationHandler:
     def __init__(self, master=None):
         if not AnimationHandler.__instance:
             AnimationHandler.__instance = AnimationHandler.__AnimationHandler(master)
-
 
     def get_instance(self):
         return AnimationHandler.__instance
@@ -43,7 +42,8 @@ class AnimationHandler:
         AnimationHandler.__instance.pseudocode_list.clear()
 
     def display(self, index):
-        AnimationHandler.__instance.pseudocode_widget.set_color("yellow", index)
+        AnimationHandler.__instance.pseudocode_widget.set_color("palegreen", index)
+
 
 """
 Wir rufen immer auf: update_canvas(skip_list_graph_list(index))
