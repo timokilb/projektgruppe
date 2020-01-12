@@ -55,9 +55,9 @@ class PseudocodeWidget:
             all_label.append(element)
         return all_label
 
-    def update(self):
-        # self.__instance.pseudocode_list.append(self.__instance.labels)
-        PseudocodeWidget.__instance.pseudocode_list.append(PseudocodeWidget.__instance.labels)
+    def update(self, filename, line):
+        self.open_text_file(filename)
+        self.set_color("yellow", line)
 
     def pack_labels(self):
         for element in self.get_instance().labels:
@@ -65,7 +65,6 @@ class PseudocodeWidget:
 
     def set_color(self, color, index):
         self.get_label(index)["bg"] = color
-        self.update()
 
     # open File wich contains pseudocode
     def open_text_file(self, string):
@@ -76,6 +75,7 @@ class PseudocodeWidget:
             PseudocodeWidget.__instance.labels[position].config(text=line, bg="#2b2b2b", fg="#a9b7c6", anchor="nw",
                                                                 font="helvetica, 14", height=1)
             position += 1
+
 
 if __name__ == "__main__":
     root = tk.Tk()

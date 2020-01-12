@@ -33,6 +33,7 @@ class AnimationHandler:
         else:
             print("ERR: graph_list must be one of the following strings: treap, skip_list")
 
+
     def clear(self):
         self.treap_graph_list.clear()
         self.skip_list_graph_list.clear()
@@ -53,11 +54,4 @@ if treap or skiplist: je nachdem welcher eingestellt ist
     update pseudocode_widget(animation_handler.pseudo_list[index])
     
 Also noch in pseudocode widget funktion erstellen, die ein tupel aus (data.txt, line) nimmt und updated, sowas wie
-
-def update_pseudocode(filename, line)
-    open_text_file(filename)
-    set_color(color, line)
-
-
-Lol glaube so müsste es funktionieren hätte es jetzt auch in code schrieben können xD
 """
