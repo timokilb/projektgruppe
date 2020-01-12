@@ -13,11 +13,11 @@ class Treap:
     def insert(self, key, graph_list, treap, parent=None):
         self.root = self.root.insert(key, graph_list, treap, parent)
 
-    def find(self, key, graph_list, treap):
+    def find(self, key, treap):
         tmp_graph = tr.TreapGraph(treap)
         self.root.clear_colors()
-        graph_list.append(tmp_graph.create_graph())
-        tmp = self.root.find(key, graph_list, treap)
+        # animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 5)
+        tmp = self.root.find(key, treap)
         return tmp
 
     def clear_colors(self):

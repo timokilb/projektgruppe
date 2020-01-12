@@ -15,10 +15,7 @@ class TreapGraph:
         return graph
 
     def draw_treap(self, node, graph, xpos, ypos):
-        #TODO :
-        if node.key is None:
-            return
-        graph.add_node(node.key, pos=(xpos, ypos), label=node.key, color=node.color)  # Draw
+        graph.add_node(node.key, pos=(xpos, ypos), label= str(node.key) + "\n" + str(node.priority), color=node.color)  
         print("added Node : ", node.key, "prio : ", node.priority)
         if node.parent_node:
             graph.add_edge(node.key, node.parent_node.key)

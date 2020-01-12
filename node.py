@@ -1,8 +1,8 @@
 import random
 import math
-import time
 from tkinter import messagebox
 import treap_graph as tr
+import animation_handler as ah
 
 
 class Node:
@@ -14,19 +14,19 @@ class Node:
         self.right_node = None
         self.parent_node = parent
         self.xpos = 0
-        self.color =None #"palegreen"
+        self.color = "palegreen"
 
-    def set_color_default(self, key, graph_list,treap):
-       pass
+    def set_color_default(self, key, graph_list, treap):
+        pass
+
     """
-    
     Return-value :type NODE
     Graph_list   :type 
-    
     """
+
     def insert(self, key, graph_list, treap, parent=None):
         tmp_graph = tr.TreapGraph(treap)
-        #graph_list.append(tmp_graph.create_graph())
+        # graph_list.append(tmp_graph.create_graph())
         tmp = self
         if key == self.key:
             messagebox.showinfo("Warning", f"{key} already in Treap! Ignoring this entry")
@@ -46,11 +46,11 @@ class Node:
 
                 if self.left_node.priority > self.priority:
                     tmp = self.left_node.rotate_right()
-                   # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-                    # added rotated graph to list
+                # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+                # added rotated graph to list
                 return tmp
             else:
-                self.left_node.insert(key, graph_list,treap, self)
+                self.left_node.insert(key, graph_list, treap, self)
         else:
             if not self.right_node:
                 self.right_node = Node(key, self)
@@ -58,7 +58,7 @@ class Node:
                 graph_list.append(tmp_graph.create_graph())
                 if self.right_node.priority > self.priority:
                     tmp = self.right_node.rotate_left()
-                   # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+                # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
                 return tmp
             else:
                 self.right_node.insert(key, graph_list, treap, self)
@@ -67,22 +67,23 @@ class Node:
             tmp = tmp.parent_node
         return tmp
 
-
     """
     Return-value :type NODE
     Graph_list   :type  List
     """
-    def find(self, key, graph_list, treap):
+
+    def find(self, key, treap):
+        animation_handler =ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
         if self.key == key:
             tmp = self
             tmp.color = "red"
-            graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
         elif key < self.key:
             if self.left_node:
                 self.color = "grey"
-                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-                tmp = self.left_node.find(key, graph_list, treap)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 4)
+                tmp = self.left_node.find(key, treap)
             else:
                 # print("Error : Key not found ")
                 messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
@@ -90,18 +91,17 @@ class Node:
         else:
             if self.right_node:
                 self.color = "grey"
-                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-                tmp = self.right_node.find(key, graph_list, treap)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 7)
+                tmp = self.right_node.find(key, treap)
             else:
                 messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
                 return False
         return tmp
 
-
-
     """
     :return node 
     """
+
     # Todo: Cases checken , problems with deleting the root !!! rotations are working abs. fine
     def delete(self, key, graph_list, treap):
         # Case 0 : key not in Treap
@@ -120,7 +120,7 @@ class Node:
                     tmp.parent_node.right_node = None
                     return tmp
             # Node is Root
-            #TODO mit clear vllt arbeiten !!
+            # TODO mit clear vllt arbeiten !!
             else:
                 tmp.key = None
                 tmp.priority = random.randint(1, 1001)  # sonst wird nur key gelöscht prio w+rde gleich bleiebn ohne
@@ -252,4 +252,3 @@ class Node:
             self.left_node.clear_colors()
         if self.right_node:
             self.right_node.clear_colors()
-

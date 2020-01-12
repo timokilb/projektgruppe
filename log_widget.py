@@ -15,14 +15,13 @@ class LogWidget:
     class __LogWidget:
 
         def __init__(self):
-            self.lines = ["Marvin is ein Lappen",
-                          "Marvin ist zwei Lappen",
-                          "Marvin ist drei Lappen",
-                          "Marvin sind 4 Lappen",
-                          "Marvin is ein Lappen",
-                          "Marvin ist zwei Lappen",
-                          "Marvin ist zwei Lappen"]
-
+            self.lines = ["_",
+                          "/\  / o o \ ",
+                          "//\\ \~(*)~/ ",
+                          "`  \/   ^ /",
+                          "   | \|| ||  ",
+                          "   \ '|| ||  ",
+                          "    \)()-())"]
     __instance = None
 
     def __init__(self):
