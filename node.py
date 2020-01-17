@@ -24,56 +24,55 @@ class Node:
     Graph_list   :type 
     """
 
-    def insert(self, key, graph_list, treap, parent=None):
+    def insert(self, key, treap, parent=None):
+        animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
-        # graph_list.append(tmp_graph.create_graph())
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
         tmp = self
         if key == self.key:
             messagebox.showinfo("Warning", f"{key} already in Treap! Ignoring this entry")
             return tmp
-
         if self.key is None:
             self.key = key
             self.color = "palegreen"
-            graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
             return tmp
 
         elif key < self.key:
             if not self.left_node:
                 self.left_node = Node(key, self)
                 self.left_node.color = "palegreen"
-                graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
                 if self.left_node.priority > self.priority:
                     tmp = self.left_node.rotate_right()
-                # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
-                # added rotated graph to list
                 return tmp
             else:
-                self.left_node.insert(key, graph_list, treap, self)
+                self.left_node.color ="orange"
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
+                self.left_node.color = "palegreen"
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
+                self.left_node.insert(key, treap, self)
         else:
             if not self.right_node:
                 self.right_node = Node(key, self)
                 self.right_node.color = "palegreen"
-                graph_list.append(tmp_graph.create_graph())
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
                 if self.right_node.priority > self.priority:
                     tmp = self.right_node.rotate_left()
-                # graph_list.append(tmp_graph.create_graph())  # Append it to the list of graphs
                 return tmp
             else:
-                self.right_node.insert(key, graph_list, treap, self)
+                self.right_node.color = "orange"
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
+                self.right_node.color = "palegreen"
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
+                self.right_node.insert(key, treap, self)
 
         while tmp.parent_node:
             tmp = tmp.parent_node
         return tmp
 
-    """
-    Return-value :type NODE
-    Graph_list   :type  List
-    """
-
     def find(self, key, treap):
-        animation_handler =ah.AnimationHandler()
+        animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
         if self.key == key:
             tmp = self

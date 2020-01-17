@@ -78,8 +78,3 @@ class PseudocodeWidget:
                                                                 font="helvetica, 14", height=1)
             position += 1
 
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    widget = PseudocodeWidget(root)
-    widget.update()

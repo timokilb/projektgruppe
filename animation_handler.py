@@ -22,13 +22,13 @@ class AnimationHandler:
     def get_instance(self):
         return AnimationHandler.__instance
 
-    def push(self, graph, graph_list, pseudocode, line):
-        if graph_list == "skip_list":
+    def push(self, graph, algorithm, pseudocode, line):
+        if algorithm == "skip_list":
             AnimationHandler.__instance.pseudocode_widget.restore_default()
             AnimationHandler.__instance.skip_list_graph_list.append(graph)
             tmp = [pseudocode, line]
             AnimationHandler.__instance.pseudocode_list.append(tmp)
-        elif graph_list == "treap":
+        elif algorithm == "treap":
             AnimationHandler.__instance.pseudocode_widget.restore_default()
             AnimationHandler.__instance.treap_graph_list.append(graph)
             tmp = [pseudocode, line]
@@ -45,11 +45,3 @@ class AnimationHandler:
         AnimationHandler.__instance.pseudocode_widget.set_color("palegreen", index)
 
 
-"""
-Wir rufen immer auf: update_canvas(skip_list_graph_list(index))
-Dies geschieht aber in der window datei - also in window datei global
-den animation handler verwalten, animationen immer in diesen pushen mit der push funktion
-dann aber in window etc muss wegen update canvas ca. wie folgt stehen:
-
-    
-"""

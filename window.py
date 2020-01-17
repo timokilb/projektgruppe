@@ -53,11 +53,7 @@ def search_command():
     log_message.config(text=log_widget.update())
 
     if algorithm.get() == "Skip List":
-        print(len(animation_handler.get_instance().skip_list_graph_list), "skip list")
-        print(len(animation_handler.get_instance().pseudocode_list), "pseudocode")
         skip_list.find(value)
-        print(len(animation_handler.get_instance().skip_list_graph_list), "skip list")
-        print(len(animation_handler.get_instance().pseudocode_list), "pseudocode direkt nach find")
         update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().pseudocode_list[graph_list_index][1])
@@ -86,6 +82,7 @@ def insert_command():
     animation_handler.get_instance().pseudocode_list.clear()
     graph_list_index = 0
     plot.clear()
+
     try:
         value = int(value_entry.get())
     except:
@@ -94,7 +91,7 @@ def insert_command():
         return
 
     skip_list.insert(value, animation_handler.get_instance().skip_list_graph_list)
-    treap.insert(value, animation_handler.get_instance().treap_graph_list, treap)
+    treap.insert(value, treap)
 
     # Handling the log widget:
     log_widget.push(f"Inserted Key: {value}")
@@ -106,8 +103,8 @@ def insert_command():
     #                         animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-    # pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-    #                          animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+        pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],  # text
+                              animation_handler.get_instance().pseudocode_list[graph_list_index][1])  # color
 
     value_entry.delete(0, tk.END)
     # value_entry.insert(0, f"\tLast Operation was INSERT with Key : {value}")
@@ -271,8 +268,9 @@ def read_data_command():
         animation_handler.get_instance().skip_list_graph_list.clear()
         animation_handler.get_instance().treap_graph_list.clear()
         animation_handler.get_instance().pseudocode_list.clear()
+
         skip_list.insert(int(line), animation_handler.get_instance().skip_list_graph_list)
-        treap.insert(int(line), animation_handler.get_instance().treap_graph_list, treap)
+        treap.insert(int(line), treap)
 
         if algorithm.get() == "Skip List":
             update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
@@ -280,8 +278,8 @@ def read_data_command():
             #                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
         else:
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-            # pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-            #                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                  animation_handler.get_instance().pseudocode_list[graph_list_index][1])
 
 
 # opens FileExplorer to choose ONLY .txt files

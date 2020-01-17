@@ -1,7 +1,6 @@
 import time
 
 import networkx as nx
-import node as nd
 
 
 class TreapGraph:
