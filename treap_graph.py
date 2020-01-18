@@ -17,13 +17,11 @@ class TreapGraph:
         if node.key is None:
             graph.add_node(node.key, pos=(xpos, ypos), label=node.key,
                            color=node.color)
-            print("added here du nutte ")
         else:
-            graph.add_node(node.key, pos=(xpos, ypos), label= str(node.key) + "\n" + str(node.priority), color=node.color)
-            print("added Node : ", node.key, "prio : ", node.priority)
+            graph.add_node(node.key, pos=(xpos, ypos), label=str(node.key) + "\n" + str(node.priority),
+                           color=node.color)
         if node.parent_node:
             graph.add_edge(node.key, node.parent_node.key)
-            print("added edge ", node.key, "to", node.parent_node.key)
         node.xpos = xpos  # Set position of node for recursive callback
         if node.left_node is not None:  # Drawing a left child
             if node.parent_node is None:  # Root case
@@ -49,5 +47,5 @@ class TreapGraph:
         color_list = []
         for color in color_dict:
             color_list.append(color_dict[color])
-        nx.draw(self.graph, pos, node_size=700, node_color=color_list, labels=label, with_labels=True, ax=plot)
+        nx.draw(self.graph, pos, node_size=1000, node_color=color_list, labels=label, with_labels=True, ax=plot)
         canvas.draw()

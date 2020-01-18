@@ -29,7 +29,7 @@ class Node:
         tmp_graph = tr.TreapGraph(treap)
         tmp = self
         if key == self.key:
-            messagebox.showinfo("Warning", f"{key} already in Treap! Ignoring this entry")
+            #messagebox.showinfo("Warning", f"{key} already in Treap! Ignoring this entry")
             return tmp
         if self.key is None:
             self.color = "red"
@@ -46,6 +46,7 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 if self.left_node.priority > self.priority:
                     tmp = self.left_node.rotate_right()
+                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 return tmp
             else:
                 self.left_node.color ="orange"
@@ -60,6 +61,7 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 if self.right_node.priority > self.priority:
                     tmp = self.right_node.rotate_left()
+                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 return tmp
             else:
                 self.right_node.color = "orange"
@@ -73,28 +75,33 @@ class Node:
         return tmp
 
     def find(self, key, treap):
+        if self.key is None:
+            return False
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
+        if self.parent_node is None:
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
         if self.key == key:
             tmp = self
             tmp.color = "red"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 3)
         elif key < self.key:
             if self.left_node:
                 self.color = "grey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 4)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 5)
                 tmp = self.left_node.find(key, treap)
             else:
-                # print("Error : Key not found ")
-                messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
                 return False
         else:
             if self.right_node:
                 self.color = "grey"
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 6)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 7)
                 tmp = self.right_node.find(key, treap)
             else:
-                messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
+               # messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
                 return False
         return tmp
 

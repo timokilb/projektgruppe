@@ -26,7 +26,7 @@ def update_canvas(graph):
     color_list = []
     for color in color_dict:
         color_list.append(color_dict[color])
-    nx.draw(graph, pos, node_size=700, node_color=color_list, labels=label, with_labels=True, ax=plot)
+    nx.draw(graph, pos, node_size=1000, node_color=color_list, labels=label, with_labels=True, ax=plot)
     canvas.draw()
 
 
@@ -58,6 +58,13 @@ def search_command():
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
+        if treap.find(value, treap) is False:
+            print("dlsfjlsdkjflkdsf")
+            animation_handler.get_instance().treap_graph_list.clear()
+            animation_handler.get_instance().pseudocode_list.clear()
+            log_widget.push(f"{value} is not in Treap")
+            log_message.config(text=log_widget.update())
+            return
         treap.find(value, treap)
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
@@ -280,7 +287,6 @@ def read_data_command():
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().pseudocode_list[graph_list_index][1])
-
 
 # opens FileExplorer to choose ONLY .txt files
 # TODO: Handle spezial chars !
