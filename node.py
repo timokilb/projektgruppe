@@ -32,6 +32,7 @@ class Node:
             messagebox.showinfo("Warning", f"{key} already in Treap! Ignoring this entry")
             return tmp
         if self.key is None:
+            self.color = "red"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
             self.key = key
             self.color = "palegreen"

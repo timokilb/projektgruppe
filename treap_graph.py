@@ -14,8 +14,13 @@ class TreapGraph:
         return graph
 
     def draw_treap(self, node, graph, xpos, ypos):
-        graph.add_node(node.key, pos=(xpos, ypos), label= str(node.key) + "\n" + str(node.priority), color=node.color)  
-        print("added Node : ", node.key, "prio : ", node.priority)
+        if node.key is None:
+            graph.add_node(node.key, pos=(xpos, ypos), label=node.key,
+                           color=node.color)
+            print("added here du nutte ")
+        else:
+            graph.add_node(node.key, pos=(xpos, ypos), label= str(node.key) + "\n" + str(node.priority), color=node.color)
+            print("added Node : ", node.key, "prio : ", node.priority)
         if node.parent_node:
             graph.add_edge(node.key, node.parent_node.key)
             print("added edge ", node.key, "to", node.parent_node.key)
