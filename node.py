@@ -27,22 +27,22 @@ class Node:
     def insert(self, key, treap, parent=None):
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
         tmp = self
         if key == self.key:
             messagebox.showinfo("Warning", f"{key} already in Treap! Ignoring this entry")
             return tmp
         if self.key is None:
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
             self.key = key
             self.color = "palegreen"
-            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 3)
             return tmp
 
         elif key < self.key:
             if not self.left_node:
                 self.left_node = Node(key, self)
                 self.left_node.color = "palegreen"
-                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 if self.left_node.priority > self.priority:
                     tmp = self.left_node.rotate_right()
                 return tmp
@@ -56,7 +56,7 @@ class Node:
             if not self.right_node:
                 self.right_node = Node(key, self)
                 self.right_node.color = "palegreen"
-                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 if self.right_node.priority > self.priority:
                     tmp = self.right_node.rotate_left()
                 return tmp
