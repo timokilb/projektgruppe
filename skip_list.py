@@ -207,7 +207,9 @@ class SkipList:
                     tmp.colors[search_level] = path_color
                     tmp.list[search_level].colors[search_level] = "peachpuff"   # Node to be deleted has been found
                     if search_level == 0:
+                        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 7)
                         animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 8)
+                        tmp.list[search_level] = tmp.list[search_level].list[search_level]  # Overwritten the old pointer
                         animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 9)
                         return 0
                     """tmp.list[search_level].height -= 1
@@ -215,7 +217,9 @@ class SkipList:
                     tmp.list[search_level] = tmp.list[search_level].list[search_level]  #Overwritten the old pointer
                     animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 7)
                     break
-                elif math.inf == tmp.list[search_level].value:
+#                elif math.inf == tmp.list[search_level].value:
+                elif tmp.list[search_level].value > value:
+
                     tmp.colors[search_level] = path_color
                     tmp.list[search_level].colors[search_level] = "palegreen"
                     break
