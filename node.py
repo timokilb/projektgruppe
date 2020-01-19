@@ -73,6 +73,8 @@ class Node:
             tmp = tmp.parent_node
         return tmp
 
+
+
     def find(self, key, treap):
         if self.key is None:
             return False
@@ -102,6 +104,12 @@ class Node:
             else:
                # messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
                 return False
+            while tmp.parent_node:
+                tmp.color = "palegreen"
+                tmp = tmp.parent_node
+            tmp.color = "palegreen"
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
+
         return tmp
 
     """

@@ -1,10 +1,6 @@
-
 from node import Node
-import treap_graph as tr
+import time
 
-
-# todo: comment code
-#
 
 class Treap:
     def __init__(self):
