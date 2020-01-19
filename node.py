@@ -46,7 +46,6 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 if self.left_node.priority > self.priority:
                     tmp = self.left_node.rotate_right()
-                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 return tmp
             else:
                 self.left_node.color ="orange"
@@ -54,6 +53,7 @@ class Node:
                 self.left_node.color = "palegreen"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 self.left_node.insert(key, treap, self)
+
         else:
             if not self.right_node:
                 self.right_node = Node(key, self)
@@ -61,7 +61,6 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 if self.right_node.priority > self.priority:
                     tmp = self.right_node.rotate_left()
-                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 return tmp
             else:
                 self.right_node.color = "orange"

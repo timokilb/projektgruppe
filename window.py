@@ -13,7 +13,7 @@ from treap_graph import TreapGraph
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from tkinter import filedialog, messagebox
-from PIL import ImageTk, Image
+import time
 
 
 def update_canvas(graph):
@@ -43,6 +43,7 @@ def search_command():
     animation_handler.get_instance().skip_list_graph_list.clear()
     animation_handler.get_instance().treap_graph_list.clear()
     animation_handler.get_instance().pseudocode_list.clear()
+    animation_handler.get_instance().treap_pseudocode_list.clear()
     graph_list_index = 0
     plot.clear()
 
@@ -58,17 +59,10 @@ def search_command():
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
-        if treap.find(value, treap) is False:
-            print("dlsfjlsdkjflkdsf")
-            animation_handler.get_instance().treap_graph_list.clear()
-            animation_handler.get_instance().pseudocode_list.clear()
-            log_widget.push(f"{value} is not in Treap")
-            log_message.config(text=log_widget.update())
-            return
         treap.find(value, treap)
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-        pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-                              animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+        pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                              animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
     value_entry.delete(0, tk.END)
 
 
@@ -87,6 +81,7 @@ def insert_command():
     animation_handler.get_instance().skip_list_graph_list.clear()
     animation_handler.get_instance().treap_graph_list.clear()
     animation_handler.get_instance().pseudocode_list.clear()
+    animation_handler.get_instance().treap_pseudocode_list.clear()
     graph_list_index = 0
     plot.clear()
 
@@ -110,8 +105,8 @@ def insert_command():
     #                         animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-        pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],  # text
-                              animation_handler.get_instance().pseudocode_list[graph_list_index][1])  # color
+        pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],  # text
+                              animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])  # color
 
     value_entry.delete(0, tk.END)
     # value_entry.insert(0, f"\tLast Operation was INSERT with Key : {value}")
@@ -128,6 +123,7 @@ def delete_command():
     animation_handler.get_instance().skip_list_graph_list.clear()
     animation_handler.get_instance().treap_graph_list.clear()
     animation_handler.get_instance().pseudocode_list.clear()
+    animation_handler.get_instance().treap_pseudocode_list.clear()
 
     graph_list_index = 0
     plot.clear()
@@ -173,8 +169,8 @@ def play_command():
             timestamp = int(math.floor(time.time()))
             while math.floor(time.time()) < timestamp + 1:
                 update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-                                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+                pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
 
 
 def previous_command():
@@ -192,8 +188,8 @@ def previous_command():
         if graph_list_index < len(animation_handler.get_instance().treap_graph_list):
             graph_list_index -= 1
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-            pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-                                  animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                                  animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
 
 
 def next_command():
@@ -211,8 +207,8 @@ def next_command():
         if graph_list_index < len(animation_handler.get_instance().treap_graph_list) - 1:
             graph_list_index += 1
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-            pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-                                  animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                                  animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
 
 
 def stop_command():
@@ -238,6 +234,7 @@ def clear_command():
     animation_handler.get_instance().skip_list_graph_list.clear()
     animation_handler.get_instance().treap_graph_list.clear()
     animation_handler.get_instance().pseudocode_list.clear()
+    animation_handler.get_instance().treap_pseudocode_list.clear()
 
     treap_graph = TreapGraph(treap)
     skip_list_graph = SkipListGraph(skip_list)
@@ -275,6 +272,7 @@ def read_data_command():
         animation_handler.get_instance().skip_list_graph_list.clear()
         animation_handler.get_instance().treap_graph_list.clear()
         animation_handler.get_instance().pseudocode_list.clear()
+        animation_handler.get_instance().treap_pseudocode_list.clear()
 
         skip_list.insert(int(line), animation_handler.get_instance().skip_list_graph_list)
         treap.insert(int(line), treap)
@@ -283,10 +281,11 @@ def read_data_command():
             update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
             # pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
             #                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
-        else:
+        elif algorithm.get() == "Treap":
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-            pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-                                  animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                                  animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
+
 
 # opens FileExplorer to choose ONLY .txt files
 # TODO: Handle spezial chars !

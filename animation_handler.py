@@ -6,12 +6,13 @@ import pseudocode_widget as pw
 
 class AnimationHandler:
     class __AnimationHandler:
-
+        # TODO :self.treap_pseudocode_list = []
         def __init__(self, master=None):
             self.treap_graph_list = []
             self.skip_list_graph_list = []
             self.pseudocode_widget = pw.PseudocodeWidget(master)
             self.pseudocode_list = []
+            self.treap_pseudocode_list = []
 
     __instance = None
 
@@ -32,7 +33,7 @@ class AnimationHandler:
             AnimationHandler.__instance.pseudocode_widget.restore_default()
             AnimationHandler.__instance.treap_graph_list.append(graph)
             tmp = [pseudocode, line]
-            AnimationHandler.__instance.pseudocode_list.append(tmp)
+            AnimationHandler.__instance.treap_pseudocode_list.append(tmp)
         else:
             print("ERR: graph_list must be one of the following strings: treap, skip_list")
 
@@ -40,8 +41,7 @@ class AnimationHandler:
         AnimationHandler.__instance.treap_graph_list.clear()
         AnimationHandler.__instance.skip_list_graph_list.clear()
         AnimationHandler.__instance.pseudocode_list.clear()
+        AnimationHandler.__instance.treap_pseudocode_list.clear()
 
     def display(self, index):
         AnimationHandler.__instance.pseudocode_widget.set_color("palegreen", index)
-
-
