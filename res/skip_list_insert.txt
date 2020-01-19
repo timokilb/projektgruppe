@@ -1,10 +1,10 @@
 Insert(key):
 ------------------------------
-skip_node = SkipNode(key)
-tmp = skip_list.root
-while search_level >=0:
-    while key >= tmp.next.key:
-        tmp = tmp.next
-    skip_node.next = tmp.next
-    tmp.next = skip_node
-    search_level -= 1
+1: skip_node = SkipNode(key)
+2: tmp = skip_list.root
+3: while search_level >=0:
+4:     while key >= tmp.next.key:
+5:         tmp = tmp.next
+6:     skip_node.next = tmp.next
+7:     tmp.next = skip_node
+8:     search_level -= 1
