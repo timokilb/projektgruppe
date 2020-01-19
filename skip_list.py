@@ -161,21 +161,31 @@ class SkipList:
         compare_color = "orange"
         current_color = "salmon"
         path_color = "dimgrey"
+        animation_handler = ah.AnimationHandler()
         tmp_graph = sl.SkipListGraph()
-        graph_list.append(tmp_graph.create_graph(self))  # Append it to the list of graphs
-        tmp_graph.graph.add_node(str(value), pos=(-1, -1), label=value, color="red")
-        graph_list.append(tmp_graph.create_graph(self))
         self.number_of_elements += 1  # Increasing the Skip Node count
         self.max_level = self.recalculate_max_level()  # Recalculating the new max level
         skip_node = SkipNode(value, self.max_level)
-        #print(value, "is initialized with height of: ", len(skip_node.list), "and height of: ", skip_node.height,  "while border height is ", self.root.height)
-        search_level = skip_node.height - 1   # We cannot insert it above its height TODO: - 1 changed
+        search_level = skip_node.height - 1   # We cannot insert it above its height
         tmp = self.root  # Using tmp to find the right spot to insert
+        tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
+        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 4)
         while search_level >= 0:
-            while value >= tmp.list[search_level].value:  # Go right until overshoot
+            tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
+            animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 5)
+            while value > tmp.list[search_level].value:  # Go right until overshoot
+                tmp.list[search_level].colors[search_level] = compare_color # Set the next skip node color
+                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 6)
+                tmp.colors[search_level] = path_color  # Set the starting node ( top left corner ) to salmon
                 tmp = tmp.list[search_level]
+                tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
+                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 7)
+            animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 8)
             skip_node.list[search_level] = tmp.list[search_level]
+            tmp.colors[search_level] = "peachpuff"  # Set the starting node ( top left corner ) to salmon
+            animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 9)
             tmp.list[search_level] = skip_node  # Doing the necessary pointer stuff
+            animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 10)
             search_level -= 1
         return
 
