@@ -70,7 +70,10 @@ class Node:
                 self.right_node.insert(key, treap, self)
 
         while tmp.parent_node:
+            tmp.color = "palegreen"
             tmp = tmp.parent_node
+        tmp.color = "palegreen"
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
         return tmp
 
 
