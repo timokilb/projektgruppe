@@ -8,6 +8,7 @@ class Treap:
 
     def insert(self, key, treap, parent=None):
         self.root = self.root.insert(key, treap, parent)
+        self.root.clear_colors()
 
     def find(self, key, treap):
         tmp = self.root.find(key, treap)
@@ -23,5 +24,3 @@ class Treap:
     def pre_order(self, graph_list):
         self.root.pre_order(graph_list)
 
-    def set_color(self, graph_list):
-        self.root = self.root.set_color(graph_list)
