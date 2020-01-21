@@ -26,7 +26,7 @@ def update_canvas(graph):
     color_list = []
     for color in color_dict:
         color_list.append(color_dict[color])
-    nx.draw(graph, pos, node_size=1000, node_color=color_list, labels=label, with_labels=True, ax=plot)
+    nx.draw(graph, pos, node_size=500, node_color=color_list, labels=label, with_labels=True, ax=plot)
     canvas.draw()
 
 
@@ -116,7 +116,8 @@ def insert_command():
 def delete_command():
     global algorithm
     global graph_list_index
-    global current_presst_button
+    global animation_handler
+    global treap
     global log_widget
     global log_message
 
@@ -130,7 +131,7 @@ def delete_command():
 
     value = int(value_entry.get())
     skip_list.delete(value)
-    treap.delete(value, animation_handler.get_instance().treap_graph_list, treap)
+    treap.delete(value, treap)
 
     # Handling the log widget:
     log_widget.push(f"Deleted Key: {value}")
@@ -143,9 +144,9 @@ def delete_command():
                               animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
         # TODO UPDATE CANVAS
-        treap_graph.draw(treap, plot, canvas)
-        pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-                              animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+        update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
+        pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                              animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
     value_entry.delete(0, tk.END)
     # value_entry.insert(0, f"\tLast Operation was DELETE with Key : {value}")
 
