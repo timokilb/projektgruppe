@@ -28,12 +28,12 @@ class Node:
         # pseudo should start at top
         if self.parent_node is None:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
+
         # TODO ÜBERLEGEN OB SO GEWOLLT
         if key == self.key:
             while tmp.parent_node:
                 tmp = tmp.parent_node
             tmp.find(key, treap)
-            return tmp
 
         if self.key is None:
             self.color = "red"
@@ -41,9 +41,8 @@ class Node:
             self.key = key
             self.color = "palegreen"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 3)
-            return tmp
 
-        elif key < self.key:
+        elif key <= self.key:
             self.color = "grey"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 4)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 5)
@@ -57,8 +56,8 @@ class Node:
                 if self.left_node.priority > self.priority:
                     tmp = self.left_node.rotate_right(treap)
                 self.default_color()
+                print()
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
-                return tmp
             else:
 
                 self.left_node.insert(key, treap, self)
@@ -78,13 +77,11 @@ class Node:
                     tmp = self.right_node.rotate_left(treap)
                 self.default_color()
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
-                return tmp
             else:
                 self.right_node.insert(key, treap, self)
         while tmp.parent_node:
             tmp = tmp.parent_node
         tmp.default_color()
-        return tmp
 
     def find(self, key, treap):
 
@@ -101,7 +98,7 @@ class Node:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 3)
             return tmp
-        elif key < self.key:
+        elif key <= self.key:
             if self.left_node:
                 self.color = "grey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 4)
@@ -131,7 +128,7 @@ class Node:
             return self
         elif key > self.key:
             return self.right_node.find_node(key)
-        elif key < self.key:
+        elif key <= self.key:
             return self.left_node.find_node(key)
 
     # Todo: Cases checken , problems with deleting the root !!! rotations are working abs. fine
@@ -140,110 +137,51 @@ class Node:
         tmp_graph = tr.TreapGraph(treap)
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 2)
-        # Case 0 : key not in Treap
-        # this case gets handelt in function : find(self, key)
         self.find(key, treap)
         tmp = self.find_node(key)
         tmp.color = "red"
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 2)
+
         # Case 1 : node to be deleted is a Leaf
         if tmp.left_node is None and tmp.right_node is None:
             # Node to be deleted is not Root
             if tmp.parent_node is not None:
-                # Node is left-Node from Parents perspective
+            # Node is left-Node from Parents perspective
                 tmp.color = "red"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 4)
+
                 if tmp.parent_node.left_node == tmp:
                     tmp.parent_node.left_node = None
-                    tmp.color ="pale"
+                    tmp.color = "palegreen"
                     animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
-                    return tmp
-
+                    return
                 # Node is right_node from Parents perspective
                 else:
                     tmp.parent_node.right_node = None
                     animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
-                    return tmp
+                    return
             # Node is Root
-            # TODO mit clear vllt arbeiten !!
             else:
                 tmp.key = None
                 tmp.priority = random.randint(1, 1001)  # sonst wird nur key gelöscht prio w+rde gleich bleiebn ohne
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
-                return tmp
-
-        # Case 2.1: Node to be deleted has no left but a right node
-        elif tmp.left_node is None and tmp.right_node is not None:
-            # Node  is left_node from Parents perspective
-            tmp.right_node.color = "red"
-            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-            if tmp.parent_node and tmp.parent_node.left_node == tmp:
-                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-                tmp.parent_node.left_node = tmp.right_node
-                tmp.right_node.parent_node = tmp.parent_node
-                tmp = None
-                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-                return tmp
-            # Node is right_node from Parents perspective
-            elif tmp.parent_node and tmp.parent_node.right_node:
-                tmp.parent_node.right_node = tmp.right_node
-                tmp.right_node.parent_node = tmp.parent_node
-                tmp = None
-                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-                return tmp
-            # Node is root
-            else:
-                tmp.key = tmp.right_node.key
-                tmp.right_node.parent_node = None
-                if tmp.right_node.left_node is not None:
-                    tmp.left_node = tmp.right_node.left_node
-                    tmp.left_node.parent_node = tmp
-                if tmp.right_node.right_node is not None:
-                    tmp.right_node = tmp.right_node.right_node
-                    tmp.right_node.parent_node = tmp
-                    tmp.right_node = None
-                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-                    return tmp
-
-        # Case 2.2 : Node to be deleted has no right but a left node
-        elif tmp.left_node and not tmp.right_node:
-            tmp.left_node.color = "red"
-            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-            # Node is left-Node from Parents perspective
-            if tmp.parent_node and tmp.parent_node.left_node == tmp:
-                tmp.parent_node.left_node = tmp.left_node
-                tmp.left_node.parent_node = tmp.parent_node
-                tmp = None
-                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-                return tmp
-            # Node is right_node from Parents perspective
-            elif tmp.parent_node and tmp.parent_node.right_node == tmp:
-                tmp.parent_node.right_node = tmp.left_node
-                tmp.left_node.parent_node = tmp.parent_node
-                tmp = None
-                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
-                return tmp
-            # Node is root
-            else:
-                tmp.key = tmp.left_node.key
-                tmp.left_node.parent_node = None
-                if tmp.left_node.right_node is not None:
-                    tmp.right_node = tmp.left_node.right_node
-                    tmp.right_node.parent_node = tmp
-                if tmp.left_node.left_node is not None:
-                    tmp.left_node = tmp.left_node.left_node
-                    tmp.left_node.parent_node = tmp
-                return tmp
-        # Case 3 : Node has a left and right Node
+                return
         else:
             tmp.priority = -math.inf
-            tmp.move_down(treap)
-            tmp.delete(key, treap)
-        while tmp.parent_node:
-            tmp = tmp.parent_node
-        tmp.default_color()
-        return tmp
-
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 3)
+            if tmp.left_node is None:
+                tmp.right_node.rotate_left(treap)
+                tmp.delete(key, treap)
+                return
+            elif tmp.right_node is None:
+                tmp.left_node.rotate_right(treap)
+                tmp.delete(key, treap)
+                return
+            else:
+                tmp.move_down(treap)
+                tmp.delete(key, treap)
+                return
+        return
     # Moving a Node trough left/right rotation down
     def move_down(self, treap):
         if self.left_node.priority > self.right_node.priority:
@@ -275,6 +213,8 @@ class Node:
         self.left_node = self.parent_node
         self.parent_node = self.parent_node.parent_node
         self.left_node.parent_node = self
+        if self.parent_node is None:
+            treap.root = self
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 11)
         self.left_node.color = "palegreen"
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 11)
@@ -312,6 +252,10 @@ class Node:
         self.right_node = self.parent_node
         self.parent_node = self.parent_node.parent_node
         self.right_node.parent_node = self
+
+        if self.parent_node is None:
+            treap.root = self
+
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 7)
         self.right_node.color = "palegreen"
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 7)

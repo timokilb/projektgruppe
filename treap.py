@@ -4,7 +4,7 @@ class Treap:
         self.root = Node()
 
     def insert(self, key, treap, parent=None):
-        self.root = self.root.insert(key, treap, parent)
+        self.root.insert(key, treap, parent)
 
     def find(self, key, treap):
         self.root.find(key, treap)
