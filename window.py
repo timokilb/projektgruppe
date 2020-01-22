@@ -26,7 +26,7 @@ def update_canvas(graph):
     color_list = []
     for color in color_dict:
         color_list.append(color_dict[color])
-    nx.draw(graph, pos, node_size=500, node_color=color_list, labels=label, with_labels=True, ax=plot)
+    nx.draw(graph, pos, node_size=1000, node_color=color_list, labels=label, with_labels=True, ax=plot)
     canvas.draw()
 
 

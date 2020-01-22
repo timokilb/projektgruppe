@@ -10,7 +10,10 @@ class Node:
 
     def __init__(self, key=None, parent=None):
         self.key = key
-        self.priority = random.randint(1, 1001)  # spezial case check smaller
+        if key == 666:
+            self.priority = 1000
+        else:
+            self.priority = random.randint(1, 1001)  # spezial case check smaller
         self.left_node = None
         self.right_node = None
         self.parent_node = parent
@@ -157,8 +160,10 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 4)
                 if tmp.parent_node.left_node == tmp:
                     tmp.parent_node.left_node = None
+                    tmp.color ="pale"
                     animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
                     return tmp
+
                 # Node is right_node from Parents perspective
                 else:
                     tmp.parent_node.right_node = None
@@ -339,10 +344,11 @@ class Node:
     def clear_colors(self):
         if self:
             self.color = "palegreen"
+            return self
         if self.left_node:
-            self.left_node.clear_colors()
+            return self.left_node.clear_colors()
         if self.right_node:
-            self.right_node.clear_colors()
+            return self.right_node.clear_colors()
 
     def default_color(self):
         tmp = self
