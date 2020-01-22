@@ -182,7 +182,8 @@ def play_command():
     global pseudocode_obj
     if algorithm.get() == "Skip List":
             graph_list_index += 1
-            canvas_frame.after(1000, update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index]))
+            filename_label.after(7000, filename_label.config(text="lkdsjflkdsf")
+)
             """pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().pseudocode_list[graph_list_index][1])"""
 

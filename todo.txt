@@ -12,8 +12,6 @@ TODO: Timo
 
 TODO: Deniz
 
-    - Root case lösen , draw
-    - bei bedarf delete lines anpassen
     - delete pseudo anpassen, format
 
 
