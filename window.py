@@ -101,8 +101,8 @@ def insert_command():
 
     if algorithm.get() == "Skip List":
         update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
-    #       pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-    #                         animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+        pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                              animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],  # text
@@ -242,6 +242,7 @@ def clear_command():
 
     animation_handler.get_instance().treap_graph_list.append(treap_graph.create_graph())
     animation_handler.get_instance().skip_list_graph_list.append(skip_list_graph.create_graph(skip_list))
+
     if algorithm.get() == "Treap":
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
     else:
@@ -280,8 +281,8 @@ def read_data_command():
 
         if algorithm.get() == "Skip List":
             update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
-            # pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-            #                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                  animation_handler.get_instance().pseudocode_list[graph_list_index][1])
         elif algorithm.get() == "Treap":
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],

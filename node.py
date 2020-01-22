@@ -20,11 +20,6 @@ class Node:
         self.xpos = 0
         self.color = "palegreen"
 
-    """
-    Return-value :type NODE
-    Graph_list   :type 
-    """
-
     def insert(self, key, treap, parent=None):
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)

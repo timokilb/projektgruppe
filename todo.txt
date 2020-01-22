@@ -6,10 +6,16 @@ TODO: GUI
 
     - optional MenuBar
 
-    - Pseudocode linken mit funktionen
+TODO: Timo
 
-    - Animations fehlen ALLE
+    - insert checken
+    - clear checken
+
+TODO: Deniz
+
+    - Root case lösen , draw
+    - bei bedarf delete lines anpassen
+    - delete pseudo anpassen, format
 
 
-TODO : Bugs
 
