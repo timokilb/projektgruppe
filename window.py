@@ -19,6 +19,7 @@ import time
 def update_canvas(graph):
     global plot
     global figure
+    global canvas
     plot.clear()
     pos = nx.get_node_attributes(graph, 'pos')
     label = nx.get_node_attributes(graph, 'label')
@@ -151,7 +152,7 @@ def delete_command():
     # value_entry.insert(0, f"\tLast Operation was DELETE with Key : {value}")
 
 
-def play_command():
+"""def play_command():
     global graph_list_index
     global animation_handler
     global algorithm
@@ -171,7 +172,25 @@ def play_command():
             while math.floor(time.time()) < timestamp + 1:
                 update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
                 pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
-                                      animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
+                                      animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])"""
+
+def play_command():
+    global canvas
+    global graph_list_index
+    global animation_handler
+    global algorithm
+    global pseudocode_obj
+    if algorithm.get() == "Skip List":
+            graph_list_index += 1
+            canvas_frame.after(1000, update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index]))
+            """pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                  animation_handler.get_instance().pseudocode_list[graph_list_index][1])"""
+
+
+
+    elif algorithm.get() == "Treap":
+        while graph_list_index < len(animation_handler.get_instance().treap_graph_list) - 1:
+            root.after(1000, next_command())
 
 
 def previous_command():
@@ -180,13 +199,13 @@ def previous_command():
     global algorithm
 
     if algorithm.get() == "Skip List":
-        if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list) - 1:
+        if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list) - 1 and graph_list_index < 0:
             graph_list_index -= 1
             update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().pseudocode_list[graph_list_index][1])
-    elif algorithm.get() == "Treap":
-        if graph_list_index < len(animation_handler.get_instance().treap_graph_list):
+    elif algorithm.get() == "Treap" :
+        if graph_list_index < len(animation_handler.get_instance().treap_graph_list) and graph_list_index < 0:
             graph_list_index -= 1
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
@@ -221,16 +240,19 @@ def stop_command():
 
 
 def clear_command():
+
     global graph_list_index
     global animation_handler
     global skip_list_graph
     global treap_graph
     global algorithm
     global treap
+    global skip_list
     graph_list_index = 0
 
     treap = tr.Treap()
     skip_list = sl.SkipList()
+
 
     animation_handler.get_instance().skip_list_graph_list.clear()
     animation_handler.get_instance().treap_graph_list.clear()

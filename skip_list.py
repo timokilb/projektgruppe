@@ -187,6 +187,9 @@ class SkipList:
             tmp.list[search_level] = skip_node  # Doing the necessary pointer stuff
             animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 10)
             search_level -= 1
+
+        self.clear_colors()
+        animation_handler.insert_first(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 0)
         return
 
     # Does stuff to the skip list, then finds the node and deletes them one by one

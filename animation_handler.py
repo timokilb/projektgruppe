@@ -37,6 +37,20 @@ class AnimationHandler:
         else:
             print("ERR: graph_list must be one of the following strings: treap, skip_list")
 
+    def insert_first(self, graph, algorithm, pseudocode, line):
+        if algorithm == "skip_list":
+            AnimationHandler.__instance.pseudocode_widget.restore_default()
+            AnimationHandler.__instance.skip_list_graph_list.insert(0, graph)
+            tmp = [pseudocode, line]
+            AnimationHandler.__instance.pseudocode_list.insert(0, tmp)
+        elif algorithm == "treap":
+            AnimationHandler.__instance.pseudocode_widget.restore_default()
+            AnimationHandler.__instance.treap_graph_list.insert(0, graph)
+            tmp = [pseudocode, line]
+            AnimationHandler.__instance.treap_pseudocode_list.insert(0, tmp)
+        else:
+            print("ERR: graph_list must be one of the following strings: treap, skip_list")
+
     def clear(self):
         AnimationHandler.__instance.treap_graph_list.clear()
         AnimationHandler.__instance.skip_list_graph_list.clear()

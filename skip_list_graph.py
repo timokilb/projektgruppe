@@ -26,6 +26,7 @@ class SkipListGraph:
             tmp = tmp.list[0]
             xpos += 1  # Updating x position
         return graph
+    #TODO: Iterate horizontally first, then vertically maybe
 
     # First calls up update graph, then draws it
     def draw(self, skip_list, plot, canvas):
