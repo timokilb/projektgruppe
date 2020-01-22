@@ -4,7 +4,8 @@
 
 TODO: GUI
 
-    - optional MenuBar
+    - Save Graph -> Save mit new Window - Deniz
+    . Problem multitask
 
 TODO: Timo
 
@@ -12,7 +13,8 @@ TODO: Timo
 
 TODO: Deniz
 
-    - delete pseudo anpassen, format
+    - optional
+    - pseudocode updaten
 
 
 

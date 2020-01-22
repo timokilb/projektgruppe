@@ -34,6 +34,7 @@ class Node:
             while tmp.parent_node:
                 tmp = tmp.parent_node
             tmp.find(key, treap)
+            return
 
         if self.key is None:
             self.color = "red"
