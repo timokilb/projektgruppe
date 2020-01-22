@@ -92,7 +92,7 @@ def insert_command():
         log_message.config(text=log_widget.update())
         return
 
-    skip_list.insert(value, animation_handler.get_instance().skip_list_graph_list)
+    skip_list.insert(value)
     treap.insert(value, treap)
 
     # Handling the log widget:
@@ -275,7 +275,7 @@ def read_data_command():
         animation_handler.get_instance().pseudocode_list.clear()
         animation_handler.get_instance().treap_pseudocode_list.clear()
 
-        skip_list.insert(int(line), animation_handler.get_instance().skip_list_graph_list)
+        skip_list.insert(int(line))
         treap.insert(int(line), treap)
 
         if algorithm.get() == "Skip List":

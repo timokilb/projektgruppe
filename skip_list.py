@@ -153,7 +153,7 @@ class SkipList:
     # Starts to look from the level of the calculated height, then simply finds the spot where
     # the new value would be found and adds it in between
 
-    def insert(self, value, graph_list):
+    def insert(self, value):
         if self.search(value):
             print(f"{value} already in there know I'm sayyn")
             return
