@@ -17,5 +17,3 @@ class Treap:
     def delete(self, key, treap):
         self.root.delete(key, treap)
 
-    def pre_order(self, graph_list):
-        self.root.pre_order(graph_list)

@@ -1,7 +1,6 @@
 import random
 import math
-import time
-from tkinter import messagebox
+
 import treap_graph as tr
 import animation_handler as ah
 
@@ -126,10 +125,13 @@ class Node:
 
     def find_node(self, key):
         if self.key == key:
+            self.color = "red"
             return self
         elif key > self.key:
+            self.color = "gray"
             return self.right_node.find_node(key)
         elif key <= self.key:
+            self.color = "gray"
             return self.left_node.find_node(key)
 
     # Todo: Cases checken , problems with deleting the root !!! rotations are working abs. fine
@@ -138,16 +140,16 @@ class Node:
         tmp_graph = tr.TreapGraph(treap)
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 2)
-        self.find(key, treap)
         tmp = self.find_node(key)
-        tmp.color = "red"
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 2)
+        tmp.priority = -math.inf
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 3)
 
         # Case 1 : node to be deleted is a Leaf
         if tmp.left_node is None and tmp.right_node is None:
             # Node to be deleted is not Root
             if tmp.parent_node is not None:
-            # Node is left-Node from Parents perspective
+                # Node is left-Node from Parents perspective
                 tmp.color = "red"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 4)
 
@@ -155,26 +157,40 @@ class Node:
                     tmp.parent_node.left_node = None
                     tmp.color = "palegreen"
                     animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
+                    tmp.default_color()
+                    tmp.clear_colors()
+                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
+
                     return
                 # Node is right_node from Parents perspective
                 else:
                     tmp.parent_node.right_node = None
                     animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
+                    tmp.default_color()
+                    tmp.clear_colors()
+                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
                     return
             # Node is Root
             else:
                 tmp.key = None
                 tmp.priority = random.randint(1, 1001)  # sonst wird nur key gelöscht prio w+rde gleich bleiebn ohne
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
+                tmp.default_color()
+                tmp.clear_colors()
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
                 return
         else:
             tmp.priority = -math.inf
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 3)
             if tmp.left_node is None:
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 9)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 10)
                 tmp.right_node.rotate_left(treap)
                 tmp.delete(key, treap)
                 return
             elif tmp.right_node is None:
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 6)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 7)
                 tmp.left_node.rotate_right(treap)
                 tmp.delete(key, treap)
                 return
@@ -183,11 +199,18 @@ class Node:
                 tmp.delete(key, treap)
                 return
         return
+
     # Moving a Node trough left/right rotation down
     def move_down(self, treap):
+        animation_handler = ah.AnimationHandler()
+        tmp_graph = tr.TreapGraph(treap)
         if self.left_node.priority > self.right_node.priority:
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 6)
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 7)
             self.left_node.rotate_right(treap)
         elif self.right_node.priority > self.left_node.priority:
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 9)
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 10)
             self.right_node.rotate_left(treap)
 
     def rotate_left(self, treap):
@@ -199,7 +222,7 @@ class Node:
             self.parent_node.color = "orange"
         if self.left_node:
             self.left_node.color = "lightblue"
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 11)
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_left.txt", 0)
 
         if self.parent_node.parent_node is not None:  # Tief im Baum
             if self.parent_node == self.parent_node.parent_node.left_node:  # Parent ist left child
@@ -216,17 +239,15 @@ class Node:
         self.left_node.parent_node = self
         if self.parent_node is None:
             treap.root = self
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 11)
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_left.txt", 0)
         self.left_node.color = "palegreen"
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 11)
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_left.txt", 0)
         if self.parent_node is not None and self.priority > self.parent_node.priority:
             if self.parent_node.left_node == self:
                 self.rotate_right(treap)
             else:
                 self.rotate_left(treap)
-        self.color = "palegreen"
         self.clear_colors()
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 11)
         return self
 
     def rotate_right(self, treap):
@@ -238,7 +259,7 @@ class Node:
             self.parent_node.color = "orange"
         if self.right_node:
             self.right_node.color = "lightblue"
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 7)
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_right.txt", 0)
 
         if self.parent_node.parent_node is not None:
             if self.parent_node == self.parent_node.parent_node.left_node:
@@ -257,38 +278,25 @@ class Node:
         if self.parent_node is None:
             treap.root = self
 
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 7)
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_right.txt", 0)
         self.right_node.color = "palegreen"
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 7)
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_right.txt", 0)
         if self.parent_node is not None and self.priority > self.parent_node.priority:
             if self.parent_node.left_node == self:
                 self.rotate_right(treap)
             else:
                 self.rotate_left(treap)
-        self.color = "palegreen"
+       # self.color = "palegreen"
         self.clear_colors()
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 7)
         return self
-
-    def pre_order(self, graph_list):
-        if self:
-            print(self.key)
-            # print("level : ", self.level, "key : ", self.key, "prio : ", self.priority)
-        if self.left_node:
-            # print("left :")
-            self.left_node.pre_order(graph_list)
-        if self.right_node:
-            # print("right : ")
-            self.right_node.pre_order(graph_list)
 
     def clear_colors(self):
         if self:
             self.color = "palegreen"
-            return self
         if self.left_node:
-            return self.left_node.clear_colors()
+            self.left_node.clear_colors()
         if self.right_node:
-            return self.right_node.clear_colors()
+            self.right_node.clear_colors()
 
     def default_color(self):
         tmp = self
