@@ -175,12 +175,14 @@ def play_command():
     if active is False:
         return
     elif algorithm.get() == "Skip List":
-        if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list):
+        if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list) - 1:
             graph_list_index += 1
             update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().pseudocode_list[graph_list_index][1])
-            root.after(1000, play_command)
+            root.after(400, play_command)
+#        else: TODO: Change Play Pause Label to "Replay" and implement replay function
+
 
     elif algorithm.get() == "Treap":
         if graph_list_index < len(animation_handler.get_instance().treap_graph_list) -1:
@@ -189,6 +191,7 @@ def play_command():
             pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
             root.after(1000, play_command)
+# TODO : Copy here replay code from above
 
 def previous_command():
     global graph_list_index

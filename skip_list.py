@@ -208,6 +208,8 @@ class SkipList:
         search_level = self.max_level - 1 # Array starts at 0
         tmp = self.root
         tmp_graph = sl.SkipListGraph()
+        animation_handler.insert_first(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 0)
+
         while search_level >= 0:
             tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
             animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 11)
@@ -224,6 +226,8 @@ class SkipList:
                         animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 8)
                         tmp.list[search_level] = tmp.list[search_level].list[search_level]  # Overwritten the old pointer
                         animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 9)
+                        self.clear_colors()
+                        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 0)
                         return 0
                     """tmp.list[search_level].height -= 1
                     tmp.list[search_level].list.pop()""" #Consider this
@@ -243,8 +247,8 @@ class SkipList:
                 animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 10)
 
             search_level -= 1
-            tmp = self.root
-        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 12)
+            #tmp = self.root
+
         print(value, "Is no more in the Skip List")
         return 0
 

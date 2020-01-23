@@ -23,10 +23,10 @@ class SkipListGraph:
             for element in range(len(tmp.list) - 1):
                 graph.add_edge(str(tmp.value) + "/" + (str(element + 1)),
                                str(tmp.value) + "/" + str(element))  # This draws the vertical arrows between elements
-            tmp = tmp.list[0]
+            tmp = tmp.list[0] # TODO: Probably Here Lies the problem, because while inserting tmp.list[0] has no entry
             xpos += 1  # Updating x position
         return graph
-    #TODO: Iterate horizontally first, then vertically maybe
+    #TODO: Iterate horizontally first, then vertically maybe???
 
     # First calls up update graph, then draws it
     def draw(self, skip_list, plot, canvas):
