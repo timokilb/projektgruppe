@@ -5,7 +5,6 @@
 TODO: GUI
 
     - Save Graph -> Save mit new Window - Deniz
-    . Problem multitask
 
 TODO: Timo
 
