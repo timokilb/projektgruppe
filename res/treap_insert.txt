@@ -1,7 +1,7 @@
 Insert(key)
 ----------------------------------------------
 1:  if node is None:
-2:      return Node(key)
+2:      node = new Node(key)
 3:  if key < current_node.key:
 4:      node.left = insert(node.left, key)
 5       if node.left.priority > node.priority:

@@ -3,6 +3,7 @@ import math
 
 import treap_graph as tr
 import animation_handler as ah
+import log_widget as log
 
 
 class Node:
@@ -85,11 +86,13 @@ class Node:
 
     def find(self, key, treap):
 
-        if self.key is None:
-            return self
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
-
+        if self.key is None:
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
+            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
+            return self
         if self.parent_node is None:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
         if self.key == key:
@@ -105,6 +108,8 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 5)
                 tmp = self.left_node.find(key, treap)
             else:
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
                 return self
         else:
             if self.right_node:
@@ -113,14 +118,16 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 7)
                 tmp = self.right_node.find(key, treap)
             else:
-                # messagebox.showinfo("Error in find", f"Treap does not contain : {key}")
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
                 return self
-            while tmp.parent_node:
-                tmp.color = "palegreen"
-                tmp = tmp.parent_node
+        """  
+        while tmp.parent_node:
             tmp.color = "palegreen"
-            animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
-
+            tmp = tmp.parent_node
+        tmp.color = "palegreen"
+        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
+        """
         return tmp
 
     def find_node(self, key):
@@ -134,7 +141,6 @@ class Node:
             self.color = "gray"
             return self.left_node.find_node(key)
 
-    # Todo: Cases checken , problems with deleting the root !!! rotations are working abs. fine
     def delete(self, key, treap):
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
@@ -152,11 +158,11 @@ class Node:
                 # Node is left-Node from Parents perspective
                 tmp.color = "red"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 4)
+                animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
 
                 if tmp.parent_node.left_node == tmp:
                     tmp.parent_node.left_node = None
                     tmp.color = "palegreen"
-                    animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
                     tmp.default_color()
                     tmp.clear_colors()
                     animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
@@ -200,16 +206,17 @@ class Node:
                 return
         return
 
-    # Moving a Node trough left/right rotation down
     def move_down(self, treap):
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
         if self.left_node.priority > self.right_node.priority:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 6)
+            self.left_node.color = "orange"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 7)
             self.left_node.rotate_right(treap)
         elif self.right_node.priority > self.left_node.priority:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 9)
+            self.right_node.color = "orange"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 10)
             self.right_node.rotate_left(treap)
 

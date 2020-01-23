@@ -4,9 +4,9 @@
  2: set_priority(key, -inf)
  3: if node is Leaf:
  4:    delete(key)
- 5: if left.priority > right.priority
+ 5: if left.priority > right.priority and current.priority < left.priority
  6:    node.rotate_right()
  7:    delete()
- 8: if left.priority < right.priority
+ 8: if left.priority < right.priority and current.priority < right.priority
  9:    node.rotate_left()
 10:    delete()
