@@ -1,6 +1,5 @@
 import random
 import math
-
 import treap_graph as tr
 import animation_handler as ah
 import log_widget as log
@@ -84,14 +83,16 @@ class Node:
             tmp = tmp.parent_node
         tmp.default_color()
 
-    def find(self, key, treap):
-
+    def find(self, key, treap, log_message):
+        log_wid = log.LogWidget()
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
         if self.key is None:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
+            log_wid.push(f"{key} not in Treap")
+            log_message.config(text=log_wid.update())
             return self
         if self.parent_node is None:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
@@ -106,20 +107,24 @@ class Node:
                 self.color = "grey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 4)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 5)
-                tmp = self.left_node.find(key, treap)
+                tmp = self.left_node.find(key, treap, log_message)
             else:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
+                log_wid.push(f"{key} not in Treap")
+                log_message.config(text=log_wid.update())
                 return self
         else:
             if self.right_node:
                 self.color = "grey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 6)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 7)
-                tmp = self.right_node.find(key, treap)
+                tmp = self.right_node.find(key, treap, log_message)
             else:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
+                log_wid.push(f"{key} not in Treap")
+                log_message.config(text=log_wid.update())
                 return self
         """  
         while tmp.parent_node:

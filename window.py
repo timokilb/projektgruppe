@@ -61,7 +61,7 @@ def search_command():
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
-        treap.find(value, treap)
+        treap.find(value, treap, log_message)
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])

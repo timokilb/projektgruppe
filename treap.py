@@ -8,8 +8,8 @@ class Treap:
     def insert(self, key, treap, parent=None):
         self.root.insert(key, treap, parent)
 
-    def find(self, key, treap):
-        self.root.find(key, treap)
+    def find(self, key, treap, log_message):
+        self.root.find(key, treap, log_message)
 
     def clear_colors(self):
         self.root.clear_colors()

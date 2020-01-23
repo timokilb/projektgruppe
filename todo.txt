@@ -4,16 +4,14 @@
 
 TODO: GUI
 
-    - Save Graph -> Save mit new Window - Deniz
+    - Save Graph -> Save.. mit new Window - Deniz
+    - Buchstaben eingeben
+    - ! FIND, INSERT, DELETE -> display in log_mess ERROR
+    - Menu bar -> Timo
+    - read_data {"insert": "3"}
+    - save log
+    - Allgemeines Bugfixing
+    -
 
 TODO: Timo
-
-    - insert checken
-
-TODO: Deniz
-
-    - optional
-    - pseudocode updaten
-
-
-
+    - animation

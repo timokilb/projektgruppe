@@ -1,4 +1,3 @@
-
 # Creating a Log Widget using singleton pattern
 # Returns a series of strings where as the last inserted string appears on top
 
@@ -11,7 +10,6 @@
 
 
 class LogWidget:
-
     class __LogWidget:
 
         def __init__(self):
@@ -22,11 +20,15 @@ class LogWidget:
                           "   | \|| ||  ",
                           "   \ '|| ||  ",
                           "    \)()-())"]
+
     __instance = None
 
     def __init__(self):
-        if not LogWidget.__instance: # There is no instance
+        if not LogWidget.__instance:  # There is no instance
             LogWidget.__instance = LogWidget.__LogWidget()
+
+    def get_instance(self):
+        return LogWidget.__instance
 
     def push(self, string):
         if type(string) is not type("string"):
