@@ -50,9 +50,24 @@ class SkipList:
         self.root = BorderNode(-math.inf, self.max_level)  # Root
         self.root.list[0] = self.end  # Setting the first pointer
         self.number_of_elements = 0  # Num of elements not including -/+ inf
+        self.position_list = [-math.inf, math.inf]
         self.had_elements = False
         
 
+
+    def get_xpos(self, value):
+        index = 0
+        while index <= len(self.position_list):
+            if self.position_list[index] == value:
+                return index
+            index += 1
+
+    def insert_position_list(self, value):
+        self.position_list.append(value)
+        self.position_list.sort()
+
+    def delete_position_list(self, value):
+        self.position_list.remove(value)
 
     # Recalculates the max level of the skip list based on the log2 of the number of elements
     # max_so_far prevents the level from decreasing after deleting elements
@@ -157,6 +172,7 @@ class SkipList:
         if self.search(value):
             print(f"{value} already in there know I'm sayyn")
             return
+        self.insert_position_list(value)
         self.clear_colors()
         compare_color = "orange"
         current_color = "salmon"
@@ -208,31 +224,32 @@ class SkipList:
         search_level = self.max_level - 1 # Array starts at 0
         tmp = self.root
         tmp_graph = sl.SkipListGraph()
-        animation_handler.insert_first(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 0)
+        animation_handler.insert_first(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 0)
 
         while search_level >= 0:
             tmp.colors[search_level] = current_color  # Set the starting node ( top left corner ) to salmon
-            animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 11)
+            animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 11)
             while value > tmp.value:
                 tmp.list[search_level].colors[search_level] = compare_color # Set the next skip node color
-                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 5)
+                animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 5)
 
                 if value == tmp.list[search_level].value:
-                    animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 6)
+                    animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 6)
                     tmp.colors[search_level] = path_color
                     tmp.list[search_level].colors[search_level] = "peachpuff"   # Node to be deleted has been found
                     if search_level == 0:
-                        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 7)
-                        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 8)
+                        animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 7)
+                        animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 8)
                         tmp.list[search_level] = tmp.list[search_level].list[search_level]  # Overwritten the old pointer
-                        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 9)
+                        animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 9)
                         self.clear_colors()
-                        animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 0)
+                        self.delete_position_list(value)
+                        animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 0)
                         return 0
                     """tmp.list[search_level].height -= 1
-                    tmp.list[search_level].list.pop()""" #Consider this
+                    tmp.list[search_level].list.pop() #Consider this"""
                     tmp.list[search_level] = tmp.list[search_level].list[search_level]  #Overwritten the old pointer
-                    animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 7)
+                    animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 7)
                     break
 #                elif math.inf == tmp.list[search_level].value:
                 elif tmp.list[search_level].value > value:
@@ -244,7 +261,7 @@ class SkipList:
                 tmp.colors[search_level] = path_color  # And the last one back to the standard color
                 tmp = tmp.list[search_level]
                 tmp.colors[search_level] = current_color  # And the last one back to the standard color
-                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_delete.txt", 10)
+                animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 10)
 
             search_level -= 1
             #tmp = self.root
