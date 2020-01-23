@@ -92,7 +92,7 @@ class Node:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
             log_wid.push(f"{key} not in Treap")
-            log_message.config(text=log_wid.update())
+            log_message.config(text=log_wid.update(), color="red")
             return self
         if self.parent_node is None:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
@@ -112,7 +112,7 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
                 log_wid.push(f"{key} not in Treap")
-                log_message.config(text=log_wid.update())
+                log_message.config(text=log_wid.update(), color="red")
                 return self
         else:
             if self.right_node:
@@ -124,15 +124,9 @@ class Node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
                 log_wid.push(f"{key} not in Treap")
-                log_message.config(text=log_wid.update())
+                log_message.config(text=log_wid.update(), color="red")
                 return self
-        """  
-        while tmp.parent_node:
-            tmp.color = "palegreen"
-            tmp = tmp.parent_node
-        tmp.color = "palegreen"
-        animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
-        """
+
         return tmp
 
     def find_node(self, key):

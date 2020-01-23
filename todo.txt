@@ -5,13 +5,39 @@
 TODO: GUI
 
     - Save Graph -> Save.. mit new Window - Deniz
-    - Buchstaben eingeben
-    - ! FIND, INSERT, DELETE -> display in log_mess ERROR
+    - ! FIND, INSERT, DELETE -> display in log_mess ERROR COLOR ? -> Deniz
+
     - Menu bar -> Timo
-    - read_data {"insert": "3"}
+        - instagram
+        - github
+        - linkedin
+    - KEY + Label shrink => Speed_button add + jump next prev -> timo
+
+    - read_data {"insert": "3"
+                  {alle pushes
+                    alle pushes
+                    alle pushes
+                    alle pushes},
+                  "insert:" "4"
+                    {alle pushes
+                    alle pushes
+                    alle pushes
+                    alle pushes}
+                    }
+
     - save log
+    - READ_DATA PSEUDOCODE ANZEIGEN
+
+
     - Allgemeines Bugfixing
-    -
+    - Buchstaben eingeben
+
+
 
 TODO: Timo
+
     - animation
+    - PRINTS entfernen
+
+TODO BUXXXXX
+

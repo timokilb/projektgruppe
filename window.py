@@ -4,8 +4,6 @@ import networkx as nx
 import log_widget as lw
 import pseudocode_widget as pw
 import animation_handler as ah
-import time
-import math
 import re
 import skip_list as sl
 from skip_list_graph import SkipListGraph
@@ -13,7 +11,6 @@ from treap_graph import TreapGraph
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from tkinter import filedialog, messagebox
-import time
 
 
 def update_canvas(graph):
