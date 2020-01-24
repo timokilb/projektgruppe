@@ -399,12 +399,15 @@ def open_file():
     read_data_command()
 
 
-def save_file():
+def save_graph():
     global active
     global play_pause_button
+    global filename
+    global fig
+
     play_pause_button.config(text="Play")
     active = False
-    global fig
+    filename = ""
     filename = filedialog.asksaveasfilename(title="Save File",
                                             filetypes=[("png files", "*.png"), ("jpeg files", "*.jpeg")])
     if filename:
@@ -510,11 +513,11 @@ style_sheet = {
 def check_decision():
     global save_decision_list
     if "save_all" and True in save_decision_list[2]:
-        save_file()
+        save_graph()
         save_logs()
         return
     elif "save_graph" and True in save_decision_list[0]:
-        save_file()
+        save_graph()
     elif "save_log" and True in save_decision_list[1]:
         save_logs()
 
@@ -526,10 +529,11 @@ def get_frame():
 
 def save_logs():
     global log_list
-
-    filename = filedialog.asksaveasfilename(title="Save File",
-                                            filetypes=[("txt files", "*.txt")])
-    tmp = open(filename+".txt", mode="w")
+    global filename
+    if len(filename) < 1:
+        filename = filedialog.asksaveasfilename(title="Save File",
+                                                filetypes=[("txt files", "*.txt")])
+    tmp = open(filename + ".txt", mode="w")
 
     if tmp:
         for line in log_list:
@@ -578,11 +582,13 @@ if __name__ == "__main__":
 
     # Array for all numbers from Input txt
     data = []
-
     # Save Decision List
     save_decision_list = []
     # Save all logs
     log_list = []
+
+    # FileName
+    filename = ""
     # Background Color
     background_color = "#3c3f41"
 
