@@ -30,15 +30,20 @@ class LogWidget:
     def get_instance(self):
         return LogWidget.__instance
 
-    def push(self, string):
+    def push(self, string, log_list=None):
         if type(string) is not type("string"):
             print("ERR: Argument is type of", type(string), "but needs to be", type("string"))
             return
         if len(self.__instance.lines) > 6:
             self.__instance.lines.pop()
             self.__instance.lines.insert(0, string)
+            if log_list is None:
+                return
+            log_list.append(string)
         else:
             self.__instance.lines.insert(0, string)
-
+            if log_list is None:
+                return
+            log_list.append(string)
     def update(self):
         return "\n".join(self.__instance.lines)

@@ -36,7 +36,7 @@ def search_command():
     global log_widget
     global log_message
     global treap
-
+    global log_list
 
     # Clear the old animations and reset index to zero
     animation_handler.get_instance().skip_list_graph_list.clear()
@@ -49,7 +49,7 @@ def search_command():
     value = int(value_entry.get())
 
     # Handling the log widget:
-    log_widget.push(f"Searched Key: {value}")
+    log_widget.push(f"find:{value}", log_list)
     log_message.config(text=log_widget.update())
 
     if algorithm.get() == "Skip List":
@@ -74,6 +74,7 @@ def insert_command():
     global graph_list_index
     global log_widget
     global log_message
+    global log_list
     global treap
 
     # Clear the old animations and reset index to zero
@@ -95,7 +96,7 @@ def insert_command():
     treap.insert(value, treap)
 
     # Handling the log widget:
-    log_widget.push(f"Inserted Key: {value}")
+    log_widget.push(f"insert:{value}", log_list)
     log_message.config(text=log_widget.update())
 
     if algorithm.get() == "Skip List":
@@ -119,6 +120,7 @@ def delete_command():
     global treap
     global log_widget
     global log_message
+    global log_list
 
     animation_handler.get_instance().skip_list_graph_list.clear()
     animation_handler.get_instance().treap_graph_list.clear()
@@ -133,7 +135,7 @@ def delete_command():
     treap.delete(value, treap)
 
     # Handling the log widget:
-    log_widget.push(f"Deleted Key: {value}")
+    log_widget.push(f"delete:{value}", log_list)
     log_message.config(text=log_widget.update())
 
     current_presst_button = "delete"
@@ -148,6 +150,7 @@ def delete_command():
                               animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
     value_entry.delete(0, tk.END)
     # value_entry.insert(0, f"\tLast Operation was DELETE with Key : {value}")
+
 
 def play_pause_command():
     global active
@@ -178,20 +181,22 @@ def play_command():
             pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().pseudocode_list[graph_list_index][1])
             root.after(400, play_command)
-#        else: TODO: Change Play Pause Label to "Replay" and implement replay function
-
+    #        else: TODO: Change Play Pause Label to "Replay" and implement replay function
 
     elif algorithm.get() == "Treap":
-        if graph_list_index < len(animation_handler.get_instance().treap_graph_list) -1:
+        if graph_list_index < len(animation_handler.get_instance().treap_graph_list) - 1:
             graph_list_index += 1
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
             root.after(1000, play_command)
+
+
 # TODO : Copy here replay code from above
 
 def dummy():
     print("Nutte")
+
 
 """def help_command():
     help_window = tk."""
@@ -274,6 +279,7 @@ def clear_command():
     global skip_list
     global active
     global play_pause_button
+    global log_list
     play_pause_button.config(text="Play")
     active = False
     graph_list_index = 0
@@ -285,6 +291,8 @@ def clear_command():
     animation_handler.get_instance().treap_graph_list.clear()
     animation_handler.get_instance().pseudocode_list.clear()
     animation_handler.get_instance().treap_pseudocode_list.clear()
+
+    log_list.clear()
 
     treap_graph = TreapGraph(treap)
     skip_list_graph = SkipListGraph(skip_list)
@@ -499,9 +507,66 @@ style_sheet = {
 }
 
 
+def check_decision():
+    global save_decision_list
+    if "save_all" and True in save_decision_list[2]:
+        save_file()
+        save_logs()
+        return
+    elif "save_graph" and True in save_decision_list[0]:
+        save_file()
+    elif "save_log" and True in save_decision_list[1]:
+        save_logs()
+
+
 def get_frame():
     global pseudocode_frame
     return pseudocode_frame
+
+
+def save_logs():
+    global log_list
+
+    filename = filedialog.asksaveasfilename(title="Save File",
+                                            filetypes=[("txt files", "*.txt")])
+    tmp = open(filename+".txt", mode="w")
+
+    if tmp:
+        for line in log_list:
+            tmp.write(line + "\n")
+    tmp.close()
+
+
+def open_save():
+    choose_save_window = tk.Toplevel()
+    choose_save_window.title("Choose what to save !")
+    choose_save_window.minsize(300, 300)
+    choose_save_window.config(padx=10, pady=30, bg=background_color)
+
+    def save_decision():
+        global save_decision_list
+        save_decision_list.clear()
+        save_decision_list.append(("save_graph", save_graph.get()))
+        save_decision_list.append(("save_logs", save_logs.get()))
+        save_decision_list.append(("save_all", (save_graph.get() and save_logs.get() or (save_all.get()))))
+        check_decision()
+        # choose_save_window.destroy()
+
+    save_graph = tk.BooleanVar()
+    tk.Checkbutton(choose_save_window, text="Save Graph", variable=save_graph).pack(side="top", anchor="w")
+    save_logs = tk.BooleanVar()
+    tk.Checkbutton(choose_save_window, text="Save Logs", variable=save_logs).pack(side="top", anchor="w")
+
+    save_all = tk.BooleanVar()
+    tk.Checkbutton(choose_save_window, text="Save Graph and Logs", variable=save_all).pack(side="top", anchor="w")
+
+    tk.Button(choose_save_window, text='Save', command=save_decision, **style_sheet["data_structure_button"], ).pack(
+        side="left", anchor="nw", fill="x", expand=1,
+        padx=2, pady=6)
+    tk.Button(choose_save_window, text='Cancel', command=choose_save_window.destroy,
+              **style_sheet["data_structure_button"], ).pack(side="left", anchor="nw",
+                                                             fill="x", expand=1, padx=2,
+                                                             pady=6)
 
 
 if __name__ == "__main__":
@@ -514,6 +579,10 @@ if __name__ == "__main__":
     # Array for all numbers from Input txt
     data = []
 
+    # Save Decision List
+    save_decision_list = []
+    # Save all logs
+    log_list = []
     # Background Color
     background_color = "#3c3f41"
 
@@ -537,7 +606,6 @@ if __name__ == "__main__":
     social_menu.add_command(label="Nutte", command=dummy)
     other_menu.add_command(label="Nutte", command=dummy)
     help_menu.add_command(label="Nutte", command=dummy)
-
 
     active = False
 
@@ -616,8 +684,8 @@ if __name__ == "__main__":
     algo_dropdown.config(**style_sheet["dropdown"])
     algo_dropdown["menu"].config(fg="#a9b7c6", bg="#313335", activeforeground="#313335", activebackground="#a9b7c6")
 
-    save_button = tk.Button(master=graph_structure_frame, text="Save Graph", **style_sheet["data_structure_button"],
-                            command=save_file)
+    save_button = tk.Button(master=graph_structure_frame, text="Save ..", **style_sheet["data_structure_button"],
+                            command=open_save)
 
     clear_button = tk.Button(master=graph_structure_frame, text="Clear Graph", **style_sheet["data_structure_button"],
                              command=clear_command)

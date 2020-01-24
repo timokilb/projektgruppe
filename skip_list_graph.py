@@ -30,7 +30,7 @@ class SkipListGraph:
     #TODO: Iterate horizontally first, then vertically maybe???"""
 
     def create_graph(self, skip_list):
-        print("in create graph")
+        #print("in create graph")
         graph = nx.DiGraph()
         tmp = skip_list.root
         search_level = skip_list.max_level-1
@@ -51,7 +51,7 @@ class SkipListGraph:
         return graph
 
     def create_graph_delete(self, skip_list):
-        print("in create graph")
+        #print("in create graph")
         graph = nx.DiGraph()
         tmp = skip_list.root
         search_level = skip_list.max_level-1
