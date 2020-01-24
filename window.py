@@ -511,6 +511,7 @@ style_sheet = {
 
 
 def check_decision():
+    global filename
     global save_decision_list
     if "save_all" and True in save_decision_list[2]:
         save_graph()
@@ -518,6 +519,7 @@ def check_decision():
         return
     elif "save_graph" and True in save_decision_list[0]:
         save_graph()
+        filename =""
     elif "save_log" and True in save_decision_list[1]:
         save_logs()
 
@@ -530,7 +532,7 @@ def get_frame():
 def save_logs():
     global log_list
     global filename
-    if len(filename) < 1:
+    if filename == "":
         filename = filedialog.asksaveasfilename(title="Save File",
                                                 filetypes=[("txt files", "*.txt")])
     tmp = open(filename + ".txt", mode="w")
@@ -554,7 +556,7 @@ def open_save():
         save_decision_list.append(("save_logs", save_logs.get()))
         save_decision_list.append(("save_all", (save_graph.get() and save_logs.get() or (save_all.get()))))
         check_decision()
-        # choose_save_window.destroy()
+        choose_save_window.destroy()
 
     save_graph = tk.BooleanVar()
     tk.Checkbutton(choose_save_window, text="Save Graph", variable=save_graph).pack(side="top", anchor="w")
