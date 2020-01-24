@@ -190,6 +190,13 @@ def play_command():
             root.after(1000, play_command)
 # TODO : Copy here replay code from above
 
+def dummy():
+    print("Nutte")
+
+"""def help_command():
+    help_window = tk."""
+
+
 def previous_command():
     global graph_list_index
     global animation_handler
@@ -517,8 +524,21 @@ if __name__ == "__main__":
     # Main window
     root = tk.Tk()
     root.title("Projektgruppe")
-    root.config(background=background_color)
+    menubar = tk.Menu(root)
+    root.config(background=background_color, menu=menubar)
     root.minsize(850, 850)
+
+    social_menu = tk.Menu(menubar)
+    other_menu = tk.Menu(menubar)
+    help_menu = tk.Menu(menubar)
+    menubar.add_cascade(label="Social", menu=social_menu)
+    menubar.add_cascade(label="Other", menu=other_menu)
+    menubar.add_cascade(label="Help", menu=help_menu)
+    social_menu.add_command(label="Nutte", command=dummy)
+    other_menu.add_command(label="Nutte", command=dummy)
+    help_menu.add_command(label="Nutte", command=dummy)
+
+
     active = False
 
     # Canvas frame
