@@ -58,7 +58,7 @@ def search_command():
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
-        treap.find(value, treap, log_message)
+        treap.find(value, treap)
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
@@ -323,7 +323,7 @@ def switch_algorithm(string):
     elif string == "Skip List":
         skip_list_graph.draw(skip_list_graph.skip_list, plot, canvas)
 
-
+"""
 def read_data_command():
     global algorithm
     global animation_handler
@@ -348,10 +348,73 @@ def read_data_command():
             update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                                   animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
+"""
+
+def read_data_command():
+    global algorithm
+    global animation_handler
+    global treap
+    global graph_list_index
+    global data
+    global log_message
+    global log_widget
+    graph_list_index = 0
+
+    for command, key in data:
+        animation_handler.get_instance().skip_list_graph_list.clear()
+        animation_handler.get_instance().treap_graph_list.clear()
+        animation_handler.get_instance().pseudocode_list.clear()
+        animation_handler.get_instance().treap_pseudocode_list.clear()
 
 
+        if command == "insert":
+            skip_list.insert(int(key))
+            treap.insert(int(key), treap)
+            # Handling the log widget:
+            log_widget.push(f"insert:{int(key)}", log_list)
+            log_message.config(text=log_widget.update())
+
+            if algorithm.get() == "Skip List":
+                update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            elif algorithm.get() == "Treap":
+                update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
+        elif command == "search":
+            skip_list.search(int(key))
+            treap.find(int(key), treap)
+
+            log_widget.push(f"find:{int(key)}", log_list)
+            log_message.config(text=log_widget.update())
+
+            if algorithm.get() == "Skip List":
+                update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            elif algorithm.get() == "Treap":
+                update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
+        elif command == "delete":
+            skip_list.delete(int(key))
+            treap.delete(int(key), treap)
+
+            log_widget.push(f"delete:{int(key)}", log_list)
+            log_message.config(text=log_widget.update())
+
+            if algorithm.get() == "Skip List":
+                update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().pseudocode_list[graph_list_index][1])
+            elif algorithm.get() == "Treap":
+                update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
+                pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
+                                      animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
 # opens FileExplorer to choose ONLY .txt files
-# TODO: Handle spezial chars !
+#
+"""
 def open_file():
     global active
     global play_pause_button
@@ -397,8 +460,28 @@ def open_file():
     if token:
         messagebox.showinfo("Warning", f"Some values appeared multiple times! Only added once to Data")
     read_data_command()
+"""
 
+def open_file():
+    global active
+    global play_pause_button
+    play_pause_button.config(text="Play")
+    active = False
+    global data
+    token = False
 
+    file = filedialog.askopenfile(mode='r', title="Open file", filetypes=[('Text Files', '*.txt')])
+    # check if file was opend successfully
+    if file:
+        # set Label with filename only if open was successful
+        filename_label.config(text=file.name.split("/")[-1])
+        data = []
+        # append each line to DATA list, where they are stored
+        for line in file:
+            test = line.rstrip().split(":")
+            tmp = (test[0], test[1])
+            data.append(tmp)
+    read_data_command()
 def save_graph():
     global active
     global play_pause_button

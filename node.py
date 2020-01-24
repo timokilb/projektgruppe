@@ -83,7 +83,7 @@ class Node:
             tmp = tmp.parent_node
         tmp.default_color()
 
-    def find(self, key, treap, log_message):
+    def find(self, key, treap):
         log_wid = log.LogWidget()
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
@@ -91,7 +91,6 @@ class Node:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
-            log_wid.push(f"{key} not in Treap")
             return self
         if self.parent_node is None:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
@@ -106,22 +105,20 @@ class Node:
                 self.color = "grey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 4)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 5)
-                tmp = self.left_node.find(key, treap, log_message)
+                tmp = self.left_node.find(key, treap)
             else:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
-                log_wid.push(f"{key} not in Treap")
                 return self
         else:
             if self.right_node:
                 self.color = "grey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 6)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 7)
-                tmp = self.right_node.find(key, treap, log_message)
+                tmp = self.right_node.find(key, treap)
             else:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 8)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 9)
-                log_wid.push(f"{key} not in Treap")
                 return self
 
         return tmp
