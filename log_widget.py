@@ -47,3 +47,12 @@ class LogWidget:
             log_list.append(string)
     def update(self):
         return "\n".join(self.__instance.lines)
+
+    def clear(self):
+        self.__instance.lines =["_",
+                          "/\  / o o \ ",
+                          "//\\ \~(*)~/ ",
+                          "`  \/   ^ /",
+                          "   | \|| ||  ",
+                          "   \ '|| ||  ",
+                          "    \)()-())"]

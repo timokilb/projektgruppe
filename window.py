@@ -1,3 +1,5 @@
+import time
+
 import treap as tr
 import tkinter as tk
 import networkx as nx
@@ -280,6 +282,8 @@ def clear_command():
     global active
     global play_pause_button
     global log_list
+    global log_widget
+    global log_message
     play_pause_button.config(text="Play")
     active = False
     graph_list_index = 0
@@ -291,6 +295,8 @@ def clear_command():
     animation_handler.get_instance().treap_graph_list.clear()
     animation_handler.get_instance().pseudocode_list.clear()
     animation_handler.get_instance().treap_pseudocode_list.clear()
+    log_widget.clear()
+    log_message.config(text=log_widget.update())
 
     log_list.clear()
 
