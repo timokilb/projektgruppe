@@ -2,6 +2,17 @@
 // Created by Deniz Dogan 2019. Kogan Inc.
 //
 
+languages = [
+    ("Python",1),
+    ("Perl",2),
+    ("Java",3),
+    ("C++",4),
+    ("C",5)
+]
+
+for lang, val in languages:
+    print(lang,val)
+
 TODO: GUI
 
     - Save Graph -> Save.. mit new Window - Deniz
@@ -27,7 +38,6 @@ TODO: GUI
 
     - save log
     - READ_DATA PSEUDOCODE ANZEIGEN
-
 
     - Allgemeines Bugfixing
     - Buchstaben eingeben
