@@ -50,7 +50,17 @@ def search_command():
     graph_list_index = 0
     plot.clear()
 
-    value = int(value_entry.get())
+    try:
+        value = int(value_entry.get())
+    except ValueError:
+        if len(value_entry.get()) == 0:
+            log_widget.push("No Key was entered")
+            log_message.config(text=log_widget.update())
+            return
+        else:
+            log_widget.push(f"Invalid Key : {value_entry.get()}")
+            log_message.config(text=log_widget.update())
+            return
 
     # Handling the log widget:
     log_widget.push(f"find:{value}", log_list)
@@ -91,10 +101,15 @@ def insert_command():
 
     try:
         value = int(value_entry.get())
-    except:
-        log_widget.push("Invalid Key")
-        log_message.config(text=log_widget.update())
-        return
+    except ValueError:
+        if len(value_entry.get()) == 0:
+            log_widget.push("No Key was entered")
+            log_message.config(text=log_widget.update())
+            return
+        else:
+            log_widget.push(f"Invalid Key : {value_entry.get()}")
+            log_message.config(text=log_widget.update())
+            return
 
     skip_list.insert(value)
     treap.insert(value, treap)
@@ -134,7 +149,18 @@ def delete_command():
     graph_list_index = 0
     plot.clear()
 
-    value = int(value_entry.get())
+    try:
+        value = int(value_entry.get())
+    except ValueError:
+        if len(value_entry.get()) == 0:
+            log_widget.push("No Key was entered")
+            log_message.config(text=log_widget.update())
+            return
+        else:
+            log_widget.push(f"Invalid Key : {value_entry.get()}")
+            log_message.config(text=log_widget.update())
+            return
+
     skip_list.delete(value)
     treap.delete(value, treap)
 
