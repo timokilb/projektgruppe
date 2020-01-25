@@ -6,7 +6,7 @@
  4:    delete(key)
  5: if left.priority > right.priority and current.priority < left.priority
  6:    node.rotate_right()
- 7:    delete()
+ 7:    delete(key)
  8: if left.priority < right.priority and current.priority < right.priority
  9:    node.rotate_left()
-10:    delete()
+10:    delete(key)

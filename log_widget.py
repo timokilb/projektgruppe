@@ -45,6 +45,7 @@ class LogWidget:
             if log_list is None:
                 return
             log_list.append(string)
+
     def update(self):
         return "\n".join(self.__instance.lines)
 

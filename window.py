@@ -318,39 +318,19 @@ def switch_algorithm(string):
     global plot
     global active
     global play_pause_button
+    global treap
+    global animation_handler
     play_pause_button.config(text="Play")
     active = False
     if string == "Treap":
-        treap_graph.draw(treap_graph.treap, plot, canvas)
+        if treap.root.key is None:
+            treap_graph.draw(treap_graph.treap, plot, canvas)
+        else:
+            update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
+
+
     elif string == "Skip List":
         skip_list_graph.draw(skip_list_graph.skip_list, plot, canvas)
-
-"""
-def read_data_command():
-    global algorithm
-    global animation_handler
-    global treap
-    global graph_list_index
-    graph_list_index = 0
-
-    for line in data:
-        animation_handler.get_instance().skip_list_graph_list.clear()
-        animation_handler.get_instance().treap_graph_list.clear()
-        animation_handler.get_instance().pseudocode_list.clear()
-        animation_handler.get_instance().treap_pseudocode_list.clear()
-
-        skip_list.insert(int(line))
-        treap.insert(int(line), treap)
-
-        if algorithm.get() == "Skip List":
-            update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
-            pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
-                                  animation_handler.get_instance().pseudocode_list[graph_list_index][1])
-        elif algorithm.get() == "Treap":
-            update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-            pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
-                                  animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
-"""
 
 def read_data_command():
     global algorithm
@@ -416,7 +396,6 @@ def read_data_command():
 
 
 # opens FileExplorer to choose ONLY .txt files
-#
 """
 def open_file():
     global active

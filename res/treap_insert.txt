@@ -2,11 +2,11 @@ Insert(key)
 ----------------------------------------------
 1:  if node is None:
 2:      node = new Node(key)
-3:  if key < current_node.key:
+3:  if key < node.key:
 4:      node.left = insert(node.left, key)
 5       if node.left.priority > node.priority:
 6           node.left.rotate_right()
-7   if key > current_node.key:
+7   if key > node.key:
 8       node.right = insert(node.right, key)
 9       if node.right.priority > node.priority:
 10:         node.right.rotate_left()

@@ -15,15 +15,7 @@ for lang, val in languages:
 
 TODO: GUI
 
-    - Save Graph -> Save.. mit new Window - Deniz
-    - ! FIND, INSERT, DELETE -> display in log_mess ERROR COLOR ? -> Deniz
-
-    - Menu bar -> Timo
-        - instagram
-        - github
-        - linkedin
     - KEY + Label shrink => Speed_button add + jump next prev -> timo
-
     - read_data {"insert": "3"
                   {alle pushes
                     alle pushes
@@ -36,7 +28,6 @@ TODO: GUI
                     alle pushes}
                     }
 
-    - save log
     - READ_DATA PSEUDOCODE ANZEIGEN
 
     - Allgemeines Bugfixing
@@ -46,7 +37,6 @@ TODO: GUI
 
 TODO: Timo
 
-    - animation
     - PRINTS entfernen
 
 TODO BUXXXXX
