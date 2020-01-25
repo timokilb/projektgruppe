@@ -295,9 +295,9 @@ def clear_command():
     animation_handler.get_instance().treap_graph_list.clear()
     animation_handler.get_instance().pseudocode_list.clear()
     animation_handler.get_instance().treap_pseudocode_list.clear()
+
     log_widget.clear()
     log_message.config(text=log_widget.update())
-
     log_list.clear()
 
     treap_graph = TreapGraph(treap)
@@ -371,8 +371,6 @@ def read_data_command():
         animation_handler.get_instance().treap_graph_list.clear()
         animation_handler.get_instance().pseudocode_list.clear()
         animation_handler.get_instance().treap_pseudocode_list.clear()
-
-
         if command == "insert":
             skip_list.insert(int(key))
             treap.insert(int(key), treap)
@@ -418,6 +416,9 @@ def read_data_command():
                 update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
                 pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                                       animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
+
+
+
 # opens FileExplorer to choose ONLY .txt files
 #
 """
