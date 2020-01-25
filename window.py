@@ -13,6 +13,8 @@ from treap_graph import TreapGraph
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 from tkinter import filedialog, messagebox
+import webbrowser
+
 
 
 def update_canvas(graph):
@@ -196,12 +198,6 @@ def play_command():
 
 # TODO : Copy here replay code from above
 
-def dummy():
-    print("Nutte")
-
-
-"""def help_command():
-    help_window = tk."""
 
 
 def previous_command():
@@ -488,6 +484,7 @@ def open_file():
             tmp = (test[0], test[1])
             data.append(tmp)
     read_data_command()
+
 def save_graph():
     global active
     global play_pause_button
@@ -509,6 +506,28 @@ def callor(event):
 
 def placeholder(event):
     value_entry.delete(0, tk.END)
+
+
+def dummy():
+    print("nutte")
+
+def github():
+    webbrowser.open("https://github.com/timokilb/projektgruppe", new=1)
+
+def donate():
+    webbrowser.open("https://www.paypal.me/timokilb", new=1)
+
+def instagram():
+    webbrowser.open("https://www.instagram.com/resbalar.sb/?hl=de", new=1)
+
+def how_it_works():
+    how_it_works_window = tk.Toplevel()
+    how_it_works_window.title("How it works")
+    how_it_works_window.minsize(300, 300)
+    how_it_works_window.config(padx=10, pady=30, bg=background_color)
+    explanation_text = " Du nutte weisst nicht wie das Programm funktinoert? HAH GEH MAL STUDIERNE DU VOCHEL"
+    explanation_message = tk.Message(master=how_it_works_window, text=explanation_text)
+    explanation_message.pack()
 
 
 style_sheet = {
@@ -700,9 +719,11 @@ if __name__ == "__main__":
     menubar.add_cascade(label="Social", menu=social_menu)
     menubar.add_cascade(label="Other", menu=other_menu)
     menubar.add_cascade(label="Help", menu=help_menu)
-    social_menu.add_command(label="Nutte", command=dummy)
+    social_menu.add_command(label="Git", command=github)
+    social_menu.add_command(label="Donate", command=donate)
+    social_menu.add_command(label="IG", command=instagram)
     other_menu.add_command(label="Nutte", command=dummy)
-    help_menu.add_command(label="Nutte", command=dummy)
+    help_menu.add_command(label="How it works", command=how_it_works)
 
     active = False
 
