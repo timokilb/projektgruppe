@@ -130,6 +130,8 @@ class SkipList:
             if search_level == 0:  # At this point we should have found the value
                 if value == tmp.value:
                     print(tmp.value, "is in the Skip List with height", tmp.height)
+                    tmp.colors[search_level] = "peachpuff"
+                    animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 0)
                     return animation_handler.get_instance().skip_list_graph_list
                 else:
                     tmp.list[search_level].colors[search_level] = compare_color  # Set the next skip node color
@@ -198,11 +200,18 @@ class SkipList:
                 animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 7)
             animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 8)
             skip_node.list[search_level] = tmp.list[search_level]
-            tmp.colors[search_level] = "peachpuff"  # Set the starting node ( top left corner ) to salmon
+            tmp.colors[search_level] = path_color
+            tmp.list[search_level] = skip_node  # TODO Doing the necessary pointer stuff
+            skip_node.colors[search_level] = "peachpuff"  # Set the starting node ( top left corner ) to salmon
             animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 9)
-            tmp.list[search_level] = skip_node  # Doing the necessary pointer stuff
-            animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 10)
+            #tmp.list[search_level] = skip_node  # Doing the necessary pointer stuff
+            if search_level >0:
+                tmp.colors[search_level-1] = current_color  # Set the starting node ( top left corner ) to salmon
             search_level -= 1
+            if search_level < 0:
+                animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 0)
+                return
+            animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 10)
 
         self.clear_colors()
         animation_handler.insert_first(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_insert.txt", 0)
@@ -234,9 +243,9 @@ class SkipList:
                 animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 5)
 
                 if value == tmp.list[search_level].value:
+                    tmp.list[search_level].colors[search_level] = "peachpuff"   # Node to be deleted has been found
                     animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 6)
                     tmp.colors[search_level] = path_color
-                    tmp.list[search_level].colors[search_level] = "peachpuff"   # Node to be deleted has been found
                     if search_level == 0:
                         animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 7)
                         animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 8)
