@@ -32,7 +32,7 @@ class Node:
             log_widget = log.LogWidget()
             log_widget.push(f"{key} ALREADY IN TREAP")
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
-            messagebox.showinfo("Warning", f"{key} already in Treap!")
+            # messagebox.showinfo("Warning", f"{key} already in Treap!")
             return
 
         if self.key is None:
@@ -137,15 +137,17 @@ class Node:
             return self.left_node.find_node(key)
         else:
             return
+
     def find_ohne(self, key):
+        print(f"comparing {key} to {self.key}")
         if self.key == key:
             return self
-        elif key > self.key:
+        elif key > self.key and self.right_node is not None:
             return self.right_node.find_ohne(key)
-        elif key <= self.key:
+        elif key < self.key and self.left_node is not None:
             return self.left_node.find_ohne(key)
         else:
-            return
+            return False
 
     def delete(self, key, treap):
         animation_handler = ah.AnimationHandler()

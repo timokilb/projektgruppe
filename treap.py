@@ -17,3 +17,5 @@ class Treap:
     def delete(self, key, treap):
         self.root.delete(key, treap)
 
+    def find_ohne(self, key):
+        return self.root.find_ohne(key)

@@ -2,42 +2,19 @@
 // Created by Deniz Dogan 2019. Kogan Inc.
 //
 
-languages = [
-    ("Python",1),
-    ("Perl",2),
-    ("Java",3),
-    ("C++",4),
-    ("C",5)
-]
-
-for lang, val in languages:
-    print(lang,val)
-
 TODO: GUI
 
     - KEY + Label shrink => Speed_button add + jump next prev -> timo
-    - read_data {"insert": "3"
-                  {alle pushes
-                    alle pushes
-                    alle pushes
-                    alle pushes},
-                  "insert:" "4"
-                    {alle pushes
-                    alle pushes
-                    alle pushes
-                    alle pushes}
-                    }
 
     - READ_DATA PSEUDOCODE ANZEIGEN
-
+    - Save DESIGN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     - Allgemeines Bugfixing
-    - Buchstaben eingeben
-
-
-
-TODO: Timo
-
-    - PRINTS entfernen
+    - HowTo Design
+    - next/ prev , all_commands
+    - standard log_mess, Allggemein
+    - keybindings
+    - COLORS
+    - EASTEREGGS
 
 TODO BUXXXXX
 

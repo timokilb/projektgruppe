@@ -13,6 +13,8 @@ class AnimationHandler:
             self.pseudocode_widget = pw.PseudocodeWidget(master)
             self.pseudocode_list = []
             self.treap_pseudocode_list = []
+            self.skip_list_history = [[], []]
+            self.treap_history = [[], []]
 
     __instance = None
 
