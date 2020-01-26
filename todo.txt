@@ -4,17 +4,21 @@
 
 TODO: GUI
 
-    - KEY + Label shrink => Speed_button add + jump next prev -> timo
+    - allgemeines Bugfixing
 
-    - READ_DATA PSEUDOCODE ANZEIGEN
-    - Save DESIGN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    - Allgemeines Bugfixing
-    - HowTo Design
-    - next/ prev , all_commands
-    - standard log_mess, Allggemein
-    - keybindings
-    - COLORS
-    - EASTEREGGS
+    - keybindings:
 
-TODO BUXXXXX
+        Insert: i
+        Delete: d
+        search: s
+        mode: m
+        algorithm: a
+        next: arrow right
+        prev: arrow left
+        faster: arrow up and +
+        slower: arrow down and -
+        play: enter
+        stop: backspace
+        clear: c
 
+    -write how to do and standart log messages

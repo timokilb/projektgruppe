@@ -13,7 +13,7 @@ class LogWidget:
     class __LogWidget:
 
         def __init__(self):
-            self.lines = ["_",
+            self.lines = ["Mode: Single Command ",
                           "/\  / o o \ ",
                           "//\\ \~(*)~/ ",
                           "`  \/   ^ /",

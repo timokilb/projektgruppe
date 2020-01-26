@@ -28,7 +28,7 @@ class Node:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
 
         if key == self.key:
-            self.color = "red"
+            self.color = "salmon"
             log_widget = log.LogWidget()
             log_widget.push(f"{key} ALREADY IN TREAP")
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
@@ -36,21 +36,21 @@ class Node:
             return
 
         if self.key is None:
-            self.color = "red"
+            self.color = "salmon"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
             self.key = key
             self.color = "palegreen"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 3)
 
         elif key <= self.key:
-            self.color = "grey"
+            self.color = "dimgrey"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 4)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 5)
 
             if not self.left_node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 self.left_node = Node(key, self)
-                self.left_node.color = "red"
+                self.left_node.color = "salmon"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 3)
                 self.left_node.color = "palegreen"
                 if self.left_node.priority > self.priority:
@@ -62,14 +62,14 @@ class Node:
                 self.left_node.insert(key, treap, self)
 
         else:
-            self.color = "grey"
+            self.color = "dimgrey"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 8)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 9)
 
             if not self.right_node:
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 2)
                 self.right_node = Node(key, self)
-                self.right_node.color = "red"
+                self.right_node.color = "salmon"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 3)
                 self.right_node.color = "palegreen"
                 if self.right_node.priority > self.priority:
@@ -97,13 +97,13 @@ class Node:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 0)
         if self.key == key:
             tmp = self
-            tmp.color = "red"
+            tmp.color = "salmon"
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 2)
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 3)
             return tmp
         elif key <= self.key:
             if self.left_node:
-                self.color = "grey"
+                self.color = "dimgrey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 4)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 5)
                 tmp = self.left_node.find(key, treap)
@@ -113,7 +113,7 @@ class Node:
                 return self
         else:
             if self.right_node:
-                self.color = "grey"
+                self.color = "dimgrey"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 6)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_search.txt", 7)
                 tmp = self.right_node.find(key, treap)
@@ -127,7 +127,7 @@ class Node:
     # find with color changes
     def find_node(self, key):
         if self.key == key:
-            self.color = "red"
+            self.color = "salmon"
             return self
         elif key > self.key:
             self.color = "gray"
@@ -143,9 +143,20 @@ class Node:
         if self.key == key:
             return self
         elif key > self.key and self.right_node is not None:
-            return self.right_node.find_ohne(key)
+             return self.right_node.find_ohne(key)
         elif key < self.key and self.left_node is not None:
-            return self.left_node.find_ohne(key)
+             return self.left_node.find_ohne(key)
+        else:
+            return False
+    # ohne geht delete 2 mal hintereinader nicht , weird flex
+    def find2(self, key):
+        print(f"comparing {key} to {self.key}")
+        if self.key == key:
+            return True
+        elif key > self.key and self.right_node is not None:
+            self.right_node.find_ohne(key)
+        elif key < self.key and self.left_node is not None:
+            self.left_node.find_ohne(key)
         else:
             return False
 
@@ -154,16 +165,17 @@ class Node:
         tmp_graph = tr.TreapGraph(treap)
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 0)
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 2)
-
+        if self.find2(key) is False:
+            return
         tmp = self.find_ohne(key)
-        tmp.color = "red"
+        tmp.color = "salmon"
 
         # Case 1 : node to be deleted is a Leaf
         if tmp.left_node is None and tmp.right_node is None:
             # Node to be deleted is not Root
             if tmp.parent_node is not None:
                 # Node is left-Node from Parents perspective
-                tmp.color = "red"
+                tmp.color = "salmon"
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 4)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
 
@@ -233,11 +245,11 @@ class Node:
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
         # self ist der zu rotierende Knoten
-        self.color = "red"
+        self.color = "salmon"
         if self.parent_node:
             self.parent_node.color = "orange"
         if self.left_node:
-            self.left_node.color = "lightblue"
+            self.left_node.color = "peachpuff"
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_left.txt", 0)
 
         if self.parent_node.parent_node is not None:  # Tief im Baum
@@ -270,11 +282,11 @@ class Node:
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
         # self ist der zu rotierende Knoten
-        self.color = "red"
+        self.color = "salmon"
         if self.parent_node:
             self.parent_node.color = "orange"
         if self.right_node:
-            self.right_node.color = "lightblue"
+            self.right_node.color = "peachpuff"
         animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_rotate_right.txt", 0)
 
         if self.parent_node.parent_node is not None:

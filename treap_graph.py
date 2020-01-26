@@ -15,10 +15,10 @@ class TreapGraph:
 
     def draw_treap(self, node, graph, xpos, ypos):
         if node.key is None:
-            graph.add_node(node.key, pos=(xpos, ypos), label=node.key,
+            graph.add_node(node.key, pos=(xpos, ypos), label="Key:" "\n" +"Priority:",
                            color=node.color)
         else:
-            graph.add_node(node.key, pos=(xpos, ypos), label=str(node.key) + "\n" + str(node.priority),
+            graph.add_node(node.key, pos=(xpos, ypos), label=str(node.key) + "\n" +str(node.priority),
                            color=node.color)
         if node.parent_node:
             graph.add_edge(node.key, node.parent_node.key)
@@ -47,5 +47,5 @@ class TreapGraph:
         color_list = []
         for color in color_dict:
             color_list.append(color_dict[color])
-        nx.draw(self.graph, pos, node_size=1000, node_color=color_list, labels=label, with_labels=True, ax=plot)
+        nx.draw(self.graph, pos, node_size=3000, node_color=color_list, labels=label, with_labels=True, ax=plot)
         canvas.draw()

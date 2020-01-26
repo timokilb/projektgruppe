@@ -6,7 +6,6 @@ import pseudocode_widget as pw
 
 class AnimationHandler:
     class __AnimationHandler:
-        # TODO :self.treap_pseudocode_list = []
         def __init__(self, master=None):
             self.treap_graph_list = []
             self.skip_list_graph_list = []
@@ -15,6 +14,8 @@ class AnimationHandler:
             self.treap_pseudocode_list = []
             self.skip_list_history = [[], []]
             self.treap_history = [[], []]
+            self.skip_list_time_stamps = []
+            self.treap_time_stamps = []
 
     __instance = None
 
@@ -59,5 +60,28 @@ class AnimationHandler:
         AnimationHandler.__instance.pseudocode_list.clear()
         AnimationHandler.__instance.treap_pseudocode_list.clear()
 
-    def display(self, index):
-        AnimationHandler.__instance.pseudocode_widget.set_color("palegreen", index)
+    # load_command loads a series of graph and pseudocode tuples into the graph list, which acts as a buffer
+    def load_command(self, index):
+        AnimationHandler.__instance.skip_list_graph_list.clear()
+        AnimationHandler.__instance.pseudocode_list.clear()
+
+        skip_list_start = AnimationHandler.__instance.skip_list_time_stamps[index][0]
+        skip_list_end = AnimationHandler.__instance.skip_list_time_stamps[index][1]
+
+        AnimationHandler.__instance.treap_graph_list.clear()
+        AnimationHandler.__instance.treap_pseudocode_list.clear()
+
+        treap_start = AnimationHandler.__instance.treap_time_stamps[index][0]
+        treap_end = AnimationHandler.__instance.treap_time_stamps[index][1]
+
+        for i in range(skip_list_end - skip_list_start):
+            AnimationHandler.__instance.skip_list_graph_list.append(
+                AnimationHandler.__instance.skip_list_history[0][skip_list_start + i])
+            AnimationHandler.__instance.pseudocode_list.append(
+                AnimationHandler.__instance.skip_list_history[1][skip_list_start + i])
+
+        for i in range(treap_end - treap_start):
+            AnimationHandler.__instance.treap_graph_list.append(
+                AnimationHandler.__instance.treap_history[0][treap_start + i])
+            AnimationHandler.__instance.treap_pseudocode_list.append(
+                AnimationHandler.__instance.treap_history[1][treap_start + i])
