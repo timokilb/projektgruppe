@@ -6,13 +6,11 @@ import networkx as nx
 import log_widget as lw
 import pseudocode_widget as pw
 import animation_handler as ah
-import re
 import skip_list as sl
 from skip_list_graph import SkipListGraph
 from treap_graph import TreapGraph
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-from tkinter import filedialog, messagebox
 import webbrowser
 
 
@@ -32,7 +30,7 @@ def update_canvas(graph):
 
 
 # TODO : char filter !
-def search_command():
+def search_command(event=None):
     global algorithm
     global animation_handler
     global graph_list_index
@@ -50,7 +48,7 @@ def search_command():
     plot.clear()
 
     try:
-        value = int(value_entry.get())
+        value = filter_entry()
     except ValueError:
         if len(value_entry.get()) == 0:
             log_widget.push("ValueError: Enter a key to perfom an operation")
@@ -87,7 +85,6 @@ def search_command():
     animation_handler.get_instance().skip_list_time_stamps.append((skip_list_start, skip_list_end))
     animation_handler.get_instance().treap_time_stamps.append((treap_start, treap_end))
 
-
     if algorithm.get() == "Skip List":
         update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
@@ -103,7 +100,65 @@ def search_command():
 # Insert the value in the entry into the data structure, call the draw function
 # TODO : char filter !
 # TODO: Empty the graph lists here so that a new opeator is played, you dont have to skip through the earlier animation???
-def insert_command():
+def filter_entry(event=None):
+    global value_entry
+    global algorithm
+    global mode
+    tmp = ""
+    for char in value_entry.get():
+        tmp += char
+        if char == "i":
+            tmp2 = tmp.replace(char, "")
+            value_entry.delete(0, tk.END)
+            return int(tmp2)
+        elif char == "d":
+            tmp2 = tmp.replace(char, "")
+            value_entry.delete(0, tk.END)
+            return int(tmp2)
+        elif char == "s":
+            tmp2 = tmp.replace(char, "")
+            value_entry.delete(0, tk.END)
+            return int(tmp2)
+        elif char == "m":
+            value_entry.delete(0, tk.END)
+            if mode == "single_command":
+                set_mode("all_commands")
+
+            elif mode == "all_commands":
+                set_mode("single_command")
+
+            return
+        elif char == "a":
+            value_entry.delete(0, tk.END)
+            if algorithm.get() == "Treap":
+                switch_algorithm("Skip List")
+                algorithm.set("Skip List")
+            elif algorithm.get() == "Skip List":
+                switch_algorithm("Treap")
+                algorithm.set(("Treap"))
+            return
+        elif char == "n":
+            value_entry.delete(0, tk.END)
+            next_command()
+            return
+        elif char == "p":
+            value_entry.delete(0, tk.END)
+            previous_command()
+            return
+        elif char == "-":
+            value_entry.delete(0, tk.END)
+            slower_command()
+            return
+        elif char == "c":
+            value_entry.delete(0, tk.END)
+            clear_command()
+            return
+        elif char == "+":
+            value_entry.delete(0, tk.END)
+            return
+
+
+def insert_command(event=None):
     global algorithm
     global animation_handler
     global graph_list_index
@@ -121,7 +176,8 @@ def insert_command():
     plot.clear()
 
     try:
-        value = int(value_entry.get())
+        value = filter_entry()
+        # value = filter_entry()
     except ValueError:
         if len(value_entry.get()) == 0:
             log_widget.push("ValueError: Enter a key to perfom an operation")
@@ -173,7 +229,7 @@ def insert_command():
     value_entry.delete(0, tk.END)
 
 
-def delete_command():
+def delete_command(event=None):
     global algorithm
     global graph_list_index
     global animation_handler
@@ -191,7 +247,7 @@ def delete_command():
     plot.clear()
 
     try:
-        value = int(value_entry.get())
+        value = filter_entry()
     except ValueError:
         if len(value_entry.get()) == 0:
             log_widget.push("ValueError: Enter a key to perfom an operation")
@@ -242,9 +298,10 @@ def delete_command():
     # value_entry.insert(0, f"\tLast Operation was DELETE with Key : {value}")
 
 
-def play_pause_command():
+def play_pause_command(event=None):
     global active
     global play_pause_button
+    value = filter_entry()
     if play_pause_button["text"] == "Play":
         play_pause_button.config(text="Pause")
         active = True
@@ -254,7 +311,7 @@ def play_pause_command():
         active = False
 
 
-def play_command():
+def play_command(event=None):
     global active
     global canvas
     global graph_list_index
@@ -321,7 +378,7 @@ def play_command():
 # TODO : Copy here replay code from above
 
 
-def previous_command():
+def previous_command(event=None):
     global graph_list_index
     global animation_handler
     global algorithm
@@ -331,7 +388,7 @@ def previous_command():
     global mode
     play_pause_button.config(text="Play")
     active = False
-
+    value = filter_entry()
     if mode == "single_command":
         if algorithm.get() == "Skip List":
             if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list) and graph_list_index > 0:
@@ -364,7 +421,7 @@ def previous_command():
             return
 
 
-def next_command():
+def next_command(event=None):
     global graph_list_index
     global animation_handler
     global algorithm
@@ -374,7 +431,7 @@ def next_command():
     global mode
     play_pause_button.config(text="Play")
     active = False
-
+    value = filter_entry()
     if mode == "single_command":
         if algorithm.get() == "Skip List":
             if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list) - 1:
@@ -407,7 +464,7 @@ def next_command():
             return
 
 
-def stop_command():
+def stop_command(event=None):
     global treap
     global algorithm
     global graph_list_index
@@ -443,7 +500,7 @@ def stop_command():
                                   animation_handler.get_instance().treap_history[1][graph_list_index][1])
 
 
-def clear_command():
+def clear_command(event=None):
     global graph_list_index
     global animation_handler
     global skip_list_graph
@@ -461,6 +518,7 @@ def clear_command():
     play_pause_button.config(text="Play")
     active = False
     graph_list_index = 0
+    value = filter_entry()
 
     treap = tr.Treap()
     skip_list = sl.SkipList()
@@ -481,7 +539,7 @@ def clear_command():
     animation_handler.get_instance().skip_list_graph_list.append(skip_list_graph.create_graph(skip_list))
 
     if algorithm.get() == "Treap":
-        #update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
+        # update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
         treap_graph.draw(treap_graph.treap, plot, canvas)
 
     else:
@@ -490,7 +548,7 @@ def clear_command():
 
 # TODO: Use graph list and keep track of index? Test as soon as there are animations for treap
 
-def switch_algorithm(string):
+def switch_algorithm(string, event=None):
     global graph_list_index
     global active
     global play_pause_button
@@ -502,6 +560,7 @@ def switch_algorithm(string):
     play_pause_button.config(text="Play")
     active = False
     graph_list_index = 0
+    value = filter_entry()
     if mode == "single_command":
         if string == "Treap":
             try:
@@ -696,7 +755,7 @@ def open_file():
     global data
     token = False
 
-    file = filedialog.askopenfile(mode='r', title="Open file", filetypes=[('Text Files', '*.txt')])
+    file = tk.filedialog.askopenfile(mode='r', title="Open file", filetypes=[('Text Files', '*.txt')])
     # check if file was opend successfully
     if file:
         # set Label with filename only if open was successful
@@ -722,8 +781,23 @@ def save_graph():
     play_pause_button.config(text="Play")
     active = False
     filename = ""
-    filename = filedialog.asksaveasfilename(title="Save File",
-                                            filetypes=[("png files", "*.png"), ("jpeg files", "*.jpeg")])
+    filename = tk.filedialog.asksaveasfilename(title="Save File",
+                                               filetypes=[("png files", "*.png"), ("jpeg files", "*.jpeg")])
+    if filename:
+        fig.savefig(filename)
+
+
+def save_graph():
+    global active
+    global play_pause_button
+    global filename
+    global fig
+
+    play_pause_button.config(text="Play")
+    active = False
+    filename = ""
+    filename = tk.filedialog.asksaveasfilename(title="Save File",
+                                               filetypes=[("png files", "*.png"), ("jpeg files", "*.jpeg")])
     if filename:
         fig.savefig(filename)
 
@@ -752,7 +826,7 @@ def instagram():
     webbrowser.open("https://www.instagram.com/resbalar.sb/?hl=de", new=1)
 
 
-def how_it_works():
+def how_it_works(event=None):
     how_it_works_window = tk.Toplevel()
     how_it_works_window.title("How it works")
     how_it_works_window.minsize(300, 300)
@@ -790,8 +864,8 @@ def save_log():
     global log_list
     global filename
     if filename == "":
-        filename = filedialog.asksaveasfilename(title="Save File",
-                                                filetypes=[("txt files", "*.txt")])
+        filename = tk.filedialog.asksaveasfilename(title="Save File",
+                                                   filetypes=[("txt files", "*.txt")])
     tmp = open(filename + ".txt", mode="w")
 
     if tmp:
@@ -801,7 +875,6 @@ def save_log():
 
 
 def open_save():
-
     def save_decision():
         global save_decision_list
         save_decision_list.clear()
@@ -814,24 +887,27 @@ def open_save():
     choose_save_window = tk.Toplevel()
     choose_save_window.title("Save")
     choose_save_window.minsize(300, 136)
-    choose_save_window.resizable(width=False,height=False)
+    choose_save_window.resizable(width=False, height=False)
     choose_save_window.config(padx=10, pady=30, bg=background_color)
 
     save_graph = tk.BooleanVar()
-    tk.Checkbutton(choose_save_window, text="Save Graph", variable=save_graph,**style_sheet["save_window_check"]).pack(side="top", anchor="w")
+    tk.Checkbutton(choose_save_window, text="Save Graph", variable=save_graph, **style_sheet["save_window_check"]).pack(
+        side="top", anchor="w")
     save_log = tk.BooleanVar()
-    tk.Checkbutton(choose_save_window, text="Save Logs", variable=save_log, **style_sheet["save_window_check"]).pack(side="top", anchor="w")
+    tk.Checkbutton(choose_save_window, text="Save Logs", variable=save_log, **style_sheet["save_window_check"]).pack(
+        side="top", anchor="w")
 
     save_all = tk.BooleanVar()
-    tk.Checkbutton(choose_save_window, text="Save Graph and Logs", variable=save_all, **style_sheet["save_window_check"]).pack(side="top", anchor="w")
+    tk.Checkbutton(choose_save_window, text="Save Graph and Logs", variable=save_all,
+                   **style_sheet["save_window_check"]).pack(side="top", anchor="w")
 
     tk.Button(choose_save_window, text='Save', command=save_decision, **style_sheet["save_window_button"], ).pack(
         side="left", anchor="nw", fill="x", expand=1,
         padx=2, pady=6)
     tk.Button(choose_save_window, text='Cancel', command=choose_save_window.destroy,
               **style_sheet["save_window_button"], ).pack(side="left", anchor="nw",
-                                                   fill="x", expand=1, padx=2,
-                                                   pady=6)
+                                                          fill="x", expand=1, padx=2,
+                                                          pady=6)
 
 
 def set_mode(param):
@@ -840,6 +916,7 @@ def set_mode(param):
     global mode
     global log_widget
     global log_message
+    value = filter_entry()
     if algorithm.get() == "Skip List":
         if graph_list_index > len(animation_handler.get_instance().skip_list_graph_list) - 1:
             graph_list_index = 0
@@ -855,14 +932,16 @@ def set_mode(param):
         log_message.config(text=log_widget.update())
 
 
-def faster_command():
+def faster_command(event=None):
     global speed
+    value = filter_entry()
     if speed < 800:
         speed += 150
 
 
-def slower_command():
+def slower_command(event=None):
     global speed
+    value = filter_entry()
     if speed > 0:
         speed -= 150
 
@@ -922,7 +1001,7 @@ style_sheet = {
         "font": "helvetica, 11",
         "fg": "#a9b7c6",
         "bg": "#2b2b2b",
-        "width" : "500"
+        "width": "500"
     },
     "button_frame": {
         "bg": "#3c3f41",
@@ -982,14 +1061,14 @@ style_sheet = {
         "height": "0",
         "padx": "0"
     },
-    "how_it_works":{
+    "how_it_works": {
         "fg": "#3a3a3a",
         "font": "Helvetica, 16",
         "width": "800"
     },
-    "how_it_works_frame":{
-        "bd":"2",
-        "relief" : "sunken",
+    "how_it_works_frame": {
+        "bd": "2",
+        "relief": "sunken",
     }
 }
 
@@ -1100,7 +1179,7 @@ if __name__ == "__main__":
 
     slower_button = tk.Button(master=key_structure_frame, text=u"\u23EA", **style_sheet["wind"], command=slower_command)
     faster_button = tk.Button(master=key_structure_frame, text=u"\u23E9", **style_sheet["wind"], command=faster_command)
-
+    root.bind('+', faster_command)
     value_entry.insert(0, "")
 
     search_button = tk.Button(master=operator_frame, text="Search", **style_sheet["data_structure_button"],
@@ -1179,9 +1258,20 @@ if __name__ == "__main__":
     save_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
     clear_button.pack(side="left", fill="x", padx="2", pady="2", expand=1)
 
+    # Binding keyshortcuts
     value_entry.bind("<Button>", placeholder)
-    # value_entry.bind("<Key>", placeholder)
-    root.bind('<Return>', callor)
+    root.bind('<Return>', play_pause_command)
+    root.bind('<BackSpace>', stop_command)
+    root.bind("i", insert_command)
+    root.bind("d", delete_command)
+    root.bind("s", search_command)
+    root.bind("+", faster_command)
+    root.bind("m", set_mode)
+    root.bind("a", switch_algorithm)
+    root.bind("n", next_command)
+    root.bind("p", previous_command)
+    root.bind("-", slower_command)
+    root.bind("c", clear_command)
 
     # Start program
     root.mainloop()

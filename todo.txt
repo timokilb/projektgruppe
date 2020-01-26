@@ -7,18 +7,23 @@ TODO: GUI
     - allgemeines Bugfixing
 
     - keybindings:
-
-        Insert: i
-        Delete: d
-        search: s
-        mode: m
-        algorithm: a
-        next: arrow right
-        prev: arrow left
-        faster: arrow up and +
-        slower: arrow down and -
-        play: enter
-        stop: backspace
-        clear: c
+            Working:
+            Insert: i
+            Delete: d
+            search: s
+            next: n
+            prev: p
+            faster:  +
+            play: enter
+            stop: backspace
+            clear: c
+            slower:  -
+            algorithm: a
 
     -write how to do and standart log messages
+    -GItHUb PrIvAt3
+
+
+       mode: m
+
+
