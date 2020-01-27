@@ -13,13 +13,7 @@ class LogWidget:
     class __LogWidget:
 
         def __init__(self):
-            self.lines = ["Mode: Single Command ",
-                          "/\  / o o \ ",
-                          "//\\ \~(*)~/ ",
-                          "`  \/   ^ /",
-                          "   | \|| ||  ",
-                          "   \ '|| ||  ",
-                          "    \)()-())"]
+            self.lines = ["Mode: Single command", "Initialized treap", "Initialized skip list", "Copyright 2020 All rights reserved.", "Created by:", "Deniz Dogan, Timo Kilb"]
 
     __instance = None
 
@@ -50,10 +44,9 @@ class LogWidget:
         return "\n".join(self.__instance.lines)
 
     def clear(self):
-        self.__instance.lines =["_",
-                          "/\  / o o \ ",
-                          "//\\ \~(*)~/ ",
-                          "`  \/   ^ /",
-                          "   | \|| ||  ",
-                          "   \ '|| ||  ",
-                          "    \)()-())"]
+        self.__instance.lines =["Cleared graphs",
+                                "",
+                                "",
+                                "",
+                                "",
+                                ""]

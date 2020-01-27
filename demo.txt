@@ -18,5 +18,3 @@ insert:-13
 delete:3
 insert:59
 search:15
-insert:888
-insert:888999

@@ -834,7 +834,7 @@ def how_it_works(event=None):
     how_it_works_window.resizable(height=False, width=False)
     how_it_works_frame = tk.Frame(how_it_works_window, **style_sheet["how_it_works_frame"])
     how_it_works_frame.pack(side="top", anchor="nw", fill="both", expand=1)
-    explanation_text = "How it works jetzt sollte das ja nögbes ergaz<erg sseubsseubsseubsse ubsseubsseubsse ubss eubsseubsseubsseubs seubsseubsseub  "
+    explanation_text = open("./res/howto.txt", "r").read()
     explanation_message = tk.Message(master=how_it_works_frame, text=explanation_text, **style_sheet["how_it_works"])
     explanation_message.pack(anchor="nw")
 
