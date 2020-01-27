@@ -8,17 +8,17 @@ TODO: GUI
 
     - keybindings:
             Working:
-            Insert: i
-            Delete: d
-            search: s
-            next: n
-            prev: p
-            faster:  +
-            play: enter
-            stop: backspace
-            clear: c
-            slower:  -
-            algorithm: a
+                Insert: i
+                Delete: d
+                search: s
+                next: n
+                prev: p
+                faster:  +
+                play: enter
+                stop: backspace
+                clear: c
+                slower:  -
+                algorithm: a
 
     -write how to do and standart log messages
     -GItHUb PrIvAt3

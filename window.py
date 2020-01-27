@@ -48,7 +48,7 @@ def search_command(event=None):
     plot.clear()
 
     try:
-        value = filter_entry()
+        value = int(value_entry.get())
     except ValueError:
         if len(value_entry.get()) == 0:
             log_widget.push("ValueError: Enter a key to perfom an operation")
@@ -101,9 +101,11 @@ def search_command(event=None):
 # TODO : char filter !
 # TODO: Empty the graph lists here so that a new opeator is played, you dont have to skip through the earlier animation???
 def filter_entry(event=None):
-    global value_entry
+    pass
+    """global value_entry
     global algorithm
     global mode
+    global graph_list_index
     tmp = ""
     for char in value_entry.get():
         tmp += char
@@ -123,19 +125,19 @@ def filter_entry(event=None):
             value_entry.delete(0, tk.END)
             if mode == "single_command":
                 set_mode("all_commands")
-
-            elif mode == "all_commands":
+            else:
                 set_mode("single_command")
-
             return
         elif char == "a":
             value_entry.delete(0, tk.END)
             if algorithm.get() == "Treap":
                 switch_algorithm("Skip List")
                 algorithm.set("Skip List")
+                update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
             elif algorithm.get() == "Skip List":
                 switch_algorithm("Treap")
                 algorithm.set(("Treap"))
+                update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
             return
         elif char == "n":
             value_entry.delete(0, tk.END)
@@ -156,7 +158,7 @@ def filter_entry(event=None):
         elif char == "+":
             value_entry.delete(0, tk.END)
             return
-
+"""
 
 def insert_command(event=None):
     global algorithm
@@ -176,8 +178,7 @@ def insert_command(event=None):
     plot.clear()
 
     try:
-        value = filter_entry()
-        # value = filter_entry()
+        value = int(value_entry.get())
     except ValueError:
         if len(value_entry.get()) == 0:
             log_widget.push("ValueError: Enter a key to perfom an operation")
@@ -247,7 +248,7 @@ def delete_command(event=None):
     plot.clear()
 
     try:
-        value = filter_entry()
+        value = int(value_entry.get())
     except ValueError:
         if len(value_entry.get()) == 0:
             log_widget.push("ValueError: Enter a key to perfom an operation")
@@ -301,7 +302,6 @@ def delete_command(event=None):
 def play_pause_command(event=None):
     global active
     global play_pause_button
-    value = filter_entry()
     if play_pause_button["text"] == "Play":
         play_pause_button.config(text="Pause")
         active = True
@@ -388,7 +388,7 @@ def previous_command(event=None):
     global mode
     play_pause_button.config(text="Play")
     active = False
-    value = filter_entry()
+
     if mode == "single_command":
         if algorithm.get() == "Skip List":
             if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list) and graph_list_index > 0:
@@ -431,7 +431,6 @@ def next_command(event=None):
     global mode
     play_pause_button.config(text="Play")
     active = False
-    value = filter_entry()
     if mode == "single_command":
         if algorithm.get() == "Skip List":
             if graph_list_index < len(animation_handler.get_instance().skip_list_graph_list) - 1:
@@ -518,7 +517,6 @@ def clear_command(event=None):
     play_pause_button.config(text="Play")
     active = False
     graph_list_index = 0
-    value = filter_entry()
 
     treap = tr.Treap()
     skip_list = sl.SkipList()
@@ -560,7 +558,6 @@ def switch_algorithm(string, event=None):
     play_pause_button.config(text="Play")
     active = False
     graph_list_index = 0
-    value = filter_entry()
     if mode == "single_command":
         if string == "Treap":
             try:
@@ -916,7 +913,6 @@ def set_mode(param):
     global mode
     global log_widget
     global log_message
-    value = filter_entry()
     if algorithm.get() == "Skip List":
         if graph_list_index > len(animation_handler.get_instance().skip_list_graph_list) - 1:
             graph_list_index = 0
@@ -934,14 +930,12 @@ def set_mode(param):
 
 def faster_command(event=None):
     global speed
-    value = filter_entry()
     if speed < 800:
         speed += 150
 
 
 def slower_command(event=None):
     global speed
-    value = filter_entry()
     if speed > 0:
         speed -= 150
 
@@ -1261,7 +1255,9 @@ if __name__ == "__main__":
     # Binding keyshortcuts
     value_entry.bind("<Button>", placeholder)
     root.bind('<Return>', play_pause_command)
-    root.bind('<BackSpace>', stop_command)
+
+
+    """  
     root.bind("i", insert_command)
     root.bind("d", delete_command)
     root.bind("s", search_command)
@@ -1272,6 +1268,7 @@ if __name__ == "__main__":
     root.bind("p", previous_command)
     root.bind("-", slower_command)
     root.bind("c", clear_command)
-
+        root.bind('<BackSpace>', stop_command)
+    """
     # Start program
     root.mainloop()

@@ -6,7 +6,7 @@ series of commands. This should be formatted like the following:
 
 operation:key
 operation:key
-______________________________________________________________________________
+________________________________________________________________
 
 |Media Controls|
 
@@ -19,22 +19,9 @@ chosen from the menubar at the top:
 	Previous/Next -> Go forward/backward one step
 	Play/Pause -> Start/ Pause the animated last operation
 
-"All Commands" mode: 
+"All Commands" mode:
+
 	Stop -> Go to the first operation
 	Previous/Next -> Jump to the next operation
 	Play/Pause -> Play/Pause the animation of all operations
-______________________________________________________________________________
-
-|Keyboard Shortcuts|
-
-Search:		s
-Insert:		i
-Delete:		d
-Clear:		c
-Algorithm:	a
-Next:		n
-Previous:	p
-Faster:		+
-Slower:		-
-Play:		Enter
-Stop:		Backspace
+________________________________________________________________
