@@ -6,7 +6,6 @@ class SkipListGraph:
         self.skip_list = skip_list
 
     def create_graph(self, skip_list):
-        #print("in create graph")
         graph = nx.DiGraph()
         tmp = skip_list.root
         search_level = skip_list.max_level-1
@@ -16,7 +15,6 @@ class SkipListGraph:
                 graph.add_node(str(tmp.value) + "/" + str(search_level), pos=(skip_list.get_xpos(tmp.value), search_level), label=tmp.value, color=tmp.colors[search_level])
                 if tmp.list[search_level] is not None:
                     graph.add_edge(str(tmp.value) + "/" + str(search_level), str(tmp.list[search_level].value) + "/" + str(search_level))  # This draws the horizontal arrows between elements
-                #TODO Wenn der knoten einen drüber hat, mal die linie von oben nach unten ausser bei border nodes?? DONE???
                 if search_level < tmp.height-1:
                     graph.add_edge(str(tmp.value) + "/" + str(search_level+1), str(tmp.value) + "/" + str(
                         search_level))  # This draws the horizontal arrows between elements"""
@@ -27,7 +25,6 @@ class SkipListGraph:
         return graph
 
     def create_graph_delete(self, skip_list):
-        #print("in create graph")
         graph = nx.DiGraph()
         tmp = skip_list.root
         search_level = skip_list.max_level-1
@@ -37,7 +34,6 @@ class SkipListGraph:
                 graph.add_node(str(tmp.value) + "/" + str(search_level), pos=(skip_list.get_xpos(tmp.value), search_level), label=tmp.value, color=tmp.colors[search_level])
                 if tmp.list[search_level] is not None:
                     graph.add_edge(str(tmp.value) + "/" + str(search_level), str(tmp.list[search_level].value) + "/" + str(search_level))  # This draws the horizontal arrows between elements
-                #TODO Wenn der knoten einen drüber hat, mal die linie von oben nach unten ausser bei border nodes?? DONE???
                 if search_level >= 1:
                     graph.add_edge(str(tmp.value) + "/" + str(search_level), str(tmp.value) + "/" + str(
                         search_level-1))  # This draws the horizontal arrows between elements"""

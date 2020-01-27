@@ -29,8 +29,6 @@ class SkipNode:
         else:
             return height
 
-
-
 class BorderNode:
     def __init__(self, value, max_level):
         self.value = value
@@ -72,7 +70,6 @@ class SkipList:
     # Recalculates the max level of the skip list based on the log2 of the number of elements
     # max_so_far prevents the level from decreasing after deleting elements
     def recalculate_max_level(self):
-        # print("Number of elements:", self.number_of_elements)
         if self.number_of_elements == 1 and self.had_elements is False:
             self.root.height = 2
             self.end.height = 2
@@ -87,15 +84,12 @@ class SkipList:
             if new_max_level > max_so_far:
                 self.root.height = new_max_level
                 self.end.height = new_max_level
-                # # print(new_max_level, "is max level new")
                 self.increment_borders()
             return new_max_level if new_max_level > max_so_far else max_so_far
 
 
     # Function increment_borders increments the level of the borders by one
-
     def increment_borders(self):
-        # print("incremented borders by one")
         self.root.list.append(self.end)
         self.end.list.append(None)
         self.root.colors.append("palegreen")
@@ -129,7 +123,6 @@ class SkipList:
                 tmp = tmp.list[search_level]  # Go right until overshoot
             if search_level == 0:  # At this point we should have found the value
                 if value == tmp.value:
-                    # print(tmp.value, "is in the Skip List with height", tmp.height)
                     tmp.colors[search_level] = "peachpuff"
                     animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 0)
                     return animation_handler.get_instance().skip_list_graph_list
@@ -139,7 +132,6 @@ class SkipList:
                     tmp.list[search_level].colors[search_level] = current_color  # Set the current node to salmon
                     tmp.colors[search_level] = path_color  # And the last one back to the standard color
                     animation_handler.push(tmp_graph.create_graph(self), "skip_list", "./res/skip_list_search.txt", 10)
-                    # print("Err: ", value, "is not in the Skip List")
                     return 0
             else: # The case in which were going down a level
                 tmp.list[search_level].colors[search_level] = compare_color # Set the next skip node color
@@ -159,10 +151,8 @@ class SkipList:
                 tmp = tmp.list[search_level]  # Go right until overshoot
             if search_level == 0:  # At this point we should have found the value
                 if value == tmp.value:
-                    # print(tmp.value, "is in the Skip List with height", tmp.height)
                     return True
                 else:
-                    # print("Err: ", value, "is not in the Skip List")
                     return False
             search_level -= 1
 
@@ -172,7 +162,6 @@ class SkipList:
 
     def insert(self, value):
         if self.search(value):
-            # print(f"{value} already in there know I'm sayyn")
             return
         self.insert_position_list(value)
         self.clear_colors()
@@ -222,7 +211,6 @@ class SkipList:
 
         # Checking if the value can be deleted
         if not self.search(value):
-            # print(f"{value} could not be found in the list to be deleted")
             return
         animation_handler = ah.AnimationHandler()
         self.clear_colors()
@@ -273,9 +261,6 @@ class SkipList:
                 animation_handler.push(tmp_graph.create_graph_delete(self), "skip_list", "./res/skip_list_delete.txt", 10)
 
             search_level -= 1
-            #tmp = self.root
-
-        # print(value, "Is no more in the Skip List")
         return 0
 
 

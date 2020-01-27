@@ -10,8 +10,9 @@ class Treap:
 
     def find(self, key, treap):
         self.root.find(key, treap)
-        self.root.clear_colors()
         self.root.default_color()
+        self.root.clear_colors()
+
 
     def clear_colors(self):
         self.root.clear_colors()

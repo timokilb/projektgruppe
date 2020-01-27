@@ -5,7 +5,6 @@ insert:4
 insert:5
 insert:6
 delete:6
-insert:6
 insert:19
 insert:22
 insert:15
@@ -18,3 +17,4 @@ insert:-13
 delete:3
 insert:59
 search:15
+delete:108

@@ -2,28 +2,23 @@
 // Created by Deniz Dogan 2019. Kogan Inc.
 //
 
-TODO: GUI
-
-    - allgemeines Bugfixing
+TODO:
 
     - keybindings:
-            Working:
-                Insert: i
-                Delete: d
-                search: s
-                next: n
-                prev: p
-                faster:  +
-                play: enter
-                stop: backspace
-                clear: c
-                slower:  -
-                algorithm: a
-
-    -write how to do and standart log messages
-    -GItHUb PrIvAt3
+            Insert: i
+            Delete: d
+            search: s
+            next: n
+            prev: p
+            faster:  +
+            play: enter
+            stop: backspace
+            clear: c
+            slower:  -
+            algorithm: a
+            mode: m
 
 
-       mode: m
+
 
 

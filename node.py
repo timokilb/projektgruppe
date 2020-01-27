@@ -1,6 +1,5 @@
 import random
 import math
-from tkinter import messagebox
 import treap_graph as tr
 import animation_handler as ah
 import log_widget as log
@@ -10,7 +9,7 @@ class Node:
 
     def __init__(self, key=None, parent=None):
         self.key = key
-        self.priority = random.randint(1, 1001)  # spezial case check smaller
+        self.priority = random.randint(1, 1001)
         self.left_node = None
         self.right_node = None
         self.parent_node = parent
@@ -23,7 +22,6 @@ class Node:
         tmp_graph = tr.TreapGraph(treap)
         tmp = self
 
-        # pseudo should start at top
         if self.parent_node is None:
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
 
@@ -32,7 +30,6 @@ class Node:
             log_widget = log.LogWidget()
             log_widget.push(f"{key} ALREADY IN TREAP")
             animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_insert.txt", 0)
-            # messagebox.showinfo("Warning", f"{key} already in Treap!")
             return
 
         if self.key is None:
@@ -85,7 +82,6 @@ class Node:
 
     # find with animation
     def find(self, key, treap):
-        log_wid = log.LogWidget()
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
         if self.key is None:
@@ -139,7 +135,6 @@ class Node:
             return
 
     def find_ohne(self, key):
-        print(f"comparing {key} to {self.key}")
         if self.key == key:
             return self
         elif key > self.key and self.right_node is not None:
@@ -148,7 +143,8 @@ class Node:
              return self.left_node.find_ohne(key)
         else:
             return False
-    # ohne geht delete 2 mal hintereinader nicht , weird flex
+
+
     def find2(self, key):
         print(f"comparing {key} to {self.key}")
         if self.key == key:
@@ -198,7 +194,7 @@ class Node:
             # Node is Root
             else:
                 tmp.key = None
-                tmp.priority = random.randint(1, 1001)  # sonst wird nur key gelöscht prio w+rde gleich bleiebn ohne
+                tmp.priority = random.randint(1, 1001)
                 animation_handler.push(tmp_graph.create_graph(), "treap", "./res/treap_delete.txt", 5)
                 tmp.default_color()
                 tmp.clear_colors()
@@ -281,7 +277,6 @@ class Node:
     def rotate_right(self, treap):
         animation_handler = ah.AnimationHandler()
         tmp_graph = tr.TreapGraph(treap)
-        # self ist der zu rotierende Knoten
         self.color = "salmon"
         if self.parent_node:
             self.parent_node.color = "orange"

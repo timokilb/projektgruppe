@@ -1,5 +1,3 @@
-import time
-
 import treap as tr
 import tkinter as tk
 import networkx as nx
@@ -95,70 +93,6 @@ def search_command(event=None):
                               animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])  # color
 
     value_entry.delete(0, tk.END)
-
-
-# Insert the value in the entry into the data structure, call the draw function
-# TODO : char filter !
-# TODO: Empty the graph lists here so that a new opeator is played, you dont have to skip through the earlier animation???
-def filter_entry(event=None):
-    pass
-    """global value_entry
-    global algorithm
-    global mode
-    global graph_list_index
-    tmp = ""
-    for char in value_entry.get():
-        tmp += char
-        if char == "i":
-            tmp2 = tmp.replace(char, "")
-            value_entry.delete(0, tk.END)
-            return int(tmp2)
-        elif char == "d":
-            tmp2 = tmp.replace(char, "")
-            value_entry.delete(0, tk.END)
-            return int(tmp2)
-        elif char == "s":
-            tmp2 = tmp.replace(char, "")
-            value_entry.delete(0, tk.END)
-            return int(tmp2)
-        elif char == "m":
-            value_entry.delete(0, tk.END)
-            if mode == "single_command":
-                set_mode("all_commands")
-            else:
-                set_mode("single_command")
-            return
-        elif char == "a":
-            value_entry.delete(0, tk.END)
-            if algorithm.get() == "Treap":
-                switch_algorithm("Skip List")
-                algorithm.set("Skip List")
-                update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
-            elif algorithm.get() == "Skip List":
-                switch_algorithm("Treap")
-                algorithm.set(("Treap"))
-                update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
-            return
-        elif char == "n":
-            value_entry.delete(0, tk.END)
-            next_command()
-            return
-        elif char == "p":
-            value_entry.delete(0, tk.END)
-            previous_command()
-            return
-        elif char == "-":
-            value_entry.delete(0, tk.END)
-            slower_command()
-            return
-        elif char == "c":
-            value_entry.delete(0, tk.END)
-            clear_command()
-            return
-        elif char == "+":
-            value_entry.delete(0, tk.END)
-            return
-"""
 
 def insert_command(event=None):
     global algorithm
@@ -285,18 +219,15 @@ def delete_command(event=None):
     log_widget.push(f"delete:{value}", log_list)
     log_message.config(text=log_widget.update())
 
-    current_presst_button = "delete"
     if algorithm.get() == "Skip List":
         update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().pseudocode_list[graph_list_index][1])
     elif algorithm.get() == "Treap":
-        # TODO UPDATE CANVAS
         update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
         pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                               animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
     value_entry.delete(0, tk.END)
-    # value_entry.insert(0, f"\tLast Operation was DELETE with Key : {value}")
 
 
 def play_pause_command(event=None):
@@ -336,7 +267,6 @@ def play_command(event=None):
             if graph_list_index == len(animation_handler.get_instance().skip_list_graph_list) - 1:
                 graph_list_index = 0
                 play_pause_command()
-        #        else: TODO: Change Play Pause Label to "Replay" and implement replay function
 
         elif algorithm.get() == "Treap":
             if graph_list_index < len(animation_handler.get_instance().treap_graph_list) - 1:
@@ -361,7 +291,6 @@ def play_command(event=None):
             if graph_list_index == len(animation_handler.get_instance().skip_list_history[0]) - 1:
                 graph_list_index = 0
                 play_pause_command()
-        #        else: TODO: Change Play Pause Label to "Replay" and implement replay function
 
         elif algorithm.get() == "Treap":
             if graph_list_index < len(animation_handler.get_instance().treap_history[0]) - 1:
@@ -374,8 +303,6 @@ def play_command(event=None):
                 graph_list_index = 0
                 play_pause_command()
 
-
-# TODO : Copy here replay code from above
 
 
 def previous_command(event=None):
@@ -405,7 +332,6 @@ def previous_command(event=None):
 
     elif mode == "all_commands":
         if command_list_index > 0:
-            print(animation_handler.get_instance().skip_list_time_stamps[0])
             command_list_index -= 1
             animation_handler.load_command(command_list_index)
             if algorithm.get() == "Skip List":
@@ -455,7 +381,6 @@ def next_command(event=None):
                 pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[0][0],
                                       animation_handler.get_instance().pseudocode_list[0][1])
             elif algorithm.get() == "Treap":
-                print("geht rein")
                 update_canvas(animation_handler.get_instance().treap_graph_list[0])
                 pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[0][0],
                                       animation_handler.get_instance().treap_pseudocode_list[0][1])
@@ -474,11 +399,7 @@ def stop_command(event=None):
     active = False
     graph_list_index = 0
 
-    print(animation_handler.get_instance().skip_list_time_stamps)
-    print(animation_handler.get_instance().treap_time_stamps)
-
     if mode == "single_command":
-
         if algorithm.get() == "Skip List":
             update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
             pseudocode_obj.update(animation_handler.get_instance().pseudocode_list[graph_list_index][0],
@@ -543,8 +464,6 @@ def clear_command(event=None):
     else:
         update_canvas(animation_handler.get_instance().skip_list_graph_list[graph_list_index])
 
-
-# TODO: Use graph list and keep track of index? Test as soon as there are animations for treap
 
 def switch_algorithm(string, event=None):
     global graph_list_index
@@ -692,56 +611,6 @@ def read_data_command():
                 update_canvas(animation_handler.get_instance().treap_graph_list[graph_list_index])
                 pseudocode_obj.update(animation_handler.get_instance().treap_pseudocode_list[graph_list_index][0],
                                       animation_handler.get_instance().treap_pseudocode_list[graph_list_index][1])
-
-
-# opens FileExplorer to choose ONLY .txt files
-"""
-def open_file():
-    global active
-    global play_pause_button
-    play_pause_button.config(text="Play")
-    active = False
-    global data
-    token = False
-    file = filedialog.askopenfile(mode='r', title="Open file", filetypes=[('Text Files', '*.txt')])
-    # check if file was opend successfully
-    if file:
-        # set Label with filename only if open was successful
-        filename_label.config(text=file.name.split("/")[-1])
-        data = []
-        # append each line to DATA list, where they are stored
-        for line in file:
-            # check if line contains more than One char
-            if len(line.split()) > 1:
-                current_line = line.split(",")
-                for element in current_line:
-                    if re.search("[a-zA-Z]+", element):
-                        data = []
-                        messagebox.showerror("error", f"File contains not supported data : {element}")
-                        return
-                    # checks if white Space is in File and ignores it
-                    elif element.isspace():
-                        messagebox.showinfo("Warning", f"Your FILE : {file.name} contains Whitespace !")
-                        continue
-                    else:
-                        data.append(int(element))
-
-            else:
-                # check if line contains letters or is Empty => not supported !!!
-                if re.search("[a-zA-Z]+", line):
-                    data = []
-                    messagebox.showerror("error", f"File contains not supported data : {line}")
-                    return
-                # checks if white Space is in File and ignores it
-                elif line.isspace():
-                    messagebox.showinfo("Warning", f"Your FILE : {file.name} contains Whitespace !")
-                    continue
-                else:
-                    data.append(int(line))
-    if token:
-        messagebox.showinfo("Warning", f"Some values appeared multiple times! Only added once to Data")
-    read_data_command()
-"""
 
 
 def open_file():
@@ -941,9 +810,6 @@ def slower_command(event=None):
 
 
 style_sheet = {
-    # background color: 3c3f41
-    # button color:
-    # Font Color:
     "animation_button": {
         "fg": "#a9b7c6",
         "bg": "#313335",
@@ -1138,7 +1004,6 @@ if __name__ == "__main__":
     graph_structure_frame = tk.Frame(master=button_frame, bg=background_color)
     switch_algorithm_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
     graph_operation_frame = tk.Frame(master=graph_structure_frame, bg=background_color)
-    # TODO : mit token und dann in jeder funktion öffen mit jeweiiger .txt und packen
     # Pseudocode canvas
     pseudocode_frame = tk.Frame(master=interface_frame, bg="#2b2b2b", highlightthickness=5,
                                 highlightbackground=background_color)
@@ -1199,7 +1064,6 @@ if __name__ == "__main__":
     clear_button = tk.Button(master=graph_structure_frame, text="Clear Graph", **style_sheet["data_structure_button"],
                              command=clear_command)
 
-    # info_button = tk.Button(root, text="?", fg="red", bg="green", command=info_command, relief="flat", bitmap="info")
     # Testing log output
     log_widget = lw.LogWidget()
     log_message = tk.Message(master=log_frame, text=log_widget.update(), **style_sheet["log_text"], anchor='nw')
@@ -1227,8 +1091,6 @@ if __name__ == "__main__":
     pseudocode_frame.pack(side="left", anchor="nw", fill="both", expand=1)
     pseudocode_obj.pack_labels()
 
-    #    info_button.pack()
-
     # Packing all buttons
     stop_button.pack(side="left", fill="x", padx="2", pady="2")
 
@@ -1254,21 +1116,6 @@ if __name__ == "__main__":
 
     # Binding keyshortcuts
     value_entry.bind("<Button>", placeholder)
-    root.bind('<Return>', play_pause_command)
-
-
-    """  
-    root.bind("i", insert_command)
-    root.bind("d", delete_command)
-    root.bind("s", search_command)
-    root.bind("+", faster_command)
-    root.bind("m", set_mode)
-    root.bind("a", switch_algorithm)
-    root.bind("n", next_command)
-    root.bind("p", previous_command)
-    root.bind("-", slower_command)
-    root.bind("c", clear_command)
-        root.bind('<BackSpace>', stop_command)
-    """
+    root.bind('<Return>', insert_command)
     # Start program
     root.mainloop()
